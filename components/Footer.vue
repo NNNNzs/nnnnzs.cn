@@ -1,0 +1,102 @@
+<template>
+  <footer class="bg-gray-800 text-gray-400 py-4 mt-8">
+    <div class="social">
+      <ul
+        class="
+          flex
+          m-auto
+          w-1/5
+          max-auto
+          justify-around
+          items-center
+          text-center
+          margin-auto
+        "
+      >
+        <li
+          v-for="s in social"
+          :key="s.href"
+          class="cursor-pointer"
+          :title="s.title"
+        >
+          <a :href="s.href" target="_blank">
+            <component :is="s.componentName"></component>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="copyright">
+      <p>©2021 - {{ YEAR }}, content by NNNNzs. All Rights Reserved.</p>
+      <p>
+        <a href="https://v3.cn.vuejs.org/" target="_blank">Vue3  </a>
+        <a href="https://vitejs.cn/">Vite</a>
+      </p>
+      <p>
+        <a href="https://beian.miit.gov.cn" target="_blank"
+          >皖ICP备16025009号-1</a
+        >
+      </p>
+    </div>
+  </footer>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import {
+  GithubOutlined,
+  WeiboOutlined,
+  InstagramOutlined,
+  TwitterOutlined,
+  ZhihuOutlined,
+} from "@ant-design/icons-vue";
+interface Social {
+  href: string;
+  title: string;
+  componentName: string;
+}
+export default defineComponent({
+  name: "Footer",
+  components: {
+    GithubOutlined,
+    WeiboOutlined,
+    InstagramOutlined,
+    TwitterOutlined,
+    ZhihuOutlined,
+  },
+  setup() {
+    const social: Social[] = [
+      {
+        href: "https://github.com/NNNNzs",
+        title: "Github",
+        componentName: "GithubOutlined",
+      },
+      {
+        href: "https://weibo.com/NNNNzs",
+        title: "微博",
+        componentName: "WeiboOutlined",
+      },
+      {
+        href: "https://www.instagram.com/nnnn2s/",
+        title: "instagram",
+        componentName: "InstagramOutlined",
+      },
+      {
+        href: "https://twitter.com/NNNNzs",
+        title: "twitter",
+        componentName: "TwitterOutlined",
+      },
+      {
+        href: "https://www.zhihu.com/people/NNNNzs",
+        title: "知乎",
+        componentName: "ZhihuOutlined",
+      },
+    ];
+    const YEAR = new Date().getFullYear();
+    return {
+      social,
+      YEAR,
+    };
+  },
+});
+</script>
