@@ -1,0 +1,46 @@
+// @import 'ant-design-vue/dist/antd.less';
+// @import '../../../node_modules/ant-design-vue/dist/antd.less';
+
+:root {
+  --bg-color: #f6f6f6;
+  --sub-bg-color: #fff;
+  --text-color: #2c3e50;
+  --white: #fff;
+  --sub-color: #515a6e;
+
+  --space: 16px;
+  --header-height: 52px;
+  --primary-color: #1890ff;
+
+  .dark {
+    --bg-color: #16202f;
+    --sub-bg-color: #1c283b;
+    --text-color: #94a6bb;
+    --white: #d4d4d5;
+  }
+
+  @font-face {
+    font-family: WenYueQingLongTi;
+    src: url('../WenYueQingLongTi.otf');
+  }
+
+  .WenYueQingLongTi {
+    font-family: WenYueQingLongTi;
+  }
+}
+
+.imitation {
+  box-shadow: 18px 18px 30px rgba(0, 0, 0, 0.1),
+    -18px -18px 30px var(--bg-color);
+  // border-radius: 0 0 0 20px; 
+  transition: box-shadow 0.2s ease-out;
+
+
+  &:hover {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1),
+      0px 0px 0px var(--bg-color),
+      inset 18px 18px 30px rgba(0, 0, 0, 0.1),
+      inset -18px -18px 30px var(--bg-color);
+    transition: box-shadow 0.2s ease-out;
+  }
+}

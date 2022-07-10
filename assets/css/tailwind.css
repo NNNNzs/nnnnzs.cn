@@ -4,3 +4,13 @@
 @tailwind utilities;
 
 /* @import '~node_modules/bytemd/dist/index.css' */
+
+
+@font-face {
+  font-family: WenYueQingLongTi;
+  src        : url('../WenYueQingLongTi.otf');
+}
+
+.WenYueQingLongTi {
+  font-family: WenYueQingLongTi;
+}

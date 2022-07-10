@@ -9,14 +9,15 @@
         {{ oneText.from }}-{{ oneText.creator }}
       </p>
     </div>
+    <ArrowDownOutlined />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
 import dayjs from "dayjs";
-import axios, { AxiosResponse } from "axios";
-
+import axios from "axios";
+import { ArrowDownOutlined } from "@ant-design/icons-vue";
 interface HitokotoData {
   creator: string;
   from?: string;
@@ -46,7 +47,6 @@ const oneText = ref<HitokotoData>({
 axios.get("https://v1.hitokoto.cn/").then((res) => {
   oneText.value = res.data as HitokotoData;
 });
-const loadHitokoto = () => {};
 
 // loadHitokoto();
 </script>

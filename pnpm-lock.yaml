@@ -9,6 +9,7 @@ specifiers:
   '@vueuse/nuxt': 8.9.0
   autoprefixer: 10.4.7
   axios: 0.27.2
+  bytemd: ^1.17.0
   dayjs: 1.11.3
   less: 4.1.3
   moment: 2.29.4
@@ -18,10 +19,11 @@ specifiers:
 
 dependencies:
   '@ant-design/icons-vue': 6.1.0
-  '@bytemd/plugin-gfm': 1.17.0
-  '@bytemd/plugin-highlight-ssr': 1.17.0
+  '@bytemd/plugin-gfm': 1.17.0_bytemd@1.17.0
+  '@bytemd/plugin-highlight-ssr': 1.17.0_bytemd@1.17.0
   '@bytemd/vue-next': 1.17.0
   axios: 0.27.2
+  bytemd: 1.17.0
   dayjs: 1.11.3
   less: 4.1.3
   moment: 2.29.4
@@ -347,22 +349,24 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@bytemd/plugin-gfm/1.17.0:
+  /@bytemd/plugin-gfm/1.17.0_bytemd@1.17.0:
     resolution: {integrity: sha512-9ZFX3Sr3sUqIzbbxFJlQ9k6B58eY5PYY3VvT5AAeQuTw4XccTqvqSAyXSxJuDFAsE/iqEo+DOfHWLu3Pfk4OCg==}
     peerDependencies:
       bytemd: ^1.5.0
     dependencies:
       '@icon-park/svg': 1.4.2
+      bytemd: 1.17.0
       remark-gfm: 3.0.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@bytemd/plugin-highlight-ssr/1.17.0:
+  /@bytemd/plugin-highlight-ssr/1.17.0_bytemd@1.17.0:
     resolution: {integrity: sha512-n3f+jJwehCSZvBSnjS+1lHlizHFTvlN1o4E4zcDz2urH9/WiZ3+0IkjHMgJ090KKo4rgfGCppOekweazI/VI+A==}
     peerDependencies:
       bytemd: ^1.5.0
     dependencies:
+      bytemd: 1.17.0
       rehype-highlight: 5.0.2
     dev: false
 

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import cloneDeep from "lodash/cloneDeep";
 import List from "/Users/nnnnzs/project/blog/data.json";
 import { Post } from "../types/index";
@@ -33,5 +33,4 @@ const loadMore = () => {
   currentPage++;
 };
 loadMore();
-// onMounted(() => {});
 </script>
