@@ -3,9 +3,9 @@
 Style with support for rainbow parens
 
 */
-code {
+/* code {
   background-color: #474949;
-}
+} */
 
 .hljs {
   display   : block;

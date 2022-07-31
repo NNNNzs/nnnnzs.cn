@@ -9,7 +9,12 @@
         {{ oneText.from }}-{{ oneText.creator }}
       </p>
     </div>
-    <ArrowDownOutlined />
+    <div
+      @click="scrollIntoPost"
+      class="absolute left-0 right-0 bottom-1 text-center cursor-pointer"
+    >
+      <RocketOutlined style="font-size: 2rem; color: white" />
+    </div>
   </div>
 </template>
 
@@ -17,7 +22,8 @@
 import { ref } from "vue";
 import dayjs from "dayjs";
 import axios from "axios";
-import { ArrowDownOutlined } from "@ant-design/icons-vue";
+import { ArrowDownOutlined, RocketOutlined } from "@ant-design/icons-vue";
+
 interface HitokotoData {
   creator: string;
   from?: string;
@@ -35,9 +41,9 @@ const bannerStyle = ref({
 });
 
 const oneText = ref<HitokotoData>({
-  creator: "出入相友，守望相助",
-  from: "每日一习话",
-  hitokoto: "acking",
+  creator: "",
+  from: "",
+  hitokoto: "",
 });
 
 // const { data } = await useAsyncData("getHit", () => {
@@ -47,6 +53,12 @@ const oneText = ref<HitokotoData>({
 axios.get("https://v1.hitokoto.cn/").then((res) => {
   oneText.value = res.data as HitokotoData;
 });
+
+const scrollIntoPost = () => {
+  window.scrollTo({
+    top: window.innerHeight,
+  });
+};
 
 // loadHitokoto();
 </script>
