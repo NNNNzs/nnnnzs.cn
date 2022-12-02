@@ -8,14 +8,18 @@ export type PostMeta = {
   disable?: boolean;
   keywords?: string;
 };
+
 export type Post = {
   title: string;
-  meta: PostMeta;
-  path: String;
+  meta?: PostMeta;
+  path: string;
+  cover: string;
+  tags: string;
+  date: string | Date;
   description: string;
   content: string;
-  origin: string;
-  html: string;
+  origin?: string;
+  html?: string;
 };
 
 declare interface HitokotoData {

@@ -1,36 +1,30 @@
 <template>
-  <Banner />
-  <PostCardHome :posts="postList" />
-  <div class="WenYueQingLongTi cursor-pointer" @click="loadMore">加载更多</div>
+  <div>
+    <Banner />
+    <PostCardHome :posts="postList" />
+    <div class="WenYueQingLongTi cursor-pointer" @click="loadMore">加载更多</div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { defineComponent, ref } from "vue";
 import cloneDeep from "lodash/cloneDeep";
-import List from "/Users/nnnnzs/project/blog/data.json";
 import { Post } from "../types/index";
+import axios from "axios";
+const postList = ref<Post[]>();
 
-const postList = List.sort((a, b) => {
-  return new Date(a.meta.date) < new Date(b.meta.date) ? 1 : -1;
-}).filter((e) => !e.meta.disable) as Post[];
+const { data, pending } = await useAsyncData('homePageData', async ctx => {
+  const res = await axios.get('https://api.nnnnzs.cn/V2/post/findNews')
+  if (res.status) {
+    return res.data.data.record;
+  }
+});
 
-let currentPage = 1;
-
-const posts = ref<Post[]>([]);
-
-const pageSize = 5;
+postList.value = data.value;
 
 const loadMore = () => {
-  let data = cloneDeep(postList);
-  let startIndex = (currentPage - 1) * pageSize; //开始位置的索引
-  let endIndex = startIndex + pageSize; //结束位置的索引
-  // todo 这里不应该any
-  let current: any[] = data.slice(startIndex, endIndex);
-
-  current.forEach((e) => {
-    posts.value.push(e);
-  });
-  currentPage++;
 };
-loadMore();
+
+loadMore()
+
 </script>
