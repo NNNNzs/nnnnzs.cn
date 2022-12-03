@@ -24,7 +24,7 @@ import dayjs from "dayjs";
 import axios from "axios";
 import { ArrowDownOutlined, RocketOutlined } from "@ant-design/icons-vue";
 
-interface HitokotoData {
+export interface HitokotoData {
   creator: string;
   from?: string;
   hitokoto: string;

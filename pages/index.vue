@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div ref="elRef">
     <Banner />
     <PostCardHome :posts="postList" />
-    <div class="WenYueQingLongTi cursor-pointer" @click="loadMore">加载更多</div>
+    <div class="WenYueQingLongTi cursor-pointer text-center" @click="loadMore">加载更多</div>
+    <Footer />
   </div>
 </template>
 
@@ -11,20 +12,37 @@ import { defineComponent, ref } from "vue";
 import cloneDeep from "lodash/cloneDeep";
 import { Post } from "../types/index";
 import axios from "axios";
-const postList = ref<Post[]>();
+import { getPostList } from '@/api/post'
+const postList = ref<Post[]>([]);
 
-const { data, pending } = await useAsyncData('homePageData', async ctx => {
-  const res = await axios.get('https://api.nnnnzs.cn/V2/post/findNews')
-  if (res.status) {
-    return res.data.data.record;
-  }
+const params = reactive({
+  pageNum: 1,
+  pageSize: 10
 });
 
-postList.value = data.value;
+const { data, pending } = await useAsyncData('homePageData', async ctx => {
+  let res = await getPostList(params)
+  return res;
+});
+
+const elRef = ref<HTMLElement | null>(null);
+
+const t = useScroll(elRef);
+
+watch(() => t.arrivedState, n => {
+  console.log("n", n)
+})
+
+postList.value = data.value.record;
 
 const loadMore = () => {
+  params.pageNum++
+  getPostList(params).then(res => {
+    res.record.forEach(t => {
+      postList.value.push(t)
+    })
+  })
 };
 
-loadMore()
 
 </script>

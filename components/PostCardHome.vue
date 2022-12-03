@@ -3,8 +3,8 @@
     <li v-for="(post, index) in posts" :key="post.title"
       class="post md:p-2 my-8 flex m-auto w-full lg:w-5/6 md:w-10/12 flex-col max-w-screen-lg transition-all duration-500"
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse']">
-      <a class="post-cover w-full lg:w-3/5 text-center" :href="toLink(post)" :title="post?.title">
-        <img class="w-full h-auto rounded-b-none lg:rounded-xl" :src="homeThumbnail(post?.cover)"
+      <a class="post-cover w-full lg:w-3/5 text-center" :href="toLink(post)" :title="post.title">
+        <img class="w-full h-auto rounded-b-none lg:rounded-xl" :src="homeThumbnail(post.cover)"
           data-src="https://static.nnnnzs.cn/bing/20210912.png?imageMogr2/thumbnail/680x/format/webp/interlace/1/quality/100" />
       </a>
       <div
@@ -48,35 +48,27 @@
   </ul>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent, PropType } from "vue";
 import { SendOutlined } from "@ant-design/icons-vue";
 import { Post } from "../types/index";
 import { homeThumbnail } from "../utils/img";
 import dayjs from "dayjs";
 
-export default defineComponent({
-  components: { SendOutlined },
-  props: {
-    posts: {
-      type: Array as PropType<Post[]>,
-      default: () => [],
-    },
-  },
-  setup(props) {
-    const dateFormat = (date: string | undefined | Date) => {
-      if (!date) return "";
-      return dayjs(date).format("MM月 DD日, YYYY");
-    };
-    const toLink = (post: Post) => {
-      const { path, date } = post;
-      return `/${dayjs(date).format("YYYY/MM/DD")}/${path}/`;
-    };
-    return {
-      dateFormat,
-      homeThumbnail,
-      toLink,
-    };
+defineProps({
+  posts: {
+    type: Array as PropType<Post[]>,
+    default: () => [],
   },
 });
+
+const dateFormat = (date: string | undefined | Date) => {
+  if (!date) return "";
+  return dayjs(date).format("MM月 DD日, YYYY");
+};
+
+const toLink = (post: Post) => {
+  const { path, date } = post;
+  return `/${dayjs(date).format("YYYY/MM/DD")}/${path}/`;
+};
 </script>
