@@ -8,7 +8,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev -o",
-    "generate": "nuxt generate",
+    "clear": "npx nuxi clean",
+    "g": "nuxt generate",
     "preview": "nuxt preview"
   },
   "devDependencies": {
@@ -21,9 +22,6 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "6.1.0",
-    "@bytemd/plugin-gfm": "^1.17.0",
-    "@bytemd/plugin-highlight-ssr": "^1.17.0",
-    "@bytemd/vue-next": "^1.17.0",
     "axios": "0.27.2",
     "bytemd": "^1.17.0",
     "dayjs": "1.11.3",

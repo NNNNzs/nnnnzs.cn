@@ -14,23 +14,20 @@
         <p class="post-time text-gray-300">
           {{ dateFormat(post?.date) }}
         </p>
-        <h3 class="post-title text-gray-900 text-2xl my-4">
-          <a :href="toEdit(post)" target="_blank">编辑</a>
+        <h2 class="post-title text-gray-900 text-2xl my-4">
           <a :href="toLink(post)" class="WenYueQingLongTi" :title="post.title" target="_blank">
-            <SendOutlined class="align-middle relative -top-1 text-xl mr-3" />{{
-                post.title
-            }}
+            {{ post.title }}
           </a>
-        </h3>
-        <p class="post-content text-gray-500 leading-10">
-          {{ post?.description }}
-        </p>
+          <a style="margin-left:10px" :href="toEdit(post)" target="_blank">编辑</a>
+        </h2>
         <span v-for="tag in post.tags.split(',')" :key="tag">
           <a :href="`/tags/${tag}/`" target="_blank">
             {{ tag }}
           </a>
         </span>
-
+        <p class="post-content text-gray-500 leading-10">
+          {{ post?.description }}
+        </p>
         <p class="post-meta">
           <span class="leancloud_visitors my-6" id="/2021/09/12/吾爱吾师-吾更爱真理/_visitors">
             <i class="fa fa-eye"></i>

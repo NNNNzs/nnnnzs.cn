@@ -37,14 +37,11 @@ useHead({
 });
 
 const { data } = await useAsyncData('post', async () => {
-  console.log('title', title);
   if (Array.isArray(title)) {
     let res = await getPostById(title[0]);
-    console.log('res1111', res);
     return res;
   } else {
     let res = await getPostById(title);
-    console.log('res2222', res);
     return res;
   }
 })

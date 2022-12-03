@@ -11,18 +11,17 @@
         </ElFormItem>
 
         <ElFormItem label="发布日期" prop="date">
-          <ElDatePicker v-model="post.date"></ElDatePicker>
+          <ElDatePicker type="datetime" v-model="post.date"></ElDatePicker>
         </ElFormItem>
 
         <ElFormItem label="更新日期" prop="updated">
-          <ElDatePicker v-model="post.date"></ElDatePicker>
+          <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
         </ElFormItem>
 
         <ElFormItem prop="cover">
           <ElButton @click="genDescription">生成描述</ElButton>
           <ElButton @click="saveMeta">保存</ElButton>
         </ElFormItem>
-
       </div>
       <div>
         <ElFormItem label="描述" prop="description">
@@ -33,12 +32,8 @@
           <ElInput style="width:600px" v-model="post.cover"></ElInput>
         </ElFormItem>
       </div>
-
-
-
-
     </ElForm>
-    <MdEditor class="MdEditor" v-model="post.content" @onSave="handleSave"></MdEditor>
+    <MdEditor class="MdEditor" v-model="post.content"></MdEditor>
   </div>
 
 </template>
@@ -72,10 +67,6 @@ const { data } = await useAsyncData('edit', async () => {
 
 Object.assign(post, data.value);
 
-const handleSave = (value) => {
-  console.log('handleSave', value)
-}
-
 const saveMeta = () => {
   updateById(id, post).then(res => {
     if (res.data.status) {
@@ -84,13 +75,13 @@ const saveMeta = () => {
       getPostById(id as string).then(data => {
         Object.assign(post, data);
       })
-      
+
     }
   })
 }
 
 const genDescription = () => {
-  post.description = document.querySelector('#md-editor-v3-preview').textContent.substring(0, 40) + '...';
+  post.description = document.querySelector('#md-editor-v3-preview').textContent.substring(0, 77) + '...';
 }
 
 useMeta({

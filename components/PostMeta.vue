@@ -18,7 +18,8 @@ const props = defineProps({
     required: true,
   },
 });
-console.log(props);
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -1,6 +1,7 @@
 <template>
   <div ref="elRef">
     <Banner />
+    env:{{ env }}
     <PostCardHome :posts="postList" />
     <div class="WenYueQingLongTi cursor-pointer text-center" @click="loadMore">加载更多</div>
     <Footer />
@@ -25,6 +26,8 @@ const { data, pending } = await useAsyncData('homePageData', async ctx => {
 const elRef = ref<HTMLElement | null>(null);
 
 const t = useScroll(elRef);
+
+const env = process.env.NODE_ENV !== 'production';
 
 watch(() => t.arrivedState, n => {
   console.log("n", n)
