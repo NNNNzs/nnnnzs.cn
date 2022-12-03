@@ -1,21 +1,15 @@
 <template>
-  <div
-    class="banner relative h-screen bg-fixed bg-cover flex justify-center items-center"
-    :style="bannerStyle"
-  >
+  <header class="banner relative h-screen bg-fixed bg-cover flex justify-center items-center" :style="bannerStyle">
     <div class="antialiased text-2xl WenYueQingLongTi text-white">
       <p class="mb-20">{{ oneText.hitokoto }}</p>
       <p class="text-center" v-if="Boolean(oneText.from)">
         {{ oneText.from }}-{{ oneText.creator }}
       </p>
     </div>
-    <div
-      @click="scrollIntoPost"
-      class="absolute left-0 right-0 bottom-1 text-center cursor-pointer"
-    >
+    <div @click="scrollIntoPost" class="absolute left-0 right-0 bottom-1 text-center cursor-pointer">
       <RocketOutlined style="font-size: 2rem; color: white" />
     </div>
-  </div>
+  </header>
 </template>
 
 <script lang="ts" setup>

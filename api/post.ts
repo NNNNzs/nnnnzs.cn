@@ -15,11 +15,11 @@ export interface ResponeBody<T = any> {
   data: T;
 }
 
-type PostRes = AxiosResponse<ResponeBody<QueryRes<Post>>>;
-
+type PostList = AxiosResponse<ResponeBody<QueryRes<Post>>>;
+type PostRes = AxiosResponse<ResponeBody<Post>>;
 export const getPostList = async (params: QueryCondition) => {
-  const res: PostRes = await axios({
-    url: "https://api.nnnnzs.cn/V2/post/findNews",
+  const res: PostList = await axios({
+    url: "https://api.nnnnzs.cn/V2/post/list",
     method: "get",
     params,
   });
@@ -28,3 +28,14 @@ export const getPostList = async (params: QueryCondition) => {
   }
 };
 
+export const getPostById = async (id: number | string) => {
+  const t = encodeURIComponent(id)
+  const res: PostRes = await axios({
+    url: `https://api.nnnnzs.cn/V2/post/${t}`,
+    method: "get",
+  });
+  console.log("getPostById", res.data);
+  if (res.data.status) {
+    return res.data.data;
+  }
+};

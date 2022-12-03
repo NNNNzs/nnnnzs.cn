@@ -1,7 +1,7 @@
 <template>
-  <ul>
+  <ul class="transition-all duration-500">
     <li v-for="(post, index) in posts" :key="post.title"
-      class="post md:p-2 my-8 flex m-auto w-full lg:w-5/6 md:w-10/12 flex-col max-w-screen-lg transition-all duration-500"
+      class="post md:p-2 my-8 flex m-auto w-full lg:w-5/6 md:w-10/12 flex-col max-w-screen-lg "
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse']">
       <a class="post-cover w-full lg:w-3/5 text-center" :href="toLink(post)" :title="post.title">
         <img class="w-full h-auto rounded-b-none lg:rounded-xl" :src="homeThumbnail(post.cover)"
