@@ -6,20 +6,23 @@ interface QueryCondition {
   pageNum: number;
 }
 interface QueryRes<T> extends QueryCondition {
-  record: T[];
+  record: T[] | null;
   total: number;
 }
-export interface ResponeBody<T = any> {
+export interface ResponeBody<T = any | null> {
   status: boolean;
   msg: string;
   data: T;
 }
 
+// const baseUrl = "https://api.nnnnzs.cn/V2";
+const baseUrl = "http://localhost:3006";
+
 type PostList = AxiosResponse<ResponeBody<QueryRes<Post>>>;
 type PostRes = AxiosResponse<ResponeBody<Post>>;
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
-    url: "https://api.nnnnzs.cn/V2/post/list",
+    url: `${baseUrl}/post/list`,
     method: "get",
     params,
   });
@@ -28,14 +31,26 @@ export const getPostList = async (params: QueryCondition) => {
   }
 };
 
+/** 根据id或者标题，获取 */
 export const getPostById = async (id: number | string) => {
-  const t = encodeURIComponent(id)
+  const t = encodeURIComponent(id);
   const res: PostRes = await axios({
-    url: `https://api.nnnnzs.cn/V2/post/${t}`,
+    url: `${baseUrl}/post/${t}`,
     method: "get",
   });
-  console.log("getPostById", res.data);
   if (res.data.status) {
     return res.data.data;
   }
 };
+
+export const updateById = async (id, data) => {
+  const res: PostRes = await axios({
+    url: `${baseUrl}/post/${id}`,
+    method: "put",
+    data,
+  });
+  return res;
+};
+
+/** 从leancloud 提取喜欢的葛叔 */
+export const getLikeAndFav = () => {};

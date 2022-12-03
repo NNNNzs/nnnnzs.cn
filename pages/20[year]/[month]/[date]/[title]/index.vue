@@ -3,13 +3,10 @@
     <Banner :cover="post?.cover"></Banner>
     <div id="post" class="center text-left w-3/5 m-auto border-l-fuchsia-900">
       <div class="container m-auto w-10/12 max-w-screen-lg">
-        <h1 class="text-left my-4">
-          <SendOutlined class="align-middle relative -top-1 text-xl mr-3" />
-          <span>{{ title }}</span>
-        </h1>
+        <h1 class="text-left my-4">{{ title }}</h1>
       </div>
       <div class="full">
-        <MdEditor v-model="post.content" :previewOnly="true"></MdEditor>
+        <MdEditor :showCodeRowNumbe="true" codeTheme="github" v-model="post.content" :previewOnly="true"></MdEditor>
       </div>
     </div>
     <Footer />
@@ -51,7 +48,6 @@ const { data } = await useAsyncData('post', async () => {
     return res;
   }
 })
-console.log('data.value', data.value)
 
 Object.assign(post, data.value);
 

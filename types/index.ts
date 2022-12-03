@@ -10,16 +10,16 @@ export type PostMeta = {
 };
 
 export type Post = {
+  id?: string | number;
   title: string;
-  meta?: PostMeta;
+  oldTitle?: string;
   path: string;
   cover: string;
   tags: string;
   date: string | Date;
+  updated?: string | Date;
   description: string;
   content: string;
-  origin?: string;
-  html?: string;
 };
 
 declare interface HitokotoData {

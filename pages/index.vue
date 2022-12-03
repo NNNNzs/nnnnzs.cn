@@ -8,10 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref } from "vue";
-import cloneDeep from "lodash/cloneDeep";
 import { Post } from "../types/index";
-import axios from "axios";
 import { getPostList } from '@/api/post'
 const postList = ref<Post[]>([]);
 
@@ -32,15 +29,19 @@ const t = useScroll(elRef);
 watch(() => t.arrivedState, n => {
   console.log("n", n)
 })
+if (data.value.record) {
+  postList.value = data.value.record;
+}
 
-postList.value = data.value.record;
 
 const loadMore = () => {
   params.pageNum++
   getPostList(params).then(res => {
-    res.record.forEach(t => {
-      postList.value.push(t)
-    })
+    if (res) {
+      res.record.forEach(t => {
+        postList.value.push(t)
+      })
+    }
   })
 };
 

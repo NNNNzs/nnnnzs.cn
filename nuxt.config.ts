@@ -4,12 +4,12 @@ import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
   css: [
     "~/assets/css/tailwind.css",
-    "bytemd/dist/index.css",
-    // "~/assets/css/github.css",
   ],
   meta: {
     title: "孤人独影",
-    link: [{ rel: "shortcut icon", href: "/img/logo_N.png" }],
+    link: [
+      { rel: "shortcut icon", href: "/img/logo_N.png" },
+    ],
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "charset", content: "utf-8" },
