@@ -6,9 +6,9 @@
         <h1 class="text-center my-4 text-4xl WenYueQingLongTi">{{ title }}</h1>
       </div>
       <div class="meta text-center text-gray-600 mb-4">
-        <i class="iconfont  icon-tag-fill"></i>
-        <span>更新于:{{ post?.updated }}</span>
         <i class="iconfont  icon-calendaralt-fill"></i>
+        <span>发表于:{{ fomat(post?.date) }}</span>
+        <i class="iconfont  icon-tag-fill"></i>
         <span>{{ post.tags }}</span>
         <i class="iconfont  icon-eye"></i>
         <span>热度:{{ meta.visitors }}</span>
@@ -30,6 +30,8 @@ import { getPostById } from '@/api/post'
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import { Query, User, Object as AvObject } from "leancloud-storage";
+import dayjs from "dayjs";
+
 const query = new Query("Counter");
 const route = useRoute();
 const { params } = route;
@@ -80,7 +82,9 @@ const addLike = () => {
 const { data } = await useAsyncData('post', async () => {
   return await getPostById(title);
 })
-
+const fomat = (t: string | Date) => {
+  return dayjs(t).format('YYYY-MM-DD HH:mm')
+}
 Object.assign(post, data.value);
 
 

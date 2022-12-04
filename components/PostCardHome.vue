@@ -3,7 +3,7 @@
     <li v-for="(post, index) in posts" :key="post.title"
       class="post md:p-2 my-8 flex m-auto w-full lg:w-5/6 md:w-10/12 flex-col max-w-screen-lg "
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse']">
-      <a class="post-cover w-full lg:w-3/5 text-center" target="_blank" :href="toLink(post)" :title="post.title">
+      <a class="post-cover w-full lg:w-3/5 text-center" :target="target" :href="toLink(post)" :title="post.title">
         <img class="w-full h-auto rounded-b-none lg:rounded-xl" :src="homeThumbnail(post.cover)"
           :data-src="homeThumbnail(post.cover)" />
       </a>
@@ -15,13 +15,13 @@
           {{ dateFormat(post?.date) }}
         </p>
         <h2 class="post-title text-gray-900 text-2xl my-4">
-          <a :href="toLink(post)" class="WenYueQingLongTi" :title="post.title" target="_blank">
+          <a :href="toLink(post)" class="WenYueQingLongTi" :title="post.title" :target="target">
             {{ post.title }}
           </a>
-          <a style="margin-left:10px" :href="toEdit(post)" target="_blank">编辑</a>
+          <a style="margin-left:10px" :href="toEdit(post)" :target="target">编辑</a>
         </h2>
         <span v-for="tag in post.tags.split(',')" :key="tag">
-          <a :href="`/tags/${tag}/`" target="_blank">
+          <a :href="`/tags/${tag}/`" :target="target">
             {{ tag }}
           </a>
         </span>
@@ -30,35 +30,42 @@
         </p>
         <p class="post-meta">
           <span class="leancloud_visitors my-6" id="/2021/09/12/吾爱吾师-吾更爱真理/_visitors">
-            <i class="fa fa-eye"></i>
+            <i class="iconfont icon-eye"></i>
             热度
-            <i class="leancloud_visitors_count" id="leancloud_visitors_count">19</i>
+            <i>{{ post?.visitors }}</i>
           </span>
 
-          <span class="leancloud_likes" id="/2021/09/12/吾爱吾师-吾更爱真理/_likes" data-url="/2021/09/12/吾爱吾师-吾更爱真理/">
-            <i class="fa fa-heart"></i>
+          <span class="leancloud_likes">
+            <i class="iconfont icon-collection"></i>
             喜欢
-            <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+            <i>{{ post?.likes}}</i>
           </span>
         </p>
       </div>
     </li>
   </ul>
+
 </template>
 
 <script lang="ts" setup>
 import { defineComponent, PropType } from "vue";
-
 import { Post } from "../types/index";
 import { homeThumbnail } from "../utils/img";
 import dayjs from "dayjs";
-
-defineProps({
+const props = defineProps({
   posts: {
     type: Array as PropType<Post[]>,
     default: () => [],
   },
 });
+
+const titleWithLikes = reactive<Record<string, { likes: number, visitors: number, url: string }>>({
+
+})
+
+onMounted(() => {
+})
+const target = '_self';
 
 const dateFormat = (date: string | undefined | Date) => {
   if (!date) return "";

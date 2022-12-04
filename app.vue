@@ -1,11 +1,12 @@
 <template>
   <div>
-    <!-- <NuxtWelcome /> -->
-    <NuxtPage />
+      <!-- <NuxtWelcome /> -->
+      <NuxtPage />
   </div>
 </template>
 <script setup lang="ts">
 import { init } from "leancloud-storage";
+
 const {
   Leancloud_appId = "",
   Leancloud_appKey = "",

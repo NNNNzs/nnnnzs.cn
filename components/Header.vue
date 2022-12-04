@@ -3,54 +3,48 @@
     <div class="mx-auto">
       <div class="mx-auto menu flex  items-center justify-between">
         <span class="text-xl text-center align-bottom">NNNNzs</span>
+        <ais-instant-search class="text-black" :index-name="indexName" :search-client="searchClient">
+          <ais-search-box>
+          </ais-search-box>
+          <ais-hits />
+        </ais-instant-search>
         <ul class="hidden md:flex justify-between category w-80">
-          <router-link class="text-white" role="li" is="li" v-for="item in menu" :key="item.name" :to="item.path">{{
-              item.name
-          }}</router-link>
+          <router-link class="text-white" role="li" is="li" v-for="item in state.menu" :key="item.name"
+            :to="item.path">{{
+                item.name
+            }}</router-link>
+
         </ul>
         <ul class="flex md:hidden flex-col leading-8">
-          <router-link class="text-white" role="li" is="li" v-for="item in menu" :key="item.name" :to="item.path">{{
-          item.name }}</router-link>
+          <router-link class="text-white" role="li" is="li" v-for="item in state.menu" :key="item.name"
+            :to="item.path">{{
+            item.name }}</router-link>
         </ul>
       </div>
     </div>
   </header>
 </template>
 
-<script>
+<script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
-import {
-  BellOutlined,
-  CommentOutlined,
-  UserOutlined,
-} from "@ant-design/icons-vue";
+import algoliasearch from 'algoliasearch/lite';
+import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es/index.js'
+import 'instantsearch.css/themes/satellite-min.css';
+const config = useRuntimeConfig()
+// const { dark, changeTheme } = useDark();
+const searchClient = algoliasearch(config.public.AlgoliasearchAppId, config.public.AlgoliasearchApiKey);
+const indexName = 'blog'
 
-export default {
-  components: {
-    BellOutlined,
-    CommentOutlined,
-    UserOutlined,
-  },
-  setup() {
-    const { dark, changeTheme } = useDark();
-    const state = reactive({
-      value: "",
-      menu: [
-        { name: "首页", path: "/" },
-        { name: "分类", path: '/tags' },
-        { name: "旅游", path: "/travel" },
-        { name: "动态", path: "/center" },
-        { name: "关于", path: "/about" },
-      ],
-    });
-
-    return {
-      dark,
-      changeTheme,
-      ...toRefs(state),
-    };
-  },
-};
+const state = reactive({
+  value: "",
+  menu: [
+    { name: "首页", path: "/" },
+    { name: "分类", path: '/tags' },
+    // { name: "旅游", path: "/travel" },
+    // { name: "动态", path: "/center" },
+    // { name: "关于", path: "/about" },
+  ],
+});
 </script>
 <style lang="less">
 .header {

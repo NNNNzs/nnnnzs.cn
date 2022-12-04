@@ -20,6 +20,10 @@ export type Post = {
   updated: string | Date;
   description: string;
   content: string;
+
+  likes?: number;
+  visitors?: number;
+  url?: string;
 };
 
 declare interface HitokotoData {

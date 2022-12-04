@@ -1,40 +1,42 @@
 <template>
   <div class="full padding-8 editor">
-    <ElForm :model="post" inline class="form" :rules="rules">
-      <div>
-        <ElFormItem label="标题" prop="title">
-          <ElInput v-model="post.title"></ElInput>
-        </ElFormItem>
+    <ClientOnly>
+      <ElForm :model="post" inline class="form" :rules="rules">
+        <div>
+          <ElFormItem label="标题" prop="title">
+            <ElInput v-model="post.title"></ElInput>
+          </ElFormItem>
 
-        <ElFormItem label="标签" prop="tags">
-          <ElInput v-model="post.tags"></ElInput>
-        </ElFormItem>
+          <ElFormItem label="标签" prop="tags">
+            <ElInput v-model="post.tags"></ElInput>
+          </ElFormItem>
 
-        <ElFormItem label="发布日期" prop="date">
-          <ElDatePicker type="datetime" v-model="post.date"></ElDatePicker>
-        </ElFormItem>
+          <ElFormItem label="发布日期" prop="date">
+            <ElDatePicker type="datetime" v-model="post.date"></ElDatePicker>
+          </ElFormItem>
 
-        <ElFormItem label="更新日期" prop="updated">
-          <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
-        </ElFormItem>
+          <ElFormItem label="更新日期" prop="updated">
+            <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
+          </ElFormItem>
+          <ElFormItem prop="cover">
+            <ElButton @click="genDescription">生成描述</ElButton>
+            <ElButton @click="genCover">生成背景</ElButton>
+            <ElButton @click="saveMeta">保存</ElButton>
+          </ElFormItem>
+        </div>
+        <div>
+          <ElFormItem label="描述" prop="description">
+            <ElInput v-model="post.description"></ElInput>
+          </ElFormItem>
 
-        <ElFormItem prop="cover">
-          <ElButton @click="genDescription">生成描述</ElButton>
-          <ElButton @click="genCover">生成背景</ElButton>
-          <ElButton @click="saveMeta">保存</ElButton>
-        </ElFormItem>
-      </div>
-      <div>
-        <ElFormItem label="描述" prop="description">
-          <ElInput v-model="post.description"></ElInput>
-        </ElFormItem>
+          <ElFormItem label="背景图" prop="cover">
+            <ElInput style="width:600px" v-model="post.cover"></ElInput>
+          </ElFormItem>
+        </div>
+      </ElForm>
+      <MdEditor class="MdEditor" v-model="post.content"></MdEditor>
+    </ClientOnly>
 
-        <ElFormItem label="背景图" prop="cover">
-          <ElInput style="width:600px" v-model="post.cover"></ElInput>
-        </ElFormItem>
-      </div>
-    </ElForm>
-    <MdEditor class="MdEditor" v-model="post.content"></MdEditor>
   </div>
 
 </template>
@@ -46,12 +48,16 @@ import { Post } from "@/types/index";
 import { getPostById, updateById } from '@/api/post'
 import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage } from 'element-plus'
 import dayjs from 'dayjs'
+
 const route = useRoute();
 const { params } = route;
 const id = params.id as string;
 const rules = {
   title: { required: true },
 }
+const indexName = 'blog'
+const algolia = useAlgoliaRef()
+
 
 const post = reactive<Post>({
   title: '',
