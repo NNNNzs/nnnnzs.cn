@@ -4,26 +4,13 @@
       <div class="mx-auto menu flex  items-center justify-between">
         <span class="text-xl text-center align-bottom">NNNNzs</span>
         <ul class="hidden md:flex justify-between category w-80">
-          <router-link
-            class="text-white"
-            role="li"
-            is="li"
-            v-for="item in menu"
-            :key="item.name"
-            :to="item.path"
-            >{{ item.name }}</router-link
-          >
+          <router-link class="text-white" role="li" is="li" v-for="item in menu" :key="item.name" :to="item.path">{{
+              item.name
+          }}</router-link>
         </ul>
         <ul class="flex md:hidden flex-col leading-8">
-          <router-link
-            class="text-white"
-            role="li"
-            is="li"
-            v-for="item in menu"
-            :key="item.name"
-            :to="item.path"
-            >{{ item.name }}</router-link
-          >
+          <router-link class="text-white" role="li" is="li" v-for="item in menu" :key="item.name" :to="item.path">{{
+          item.name }}</router-link>
         </ul>
       </div>
     </div>
@@ -32,14 +19,11 @@
 
 <script>
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
-import { TAGS_PATH, POST_PATH } from "@/config";
 import {
   BellOutlined,
   CommentOutlined,
   UserOutlined,
 } from "@ant-design/icons-vue";
-import { useDark } from "@/hooks/useDark";
-import useScrollPercent from "@/hooks/useScrollPercent";
 
 export default {
   components: {
@@ -53,13 +37,12 @@ export default {
       value: "",
       menu: [
         { name: "首页", path: "/" },
-        { name: "分类", path: TAGS_PATH },
+        { name: "分类", path: '/tags' },
         { name: "旅游", path: "/travel" },
         { name: "动态", path: "/center" },
         { name: "关于", path: "/about" },
       ],
     });
-    useScrollPercent();
 
     return {
       dark,
@@ -77,13 +60,16 @@ export default {
   box-shadow: 0 1px 3px rgb(18 18 18 / 10%);
   width: 100%;
   z-index: 2;
+
   .menu {
     .category {
       line-height: var(--height);
       font-size: 16px;
+
       .router-link-exact-active {
         color: var(--primary-color);
         position: relative;
+
         &::after {
           position: absolute;
           bottom: 0px;
@@ -95,11 +81,14 @@ export default {
         }
       }
     }
+
     .searchBar {
       line-height: var(--height);
     }
+
     .user {
       line-height: var(--height);
+
       .icons {
         cursor: pointer;
         vertical-align: middle;
@@ -108,6 +97,7 @@ export default {
         color: var(--sub-color);
         width: var(--height);
         height: var(--height);
+
         svg {
           vertical-align: middle;
         }

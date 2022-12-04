@@ -17,7 +17,7 @@ export type Post = {
   cover: string;
   tags: string;
   date: string | Date;
-  updated?: string | Date;
+  updated: string | Date;
   description: string;
   content: string;
 };

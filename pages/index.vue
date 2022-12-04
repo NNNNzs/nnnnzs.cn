@@ -1,7 +1,6 @@
 <template>
   <div ref="elRef">
     <Banner />
-    env:{{ env }}
     <PostCardHome :posts="postList" />
     <div class="WenYueQingLongTi cursor-pointer text-center" @click="loadMore">加载更多</div>
     <Footer />
@@ -15,7 +14,7 @@ const postList = ref<Post[]>([]);
 
 const params = reactive({
   pageNum: 1,
-  pageSize: 10
+  pageSize: 100
 });
 
 const { data, pending } = await useAsyncData('homePageData', async ctx => {
@@ -32,7 +31,7 @@ const env = process.env.NODE_ENV !== 'production';
 watch(() => t.arrivedState, n => {
   console.log("n", n)
 })
-if (data.value.record) {
+if (data.value?.record) {
   postList.value = data.value.record;
 }
 
@@ -41,7 +40,7 @@ const loadMore = () => {
   params.pageNum++
   getPostList(params).then(res => {
     if (res) {
-      res.record.forEach(t => {
+      res.record?.forEach(t => {
         postList.value.push(t)
       })
     }

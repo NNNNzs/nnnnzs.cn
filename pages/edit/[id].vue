@@ -15,11 +15,12 @@
         </ElFormItem>
 
         <ElFormItem label="更新日期" prop="updated">
-          <ElDatePicker type="datetime" :value="post?.updated"></ElDatePicker>
+          <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
         </ElFormItem>
 
         <ElFormItem prop="cover">
           <ElButton @click="genDescription">生成描述</ElButton>
+          <ElButton @click="genCover">生成背景</ElButton>
           <ElButton @click="saveMeta">保存</ElButton>
         </ElFormItem>
       </div>
@@ -44,9 +45,10 @@ import 'md-editor-v3/lib/style.css';
 import { Post } from "@/types/index";
 import { getPostById, updateById } from '@/api/post'
 import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage } from 'element-plus'
+import dayjs from 'dayjs'
 const route = useRoute();
 const { params } = route;
-const { id } = params;
+const id = params.id as string;
 const rules = {
   title: { required: true },
 }
@@ -59,6 +61,7 @@ const post = reactive<Post>({
   tags: "",
   date: "",
   description: "",
+  updated: new Date(),
 });
 const { data } = await useAsyncData('edit', async () => {
   return await getPostById(id as string)
@@ -83,9 +86,10 @@ const genDescription = () => {
   post.description = document.querySelector('#md-editor-v3-preview')?.textContent?.substring(0, 77) + '...';
 }
 
-useHead({
+const genCover = () => {
+  post.cover = `https://static.nnnnzs.cn/bing/${dayjs(post.date).format('YYYYMMDD')}.png`
+}
 
-})
 useHead({
   title: `编辑 | ${data.value?.title}`,
   link: [

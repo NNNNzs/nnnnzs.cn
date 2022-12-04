@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import { defineComponent, PropType } from "vue";
-import { SendOutlined } from "@ant-design/icons-vue";
+
 import { Post } from "../types/index";
 import { homeThumbnail } from "../utils/img";
 import dayjs from "dayjs";

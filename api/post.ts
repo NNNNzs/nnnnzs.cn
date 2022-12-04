@@ -14,9 +14,9 @@ export interface ResponeBody<T = any | null> {
   msg: string;
   data: T;
 }
-
-// const baseUrl = "https://api.nnnnzs.cn/V2";
-const baseUrl = "http://localhost:3006";
+const prodBaseUrl = "https://api.nnnnzs.cn/V2";
+const baseUrl =
+  process.env.NODE_ENV !== "production" ? "http://localhost:3006" : prodBaseUrl;
 
 type PostList = AxiosResponse<ResponeBody<QueryRes<Post>>>;
 type PostRes = AxiosResponse<ResponeBody<Post>>;
@@ -43,7 +43,7 @@ export const getPostById = async (id: number | string) => {
   }
 };
 
-export const updateById = async (id, data) => {
+export const updateById = async (id: string, data: Post) => {
   const res: PostRes = await axios({
     url: `${baseUrl}/post/${id}`,
     method: "put",
@@ -52,5 +52,7 @@ export const updateById = async (id, data) => {
   return res;
 };
 
-/** 从leancloud 提取喜欢的葛叔 */
+/** 从leancloud 提取喜欢*/
 export const getLikeAndFav = () => {};
+
+/** 从leancloud 提取 */
