@@ -10,7 +10,8 @@
     "dev": "nuxt dev",
     "g": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "pm2": "pm2 start ecosystem.config.js --only nest-api"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.1.3",
