@@ -15,7 +15,7 @@
         </ElFormItem>
 
         <ElFormItem label="更新日期" prop="updated">
-          <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
+          <ElDatePicker type="datetime" :value="post?.updated"></ElDatePicker>
         </ElFormItem>
 
         <ElFormItem prop="cover">
@@ -44,7 +44,6 @@ import 'md-editor-v3/lib/style.css';
 import { Post } from "@/types/index";
 import { getPostById, updateById } from '@/api/post'
 import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage } from 'element-plus'
-
 const route = useRoute();
 const { params } = route;
 const { id } = params;
@@ -81,19 +80,20 @@ const saveMeta = () => {
 }
 
 const genDescription = () => {
-  post.description = document.querySelector('#md-editor-v3-preview').textContent.substring(0, 77) + '...';
+  post.description = document.querySelector('#md-editor-v3-preview')?.textContent?.substring(0, 77) + '...';
 }
 
-useMeta({
+useHead({
+
+})
+useHead({
+  title: `编辑 | ${data.value?.title}`,
   link: [
     {
       rel: "stylesheet",
       href: "//cdn.jsdelivr.net/npm/element-plus/dist/index.css",
     }
   ]
-})
-useHead({
-  title: `编辑 | ${data.value.title}`
 });
 
 </script>
