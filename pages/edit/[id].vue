@@ -55,9 +55,6 @@ const id = params.id as string;
 const rules = {
   title: { required: true },
 }
-const indexName = 'blog'
-const algolia = useAlgoliaRef()
-
 
 const post = reactive<Post>({
   title: '',
@@ -69,21 +66,25 @@ const post = reactive<Post>({
   description: "",
   updated: new Date(),
 });
-const { data } = await useAsyncData('edit', async () => {
-  return await getPostById(id as string)
-});
 
-Object.assign(post, data.value);
+if (id === 'add') {
+
+} else {
+  const { data } = await useAsyncData('edit', async () => {
+    return await getPostById(id as string)
+  });
+  Object.assign(post, data)
+}
+
+
 
 const saveMeta = () => {
   updateById(id, post).then(res => {
     if (res.data.status) {
       ElMessage.success('保存成功');
-
       getPostById(id as string).then(data => {
         Object.assign(post, data);
       })
-
     }
   })
 }
@@ -97,7 +98,7 @@ const genCover = () => {
 }
 
 useHead({
-  title: `编辑 | ${data.value?.title}`,
+  title: `编辑 | ${post.title}`,
   link: [
     {
       rel: "stylesheet",

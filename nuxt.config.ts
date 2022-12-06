@@ -12,6 +12,7 @@ export default defineNuxtConfig({
           href: "//at.alicdn.com/t/c/font_3807384_gfjqftmcc.css"
         }
       ],
+      script: [{ src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3" }],
       meta: [
         {
           name: "viewport",

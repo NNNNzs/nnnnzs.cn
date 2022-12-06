@@ -2,18 +2,13 @@
   <header class="header absolute top-0 text-white px-6">
     <div class="mx-auto">
       <div class="mx-auto menu flex  items-center justify-between">
-        <span class="text-xl text-center align-bottom">NNNNzs</span>
-        <ais-instant-search class="text-black" :index-name="indexName" :search-client="searchClient">
-          <ais-search-box>
-          </ais-search-box>
-          <ais-hits />
-        </ais-instant-search>
+        <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
         <ul class="hidden md:flex justify-between category w-80">
           <router-link class="text-white" role="li" is="li" v-for="item in state.menu" :key="item.name"
             :to="item.path">{{
                 item.name
             }}</router-link>
-
+          <div id="docsearch"></div>
         </ul>
         <ul class="flex md:hidden flex-col leading-8">
           <router-link class="text-white" role="li" is="li" v-for="item in state.menu" :key="item.name"
@@ -27,13 +22,21 @@
 
 <script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
-import algoliasearch from 'algoliasearch/lite';
-import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es/index.js'
-import 'instantsearch.css/themes/satellite-min.css';
+import docsearch from '@docsearch/js';
+import '@docsearch/css';
+import { Post } from "~~/types";
+
 const config = useRuntimeConfig()
-// const { dark, changeTheme } = useDark();
-const searchClient = algoliasearch(config.public.AlgoliasearchAppId, config.public.AlgoliasearchApiKey);
-const indexName = 'blog'
+const indexName = 'blog2'
+onMounted(() => {
+  docsearch({
+    container: '#docsearch',
+    appId: config.public.AlgoliasearchAppId,
+    indexName: indexName,
+    apiKey: config.public.AlgoliasearchApiKey,
+  });
+})
+
 
 const state = reactive({
   value: "",

@@ -3,13 +3,13 @@
     <li v-for="(post, index) in posts" :key="post.title"
       class="post md:p-2 my-8 flex m-auto w-full lg:w-5/6 md:w-10/12 flex-col max-w-screen-lg "
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse']">
-      <a class="post-cover w-full lg:w-3/5 text-center" :target="target" :href="toLink(post)" :title="post.title">
-        <img class="w-full h-auto rounded-b-none lg:rounded-xl" :src="homeThumbnail(post.cover)"
+      <a class="post-cover w-full lg:w-3/5 text-center  " :target="target" :href="toLink(post)" :title="post.title">
+        <img class="w-full h-auto rounded-b-none lg:rounded-xl hover:shadow-2xl" :src="homeThumbnail(post.cover)"
           :data-src="homeThumbnail(post.cover)" />
       </a>
 
       <div
-        class="post-text text-left w-full p-6 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border border-gray-300 border-t-0"
+        class="post-text  text-left w-full p-6 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border border-gray-300 border-t-0"
         :class="[index % 2 === 0 ? 'lg:border-l-0' : 'lg:border-r-0']">
         <p class="post-time text-gray-300">
           {{ dateFormat(post?.date) }}
