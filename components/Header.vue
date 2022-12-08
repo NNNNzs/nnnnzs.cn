@@ -24,7 +24,6 @@
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
 import docsearch from '@docsearch/js';
 import '@docsearch/css';
-import { Post } from "~~/types";
 
 const config = useRuntimeConfig()
 const indexName = 'blog2'

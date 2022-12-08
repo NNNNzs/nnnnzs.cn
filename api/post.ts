@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios"
-import { Post } from "../types/index"
 
 interface QueryCondition {
   pageSize: number

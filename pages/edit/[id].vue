@@ -44,9 +44,8 @@
 <script setup name="edit" lang="ts">
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { Post } from "@/types/index";
 import { getPostById, updateById } from '@/api/post'
-import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage } from 'element-plus'
+import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage } from 'element-plus';
 import dayjs from 'dayjs'
 
 const route = useRoute();

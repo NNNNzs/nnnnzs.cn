@@ -25,15 +25,14 @@
 </template>
 
 <script lang="ts" setup>
-import { Post } from "@/types/index";
 import { getPostById } from '@/api/post'
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import AV from 'leancloud-storage/core'
 import dayjs from "dayjs";
 
-const { Query, Object: AvObject } = AV;
-const query = new Query("Counter");
+
+let AV, Query, object, query;
+
 const route = useRoute();
 const { params } = route;
 const title = params.title as string
@@ -57,29 +56,6 @@ const post = reactive<Post>({
   description: "",
 });
 
-onMounted(() => {
-  query.equalTo('title', title).first().then(t => {
-    meta.visitors = t?.get('visitors');
-    meta.likes = t?.get('likes');
-    meta.objectId = t?.get('objectId');
-    addVisitor()
-  });
-});
-
-const addVisitor = () => {
-  const post = AvObject.createWithoutData('Counter', meta.objectId);
-  post.increment('visitors', 1)
-  post.save();
-  meta.visitors++
-}
-
-const addLike = () => {
-  const post = AvObject.createWithoutData('Counter', meta.objectId);
-  post.increment('likes', 1)
-  post.save();
-  meta.likes++
-}
-
 const { data } = await useAsyncData('post', async () => {
   return await getPostById(title);
 })
@@ -88,6 +64,35 @@ const fomat = (t: string | Date) => {
 }
 Object.assign(post, data.value);
 
+
+
+onMounted(() => {
+  Query = window.AV.Query
+  object = window.AV.Object;
+  query = new Query("Counter");
+
+  query.equalTo('title', title).first().then(t => {
+    meta.visitors = t?.get('visitors');
+    meta.likes = t?.get('likes');
+    meta.objectId = t?.get('objectId');
+    addVisitor()
+  });
+
+});
+
+const addVisitor = () => {
+  const post = object.createWithoutData('Counter', meta.objectId);
+  post.increment('visitors', 1)
+  post.save();
+  meta.visitors++
+}
+
+const addLike = () => {
+  const post = object.createWithoutData('Counter', meta.objectId);
+  post.increment('likes', 1)
+  post.save();
+  meta.likes++
+}
 
 </script>
 <style scoped>

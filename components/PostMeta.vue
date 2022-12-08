@@ -10,7 +10,6 @@
 
 <script lang="ts" setup>
 import { defineComponent, PropType } from "vue";
-import { Post, PostMeta } from "@/types";
 
 const props = defineProps({
   meta: {

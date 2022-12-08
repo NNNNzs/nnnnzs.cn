@@ -18,12 +18,6 @@ import { ref } from "vue";
 import dayjs from "dayjs";
 import axios from "axios";
 
-export interface HitokotoData {
-  creator: string;
-  from?: string;
-  hitokoto: string;
-}
-
 const props = defineProps({
   cover: {
     type: String,

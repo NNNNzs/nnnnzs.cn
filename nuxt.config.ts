@@ -1,3 +1,6 @@
+import Components from "unplugin-vue-components/vite"
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: [],
@@ -12,7 +15,12 @@ export default defineNuxtConfig({
           href: "//at.alicdn.com/t/c/font_3807384_gfjqftmcc.css"
         }
       ],
-      script: [{ src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3" }],
+      script: [
+        { src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3" },
+        {
+          src: "/js/av-min.js"
+        }
+      ],
       meta: [
         {
           name: "viewport",
@@ -38,5 +46,13 @@ export default defineNuxtConfig({
       AlgoliasearchAppId: process.env.AlgoliasearchAppId,
       AlgoliasearchApiKey: process.env.AlgoliasearchApiKey
     }
+  },
+  vite: {
+    plugins: [
+      Components({
+        dts: true,
+        resolvers: [ElementPlusResolver()]
+      })
+    ]
   }
 })

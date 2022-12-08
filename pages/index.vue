@@ -8,19 +8,21 @@
 </template>
 
 <script lang="ts" setup>
-import { Post } from "../types/index";
 import { getPostList } from '@/api/post'
-import AV from 'leancloud-storage/core'
-const Query = AV.Query;
-
-
+// import AV from 'leancloud-storage/core'
+let Query, query;
 
 const postList = ref<Post[]>([]);
-const query = new Query("Counter");
 const params = reactive({
   pageNum: 1,
   pageSize: 20
 });
+
+onMounted(() => {
+  console.log('window.AV', window.AV)
+  Query = window.AV.Query;
+  query = new Query("Counter");
+})
 
 const { data, pending } = await useAsyncData('homePageData', async ctx => {
   let res = await getPostList(params)
@@ -48,10 +50,6 @@ if (data.value?.record) {
   postList.value = data.value.record;
   patchLikes();
 }
-
-
-
-
 
 const loadMore = () => {
   params.pageNum++
