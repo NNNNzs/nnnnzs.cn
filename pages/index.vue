@@ -10,7 +10,10 @@
 <script lang="ts" setup>
 import { Post } from "../types/index";
 import { getPostList } from '@/api/post'
-import { Query, } from "leancloud-storage";
+import AV from 'leancloud-storage/core'
+const Query = AV.Query;
+
+
 
 const postList = ref<Post[]>([]);
 const query = new Query("Counter");
@@ -28,7 +31,7 @@ const elRef = ref<HTMLElement | null>(null);
 
 const patchLikes = () => {
   const unlist = postList.value.filter(e => !e.visitors).map(e => e.title)
-  console.log(unlist);
+  // console.log(unlist);
   // postList.value.filter(e => !e.visitors).forEach(async (e, index) => {
   //   const title = e.title;
   //   query.equalTo('title', title).first().then(t => {

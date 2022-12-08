@@ -67,14 +67,12 @@ const post = reactive<Post>({
   updated: new Date(),
 });
 
-if (id === 'add') {
 
-} else {
-  const { data } = await useAsyncData('edit', async () => {
-    return await getPostById(id as string)
-  });
-  Object.assign(post, data)
-}
+onMounted(() => {
+  getPostById(id as string).then(data => {
+    Object.assign(post, data)
+  })
+})
 
 
 

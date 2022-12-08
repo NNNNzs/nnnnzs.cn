@@ -1,11 +1,11 @@
 <template>
   <div>
-      <!-- <NuxtWelcome /> -->
-      <NuxtPage />
+    <!-- <NuxtWelcome /> -->
+    <NuxtPage />
   </div>
 </template>
 <script setup lang="ts">
-import { init } from "leancloud-storage";
+import AV from 'leancloud-storage/core'
 
 const {
   Leancloud_appId = "",
@@ -14,7 +14,7 @@ const {
 } = useRuntimeConfig().public;
 let hasInit = false;
 if (!hasInit) {
-  init({
+  AV.init({
     appId: Leancloud_appId as string,
     appKey: Leancloud_appKey as string,
     serverURL: Leancloud_serverURL as string,

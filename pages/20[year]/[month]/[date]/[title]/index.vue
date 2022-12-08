@@ -29,9 +29,10 @@ import { Post } from "@/types/index";
 import { getPostById } from '@/api/post'
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { Query, User, Object as AvObject } from "leancloud-storage";
+import AV from 'leancloud-storage/core'
 import dayjs from "dayjs";
 
+const { Query, Object: AvObject } = AV;
 const query = new Query("Counter");
 const route = useRoute();
 const { params } = route;
