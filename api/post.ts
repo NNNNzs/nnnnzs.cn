@@ -1,26 +1,15 @@
 import axios, { AxiosResponse } from "axios"
 
-interface QueryCondition {
-  pageSize: number
-  pageNum: number
-}
-interface QueryRes<T> extends QueryCondition {
-  record: T[] | null
-  total: number
-}
-export interface ResponeBody<T = any | null> {
-  status: boolean
-  msg: string
-  data: T
-}
 const prodBaseUrl = "https://api.nnnnzs.cn/V2"
+
 const baseUrl =
-  process.env.NODE_ENV !== "production"
+  process.env.NODE_ENV === "production"
     ? "http://localhost:3006"
     : prodBaseUrl
 
 type PostList = AxiosResponse<ResponeBody<QueryRes<Post>>>
 type PostRes = AxiosResponse<ResponeBody<Post>>
+
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
     url: `${baseUrl}/post/list`,
@@ -63,6 +52,6 @@ export const updateById = async (id: string, data: Post) => {
 }
 
 /** 从leancloud 提取喜欢*/
-export const getLikeAndFav = () => {}
+export const getLikeAndFav = () => { }
 
 /** 从leancloud 提取 */
