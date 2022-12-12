@@ -18,3 +18,9 @@ The generate command pre-renders every route of your application and stores the 
 
 The preview command starts a server to preview your Nuxt application after running the build command.
 
+
+### todo 
+- [ ]  解决learncloud 秘钥在正式环境问题   优先级1
+- [ ]  解决搜索无法展现的问题  优先级3 
+- [ ]  新增创建文章的功能  优先级1
+- [ ]  解决文章链接同步的问题 优先级 2
