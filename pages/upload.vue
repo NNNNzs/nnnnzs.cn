@@ -1,5 +1,5 @@
 <template>
-  <PostDetail />
+  <Upload></Upload>
 </template>
 
 <script setup lang="ts">
