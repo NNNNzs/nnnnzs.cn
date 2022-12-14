@@ -16,8 +16,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import dayjs from "dayjs";
-import axios from "axios";
-
+import { getHitokoto } from '@/api/hitokoto'
 const props = defineProps({
   cover: {
     type: String,
@@ -38,9 +37,9 @@ const oneText = ref<HitokotoData>({
 //   return axios.get<HitokotoData>("https://api.lwl12.com/hitokoto/");
 // });
 
-axios.get("https://v1.hitokoto.cn/").then((res) => {
-  oneText.value = res.data as HitokotoData;
-});
+getHitokoto().then(res => {
+  oneText.value = res;
+})
 
 const scrollIntoPost = () => {
   window.scrollTo({

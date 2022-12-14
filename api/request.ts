@@ -1,7 +1,7 @@
 // todo
 
-import axios from "axios";
+import axios from "axios"
 
-const request = axios.create();
+const request = axios.create()
 
-export default request;
+export default request
