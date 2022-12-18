@@ -1,6 +1,6 @@
 export {}
 declare global {
   interface Window {
-    AV: typeof import("leancloud-storage")
+    // AV: typeof import("leancloud-storage")
   }
 }

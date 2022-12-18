@@ -21,8 +21,8 @@ type Post = {
   description: string
   content: string
 
-  likes?: number
-  visitors?: number
+  likes: number
+  visitors: number
   url?: string
 }
 

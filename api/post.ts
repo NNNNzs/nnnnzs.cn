@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios"
 const prodBaseUrl = "https://api.nnnnzs.cn/V2"
 
 const baseUrl =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV !== "production"
     ? "http://localhost:3006"
     : prodBaseUrl
 
@@ -51,7 +51,17 @@ export const updateById = async (id: string, data: Post) => {
   }
 }
 
-/** 从leancloud 提取喜欢*/
-export const getLikeAndFav = () => { }
 
-/** 从leancloud 提取 */
+export enum FavType {
+  likes = 'likes',
+  visitors = "visitors",
+}
+
+/** 添加访客或者喜欢*/
+export const getLikeAndFav = async (id: number | string, type: FavType = FavType.visitors) => {
+  return await axios({
+    url: `${baseUrl}/post/updateLike`,
+    method: "get",
+    params: { id, type }
+  })
+}

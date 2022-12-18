@@ -38,7 +38,7 @@
           <span class="leancloud_likes">
             <i class="iconfont icon-collection"></i>
             喜欢
-            <i>{{ post?.likes}}</i>
+            <i>{{ post?.likes }}</i>
           </span>
         </p>
       </div>
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, PropType } from "vue";
+import { PropType } from "vue";
 import { homeThumbnail } from "../utils/img";
 import dayjs from "dayjs";
 const props = defineProps({
@@ -58,12 +58,9 @@ const props = defineProps({
   },
 });
 
-const titleWithLikes = reactive<Record<string, { likes: number, visitors: number, url: string }>>({
 
-})
 
-onMounted(() => {
-})
+
 const target = '_self';
 
 const dateFormat = (date: string | undefined | Date) => {
@@ -72,8 +69,8 @@ const dateFormat = (date: string | undefined | Date) => {
 };
 
 const toLink = (post: Post) => {
-  const { path, date } = post;
-  return `/${dayjs(date).format("YYYY/MM/DD")}/${path}/`;
+  const { path } = post;
+  return path
 };
 
 const toEdit = (post: Post) => {

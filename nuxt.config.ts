@@ -4,9 +4,8 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: [],
-  // css: ["@/assets/css/tailwind.css"],
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
+    // pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: "孤人独影",
       link: [
@@ -18,9 +17,6 @@ export default defineNuxtConfig({
       ],
       script: [
         { src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3" },
-        {
-          src: "/js/av-min.js"
-        }
       ],
       meta: [
         {

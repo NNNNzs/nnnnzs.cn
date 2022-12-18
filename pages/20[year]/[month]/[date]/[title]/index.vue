@@ -11,9 +11,9 @@
         <i class="iconfont  icon-tag-fill"></i>
         <span>{{ post.tags }}</span>
         <i class="iconfont  icon-eye"></i>
-        <span>热度:{{ meta.visitors }}</span>
+        <span>热度:{{ post.visitors }}</span>
         <i class="iconfont  icon-collection"></i>
-        <span @click="addLike">喜欢:{{ meta.likes }}</span>
+        <span @click="addLike">喜欢:{{ post.likes }}</span>
       </div>
       <div class="full text-slate-700">
         <MdEditor editor-id="post-editor" class="text-slate-700" :showCodeRowNumbe="true" preview-theme="cyanosis"
@@ -25,13 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { getPostById } from '@/api/post'
+import { getPostById, getLikeAndFav, FavType } from '@/api/post'
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import dayjs from "dayjs";
 
-
-let AV, Query, object, query;
 
 const route = useRoute();
 const { params } = route;
@@ -39,11 +37,7 @@ const title = params.title as string
 useHead({
   title: title
 })
-const meta = reactive({
-  visitors: 0,
-  likes: 0,
-  objectId: ''
-});
+
 
 const post = reactive<Post>({
   title: '',
@@ -54,6 +48,9 @@ const post = reactive<Post>({
   date: "",
   updated: "",
   description: "",
+
+  visitors: 0,
+  likes: 0,
 });
 
 const { data } = await useAsyncData('post', async () => {
@@ -66,34 +63,23 @@ Object.assign(post, data.value);
 
 
 
-onMounted(() => {
-  Query = window.AV.Query
-  object = window.AV.Object;
-  query = new Query("Counter");
-
-  query.equalTo('title', title).first().then(t => {
-    meta.visitors = t?.get('visitors');
-    meta.likes = t?.get('likes');
-    meta.objectId = t?.get('objectId');
-    addVisitor()
-  });
-
-});
-
 const addVisitor = () => {
-  const post = object.createWithoutData('Counter', meta.objectId);
-  post.increment('visitors', 1)
-  post.save();
-  meta.visitors++
+  if (post.id) {
+    getLikeAndFav(post.id, FavType.visitors)
+    post.visitors++
+  }
 }
 
 const addLike = () => {
-  const post = object.createWithoutData('Counter', meta.objectId);
-  post.increment('likes', 1)
-  post.save();
-  meta.likes++
+  if (post.id) {
+    getLikeAndFav(post.id, FavType.likes)
+    post.likes++
+  }
 }
 
+onMounted(() => {
+  addVisitor()
+})
 </script>
 <style scoped>
 .meta .iconfont {
