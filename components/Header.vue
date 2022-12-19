@@ -25,7 +25,7 @@ onMounted(() => {
     container: '#docsearch',
     appId: '8NXIJXZLWR',
     indexName: 'blog2',
-    apiKey: 'fb4dd9705d4f33de5eac9fba380b61a7',
+    apiKey: '951bc176ffb23d41266456cc81baf396',
   });
 });
 
