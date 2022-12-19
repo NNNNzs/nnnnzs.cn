@@ -5,7 +5,9 @@
 <script lang="ts" setup>
 useHead({
   titleTemplate: (title) => `${title} | NNNNzs`,
-  meta: [{ name: "description", content: "My amazing site." }],
+  meta: [
+    { name: "author", content: "NNNNzs" }
+  ],
 });
 </script>
 

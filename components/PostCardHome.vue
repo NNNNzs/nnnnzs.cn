@@ -18,7 +18,7 @@
           <a :href="toLink(post)" class="WenYueQingLongTi" :title="post.title" :target="target">
             {{ post.title }}
           </a>
-          <a style="margin-left:10px" :href="toEdit(post)" :target="target">编辑</a>
+          <!-- <a style="margin-left:10px" :href="toEdit(post)" :target="target">编辑</a> -->
         </h2>
         <span v-for="tag in post.tags.split(',')" :key="tag">
           <a :href="`/tags/${tag}/`" :target="target">

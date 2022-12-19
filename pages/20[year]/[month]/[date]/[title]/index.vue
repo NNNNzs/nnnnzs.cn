@@ -34,9 +34,8 @@ import dayjs from "dayjs";
 const route = useRoute();
 const { params } = route;
 const title = params.title as string
-useHead({
-  title: title
-})
+// useHead({
+// })
 
 
 const post = reactive<Post>({
@@ -49,10 +48,11 @@ const post = reactive<Post>({
   updated: "",
   description: "",
 
+  hide: '0',
   visitors: 0,
   likes: 0,
 });
-
+const router = useRouter()
 const { data } = await useAsyncData('post', async () => {
   return await getPostById(title);
 })
@@ -60,7 +60,16 @@ const fomat = (t: string | Date) => {
   return dayjs(t).format('YYYY-MM-DD HH:mm')
 }
 Object.assign(post, data.value);
-
+if (!post.title) {
+  router.push('/404')
+}
+useHead({
+  title: title,
+  meta: [
+    { name: 'keywords', content: post.tags + ',' + post.description },
+    { name: 'description', content: post.description }
+  ]
+})
 
 
 const addVisitor = () => {

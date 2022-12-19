@@ -1,5 +1,5 @@
 <template>
-  <PostDetail />
+  <PostEdit />
 </template>
 
 <script setup lang="ts">
