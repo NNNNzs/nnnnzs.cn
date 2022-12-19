@@ -33,22 +33,22 @@ export const getPostById = async (id: number | string) => {
   }
 }
 
-export const updateById = async (id: string, data: Post) => {
-  if (id === "edit") {
-    const res: PostRes = await axios({
-      url: `${baseUrl}/post/${id}`,
-      method: "put",
-      data
-    })
-    return res
-  } else {
-    const res: PostRes = await axios({
-      url: `${baseUrl}/post/${id}`,
-      method: "put",
-      data
-    })
-    return res
-  }
+export const updateById = async (id: string, data: PostEdit) => {
+  const res: PostRes = await axios({
+    url: `${baseUrl}/post/${id}`,
+    method: "put",
+    data
+  })
+  return res
+}
+
+export const createPost = async (data: PostEdit) => {
+  const res: PostRes = await axios({
+    url: `${baseUrl}/post/`,
+    method: "post",
+    data
+  })
+  return res
 }
 
 

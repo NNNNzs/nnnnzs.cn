@@ -1,7 +1,7 @@
 <template>
   <div class="full padding-8 editor">
     <ClientOnly>
-      <ElForm :model="post" inline class="form" :rules="rules">
+      <ElForm :model="post" inline class="form" :rules="rules" :label-width="80">
         <div>
           <ElFormItem label="标题" prop="title">
             <ElInput v-model="post.title"></ElInput>
@@ -18,11 +18,16 @@
           <ElFormItem label="更新日期" prop="updated">
             <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
           </ElFormItem>
-          <ElFormItem prop="cover">
-            <ElButton @click="genDescription">生成描述</ElButton>
-            <ElButton @click="genCover">生成背景</ElButton>
-            <ElButton @click="saveMeta">保存</ElButton>
+
+          <ElFormItem label="发布" prop="hide">
+            <ElRadioGroup v-model="post.hide">
+              <ElRadio label="0">是</ElRadio>
+              <ElRadio label="1">否</ElRadio>
+
+            </ElRadioGroup>
+            <!-- <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker> -->
           </ElFormItem>
+
         </div>
         <div>
           <ElFormItem label="描述" prop="description">
@@ -32,9 +37,14 @@
           <ElFormItem label="背景图" prop="cover">
             <ElInput style="width:600px" v-model="post.cover"></ElInput>
           </ElFormItem>
+          <ElFormItem prop="cover">
+            <ElButton @click="genDescription">生成描述</ElButton>
+            <ElButton @click="genCover">生成背景</ElButton>
+            <ElButton @click="saveMeta">保存</ElButton>
+          </ElFormItem>
         </div>
       </ElForm>
-      <MdEditor class="MdEditor" v-model="post.content"></MdEditor>
+      <MdEditor @save="saveMeta" class="MdEditor" v-model="post.content"></MdEditor>
     </ClientOnly>
 
   </div>
@@ -44,8 +54,8 @@
 <script setup name="edit" lang="ts">
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { getPostById, updateById } from '@/api/post'
-import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage } from 'element-plus';
+import { getPostById, updateById, createPost } from '@/api/post'
+import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 
 const props = defineProps({
@@ -70,15 +80,16 @@ const rules = {
   title: { required: true },
 }
 
-const post = reactive<Post>({
+const post = reactive<PostEdit>({
   title: '',
   path: '',
   content: '',
   cover: '',
   tags: "",
-  date: "",
+  date: new Date(),
   description: "",
   updated: new Date(),
+  hide: ''
 });
 
 
@@ -88,17 +99,26 @@ onMounted(() => {
   })
 })
 
-
-
+const router = useRouter()
 const saveMeta = () => {
-  updateById(id, post).then(res => {
-    if (res.data.status) {
-      ElMessage.success('保存成功');
-      getPostById(id as string).then(data => {
-        Object.assign(post, data);
-      })
-    }
-  })
+  if (id === 'edit') {
+    createPost(post).then(res => {
+      if (res.data.status) {
+        ElMessage.success('保存成功');
+        const id = res.data.data.id;
+        router.replace(`/edit/${id}`)
+      }
+    })
+  } else {
+    updateById(id + '', post).then(res => {
+      if (res.data.status) {
+        ElMessage.success('保存成功');
+        getPostById(id as string).then(data => {
+          Object.assign(post, data);
+        })
+      }
+    })
+  }
 }
 
 const genDescription = () => {
@@ -109,9 +129,11 @@ const genCover = () => {
   post.cover = `https://static.nnnnzs.cn/bing/${dayjs(post.date).format('YYYYMMDD')}.png`
 }
 
-useHead({
-  title: `编辑 | ${post.title}`,
-});
+watchEffect(() => {
+  useHead({
+    title: `编辑 | ${post.title}`,
+  });
+})
 
 </script>
 

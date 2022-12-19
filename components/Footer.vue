@@ -22,8 +22,7 @@
     <div class="copyright text-center">
       <p>©2021 - {{ YEAR }}, content by NNNNzs. All Rights Reserved.</p>
       <p>
-        <a href="https://v3.cn.vuejs.org/" target="_blank">Vue3 </a>
-        <a href="https://vitejs.cn/">Vite</a>
+        <a href="https://nuxtjs.com/" target="_blank">Nuxt3 </a>
       </p>
       <p>
         <a href="https://beian.miit.gov.cn" target="_blank">皖ICP备16025009号-1</a>
