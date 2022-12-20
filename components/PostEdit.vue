@@ -1,7 +1,7 @@
 <template>
   <div class="full padding-8 editor">
     <ClientOnly>
-      <ElForm :model="post" inline class="form" :rules="rules" :label-width="80">
+      <ElForm :model="post" inline class="form" :rules="rules" :label-width="70">
         <div>
           <ElFormItem label="标题" prop="title">
             <ElInput v-model="post.title"></ElInput>
@@ -35,7 +35,13 @@
           </ElFormItem>
 
           <ElFormItem label="背景图" prop="cover">
-            <ElInput style="width:600px" v-model="post.cover"></ElInput>
+            <ElInput style="width:320px" v-model="post.cover"></ElInput>
+          </ElFormItem>
+          <ElFormItem label="访客数" prop="visitors">
+            <ElInputNumber controls-position="right" v-model="post.visitors"></ElInputNumber>
+          </ElFormItem>
+          <ElFormItem label="点赞" prop="likes">
+            <ElInputNumber controls-position="right" v-model="post.likes"></ElInputNumber>
           </ElFormItem>
           <ElFormItem prop="cover">
             <ElButton @click="genDescription">生成描述</ElButton>
@@ -55,7 +61,7 @@
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import { getPostById, updateById, createPost } from '@/api/post'
-import { ElInput, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
+import { ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 
 const props = defineProps({
@@ -80,16 +86,19 @@ const rules = {
   title: { required: true },
 }
 
-const post = reactive<PostEdit>({
+const post = reactive<Post>({
   title: '',
   path: '',
+  oldTitle: '',
   content: '',
   cover: '',
   tags: "",
   date: new Date(),
   description: "",
   updated: new Date(),
-  hide: ''
+  hide: '',
+  likes: 0,
+  visitors: 0
 });
 
 
@@ -101,6 +110,8 @@ onMounted(() => {
 
 const router = useRouter()
 const saveMeta = () => {
+  const { path, oldTitle } = genPath(post)
+  Object.assign(post, { path, oldTitle })
   if (id === 'edit') {
     createPost(post).then(res => {
       if (res.data.status) {

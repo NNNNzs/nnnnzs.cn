@@ -117,7 +117,7 @@ const hasDialog = ref(false);
 const showDrawer = ref(false);
 const showLoading = ref(false);
 const uploadText = ref<number>(0);
-const actionUrl = ref('http://localhost:3002/upload');
+const actionUrl = ref('https://api.nnnnzs.cn/api/upload');
 const baseUrl = actionUrl.value
 
 const { copy } = useClipboard()
