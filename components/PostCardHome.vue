@@ -1,12 +1,12 @@
 <template>
-  <ul class="">
+  <ul >
     <li v-for="(post, index) in posts" :key="post.title" @click="handlePostClick(post)" :id="`post_${post.id}`"
       class="post flex flex-col m-auto w-10/12 lg:w-5/6 md:w-10/12 max-w-screen-lg bg-white  transition-all duration-500 ease-in-out"
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse',
-      previewId === post.id ? 'fixedCard fixed overflow-auto !w-screen h-screen left-0 top-0 right-0 z-10 ' : 'p-2 my-8']">
+      previewId === post.id ? 'fixed fixedCard overflow-auto !w-screen h-screen left-0 top-0 right-0 z-10 ' : 'my-8']">
       <a class="post-cover w-full lg:w-3/5 text-center" :target="target" :href="toLink(post)" :title="post.title">
-        <img class="w-full max-h-96 h-auto rounded-b-none lg:rounded-xl hover:shadow-2xl"
-          :src="homeThumbnail(post.cover)" :data-src="homeThumbnail(post.cover)" />
+        <img class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl" :src="homeThumbnail(post.cover)"
+          :data-src="homeThumbnail(post.cover)" />
       </a>
 
       <div
@@ -95,7 +95,7 @@ const handlePostClick = (post: Post) => {
   // 初次
   if (previewId.value === '') {
     previewId.value = post.id;
-    lock.value = true;
+    // lock.value = true;
     if (!contentMap[post.id]) {
       getPostById(post.id).then(res => {
         if (post.id && res?.content) {
@@ -123,9 +123,10 @@ const toEdit = (post: Post) => {
 </script>
 
 <style lang="less">
-
 .post {
-  transition: left 5s linear 0, width 2s linear 3s;
+  // transition:left 5s linear 0s,top 5s linear 0,width 2s linear 3s;
+  transition: height 100ms linear 100ms, width 300ms linear 0s, left 300ms linear 1s, top 300ms linear 1s, ;
+  // border-radius: 3em;
 }
 
 .post-content,

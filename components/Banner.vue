@@ -1,6 +1,6 @@
 <template>
   <Header></Header>
-  <header class="banner relative h-screen bg-fixed bg-cover flex justify-center items-center" :style="bannerStyle">
+  <div class="banner relative h-screen bg-fixed bg-cover flex justify-center items-center" :style="bannerStyle">
     <div class="antialiased text-2xl WenYueQingLongTi text-white">
       <p class="mb-20">{{ oneText.hitokoto }}</p>
       <p class="text-center" v-if="Boolean(oneText.from)">
@@ -10,7 +10,7 @@
     <div @click="scrollIntoPost" class="animate-bounce absolute left-0 right-0 bottom-1 text-center cursor-pointer">
       <i class="iconfont icon-paper-plane text-4xl text-white w-4 h-4"></i>
     </div>
-  </header>
+  </div>
 </template>
 
 <script lang="ts" setup>
