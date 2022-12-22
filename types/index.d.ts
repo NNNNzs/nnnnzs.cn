@@ -11,7 +11,7 @@ type PostMeta = {
 type PartialKey<T extends Object, K extends keyof T> = (Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>)
 
 type Post = {
-  id?: string | number
+  id: string | number
   title: string
   oldTitle?: string
   path: string

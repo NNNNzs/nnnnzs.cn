@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout>
         <Banner :cover="post?.cover"></Banner>
-        <div id="post" class="center text-left lg:w-3/5 sm:w-full md:w-3/5 m-auto border-l-fuchsia-900">
+        <div id="post" class="center text-left lg:w-3/5 sm:w-full md:w-3/5 m-auto border-l-fuchsia-900 p-8">
             <div class="m-auto   mb4">
                 <h1 class="text-center my-4 text-4xl WenYueQingLongTi">{{ title }}</h1>
             </div>

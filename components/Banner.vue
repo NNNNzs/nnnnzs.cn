@@ -7,7 +7,7 @@
         {{ oneText.from }}-{{ oneText.creator }}
       </p>
     </div>
-    <div @click="scrollIntoPost" class="absolute left-0 right-0 bottom-1 text-center cursor-pointer">
+    <div @click="scrollIntoPost" class="animate-bounce absolute left-0 right-0 bottom-1 text-center cursor-pointer">
       <i class="iconfont icon-paper-plane text-4xl text-white w-4 h-4"></i>
     </div>
   </header>
