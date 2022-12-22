@@ -79,3 +79,9 @@ const toEdit = (post: Post) => {
 }
 
 </script>
+
+<style lang="less">
+.post-content {
+    word-break: break-all;
+}
+</style>
