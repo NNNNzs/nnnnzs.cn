@@ -1,10 +1,10 @@
 <template>
-  <ul class="transition-all duration-500">
+  <ul class="">
     <li v-for="(post, index) in posts" :key="post.title" @click="handlePostClick(post)" :id="`post_${post.id}`"
-      class="post flex m-auto w-11/12 lg:w-5/6 md:w-10/12 flex-col max-w-screen-lg bg-white transition-all duration-500 ease-in-out"
+      class="post flex flex-col m-auto w-10/12 lg:w-5/6 md:w-10/12 max-w-screen-lg bg-white  transition-all duration-500 ease-in-out"
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse',
-      previewId === post.id ? 'fixed w-screen h-screen left-0 top-0 right-0 z-10 fixedCard' : 'p-2 my-8 ']">
-      <a class="post-cover w-full lg:w-3/5 text-center  " :target="target" :href="toLink(post)" :title="post.title">
+      previewId === post.id ? 'fixedCard fixed overflow-auto !w-screen h-screen left-0 top-0 right-0 z-10 ' : 'p-2 my-8']">
+      <a class="post-cover w-full lg:w-3/5 text-center" :target="target" :href="toLink(post)" :title="post.title">
         <img class="w-full max-h-96 h-auto rounded-b-none lg:rounded-xl hover:shadow-2xl"
           :src="homeThumbnail(post.cover)" :data-src="homeThumbnail(post.cover)" />
       </a>
@@ -28,8 +28,12 @@
             </a>
           </span>
         </div>
-        <p class="post-content text-gray-500 leading-10">
+        <p class="post-description text-gray-500 leading-10">
           {{ post?.description }}
+        </p>
+        <p class="post-content text-gray-500 leading-10">
+          <MdEditor editor-id="post-editor" preview-theme="cyanosis" v-model="contentMap[post.id]" :previewOnly="true">
+          </MdEditor>
         </p>
         <p class="post-meta">
           <span class="leancloud_visitors my-6" id="/2021/09/12/吾爱吾师-吾更爱真理/_visitors">
@@ -54,6 +58,10 @@
 import { PropType } from "vue";
 import { homeThumbnail } from "../utils/img";
 import dayjs from "dayjs";
+import { getPostById } from "~~/api/post";
+import MdEditor from 'md-editor-v3';
+import { breakpointsTailwind } from '@vueuse/core'
+
 const props = defineProps({
   posts: {
     type: Array as PropType<Post[]>,
@@ -61,7 +69,7 @@ const props = defineProps({
   },
 });
 
-const contentMap = reactive({})
+const contentMap = reactive<Record<number | string, string>>({})
 
 const target = '_self';
 
@@ -72,16 +80,33 @@ const dateFormat = (date: string | undefined | Date) => {
 
 const previewId = ref<string | number>('')
 
+let lock = ref(false);
+let breakpoints: any
+onMounted(() => {
+  lock = useScrollLock(document.body);
+  breakpoints = useBreakpoints(breakpointsTailwind);
+})
 
 const handlePostClick = (post: Post) => {
-  const domScrollLock = useScrollLock(document.body);
-  if (previewId.value === post.id) {
-    domScrollLock.value = false;
-    previewId.value = ''
 
-  } else {
+  if (breakpoints.greater('lg').value) {
+    return false;
+  }
+  // 初次
+  if (previewId.value === '') {
     previewId.value = post.id;
-    domScrollLock.value = true;
+    lock.value = true;
+    if (!contentMap[post.id]) {
+      getPostById(post.id).then(res => {
+        if (post.id && res?.content) {
+          contentMap[post.id] = res?.content
+        }
+      })
+    }
+  } else if (previewId.value === post.id) {
+    // 退出
+    lock.value = false;
+    previewId.value = ''
   }
 }
 
@@ -98,17 +123,32 @@ const toEdit = (post: Post) => {
 </script>
 
 <style lang="less">
-.post-content {
+
+.post {
+  transition: left 5s linear 0, width 2s linear 3s;
+}
+
+.post-content,
+.post-description {
   word-break: break-all;
 }
 
+.post-content {
+  display: none;
+}
+
 .fixedCard {
-  .post-text {
-    height: 100%;
-  }
 
   .post-meta {
     display: none;
+  }
+
+  .post-description {
+    display: none;
+  }
+
+  .post-content {
+    display: block;
   }
 }
 </style>

@@ -35,6 +35,7 @@ const { params } = route;
 const title = params.title as string
 
 const post = reactive<Post>({
+    id: '',
     title: '',
     path: '',
     content: '',
@@ -98,7 +99,5 @@ onMounted(() => {
 .meta span {
     margin-right: 2em;
 }
-
-
 </style>
   
