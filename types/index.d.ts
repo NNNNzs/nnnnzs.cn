@@ -1,3 +1,4 @@
+import type { AxiosResponse } from "axios"
 type PostMeta = {
   title: string
   date: string
@@ -8,7 +9,11 @@ type PostMeta = {
   disable?: boolean
   keywords?: string
 }
-type PartialKey<T extends Object, K extends keyof T> = (Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>)
+type PartialKey<T extends Object, K extends keyof T> = Pick<
+  T,
+  Exclude<keyof T, K>
+> &
+  Partial<Pick<T, K>>
 
 type Post = {
   id: string | number
@@ -28,7 +33,7 @@ type Post = {
   url?: string
 }
 
-type PostEdit = PartialKey<Post, 'likes' | 'visitors'>
+type PostEdit = PartialKey<Post, "likes" | "visitors">
 
 interface HitokotoData {
   creator: string

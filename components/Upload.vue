@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <div id="upload" class="w-screen h-screen flex justify-center items-center">
-      <ElUpload :action="actionUrl" multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
+      <ElUpload action="" multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
         :http-request="customRequest" :show-file-list="false">
         <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
         <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
@@ -64,13 +64,14 @@
   </ClientOnly>
 
 </template>
-,
+
 <script lang="ts" setup>
 import { Ref } from 'vue-demi'
 import axios, { AxiosResponse } from "axios";
 import RecentUpload, { UploadInfo } from "@/utils/hooks/RecentUpload"
 import { Close } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
+import { upload } from '@/api/fs'
 import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, UploadRequestHandler, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
 let rencetUploadList: Ref<UploadInfo[]> = ref([])
 let recentUpload: any;
@@ -319,30 +320,8 @@ const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: numbe
  * @param blob
  * @description 通过后端接口上传的cos
  */
-const handleUpload = (blob: Blob) => {
-  const formData = new FormData();
-  formData.append("inputFile", blob);
-  return new Promise<string>((resolve, reject) => {
-    axios({
-      url: baseUrl,
-      method: "post",
-      data: formData,
-      onUploadProgress: ({ loaded, total }) => {
-        console.log(loaded, total);
-      },
-    })
-      .then((res: AxiosResponse<{ code: number; data: unknown; url: string }>) => {
-        const { code, data, url } = res.data;
-        if (code == 200) {
-          resolve(url);
-        } else {
-          reject(res);
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+const handleUpload = async (blob: Blob) => {
+  return await upload(blob)
 };
 
 const customRequest = (opt: UploadRequestOptions) => {
@@ -353,34 +332,19 @@ const customRequest = (opt: UploadRequestOptions) => {
 
   const addTime = new Date().getTime();
   showLoading.value = true;
-  return axios({
-    url: actionUrl.value,
-    method: "post",
-    data: formData,
-    onUploadProgress: ({ loaded, total = 0 }) => {
-      uploadText.value = Math.ceil((loaded / total) * 100);
-      console.log({ percent: Math.ceil((loaded / total) * 100) });
-    },
-  })
-    .then((res) => {
-      showLoading.value = false;
-      uploadText.value = 0;
 
-      const { code, data, url } = res.data;
-      if (code == 200) {
-        recentUpload.add({
-          addTime,
-          alisa: "",
-          url,
-          mime: type || "",
-          origin: "主动上传",
-          fileName: name,
-        });
-        doCopy(url);
-      }
-    })
-    .catch((error) => {
+  return upload(file).then(url => {
+    recentUpload.add({
+      addTime,
+      alisa: "",
+      url,
+      mime: type || "",
+      origin: "主动上传",
+      fileName: name,
     });
+    doCopy(url);
+  })
+
 };
 
 /**
