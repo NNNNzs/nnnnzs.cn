@@ -1,4 +1,4 @@
-type PostMeta = {
+declare type PostMeta = {
   title: string
   date: string
   tags: string[]
@@ -8,9 +8,9 @@ type PostMeta = {
   disable?: boolean
   keywords?: string
 }
-type PartialKey<T extends Object, K extends keyof T> = (Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>)
+declare type PartialKey<T extends Object, K extends keyof T> = (Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>)
 
-type Post = {
+declare type Post = {
   id: string | number
   title: string
   oldTitle?: string
@@ -28,9 +28,9 @@ type Post = {
   url?: string
 }
 
-type PostEdit = PartialKey<Post, 'likes' | 'visitors'>
+declare type PostEdit = PartialKey<Post, 'likes' | 'visitors'>
 
-interface HitokotoData {
+declare interface HitokotoData {
   creator: string
   from: string
   hitokoto: string
