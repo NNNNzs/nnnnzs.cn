@@ -5,7 +5,7 @@ declare interface QueryCondition {
 }
 
 /** 分页响应参数 */
-interface QueryRes<T> extends QueryCondition {
+declare interface QueryRes<T> extends QueryCondition {
     record: T[] | null
     total: number
 }

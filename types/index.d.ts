@@ -1,3 +1,4 @@
+import type { AxiosResponse } from "axios"
 declare type PostMeta = {
   title: string
   date: string
@@ -28,7 +29,7 @@ declare type Post = {
   url?: string
 }
 
-declare type PostEdit = PartialKey<Post, 'likes' | 'visitors'>
+type PostEdit = PartialKey<Post, "likes" | "visitors">
 
 declare interface HitokotoData {
   creator: string
