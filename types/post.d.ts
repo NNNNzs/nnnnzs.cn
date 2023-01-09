@@ -1,4 +1,4 @@
-import type { AxiosResponse } from "axios"
+/** 文章元数据 */
 declare type PostMeta = {
   title: string
   date: string
@@ -9,9 +9,13 @@ declare type PostMeta = {
   disable?: boolean
   keywords?: string
 }
-declare type PartialKey<T extends Object, K extends keyof T> = (Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>)
+declare type PartialKey<T extends Object, K extends keyof T> = Pick<
+  T,
+  Exclude<keyof T, K>
+> &
+  Partial<Pick<T, K>>
 
-declare type Post = {
+declare interface Post {
   id: string | number
   title: string
   oldTitle?: string
@@ -29,12 +33,10 @@ declare type Post = {
   url?: string
 }
 
-type PostEdit = PartialKey<Post, "likes" | "visitors">
+declare type PostEdit = PartialKey<Post, "likes" | "visitors">
 
 declare interface HitokotoData {
   creator: string
   from: string
   hitokoto: string
 }
-
-// export {}

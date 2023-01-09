@@ -51,14 +51,25 @@ export const createPost = async (data: PostEdit) => {
   return res
 }
 
+/** 删除文章 */
+export const deletePost = async (id) => {
+  const res: PostRes = await axios({
+    url: `${baseUrl}/post/${id}`,
+    method: "delete"
+  })
+  return res
+}
 
 export enum FavType {
-  likes = 'likes',
-  visitors = "visitors",
+  likes = "likes",
+  visitors = "visitors"
 }
 
 /** 添加访客或者喜欢*/
-export const getLikeAndFav = async (id: number | string, type: FavType = FavType.visitors) => {
+export const getLikeAndFav = async (
+  id: number | string,
+  type: FavType = FavType.visitors
+) => {
   return await axios({
     url: `${baseUrl}/post/updateLike`,
     method: "get",
