@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { ElTable, ElTableColumn, ElButton, ElPagination } from 'element-plus'
 import { getPostList, deletePost } from '@/api/post';
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 useHead({
   link: [
     {
