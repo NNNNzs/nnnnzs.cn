@@ -25,7 +25,7 @@ The preview command starts a server to preview your Nuxt application after runni
 - [ ] 解决搜索无法展现的问题 优先级 3
 - [x] 新增创建文章的功能 优先级 1
 - [ ] 解决文章链接同步的问题 优先级 2
-- [ ] tags页面 archives 页面
+- [ ] tags页面 archives 页面 优先级 1
 
 # 这一次终于真的要写博客了
 

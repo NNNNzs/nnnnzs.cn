@@ -7,8 +7,9 @@ const baseUrl =
     ? "http://localhost:3006"
     : prodBaseUrl
 
-type PostList = AxiosResponse<ResponeBody<QueryRes<Post>>>
-type PostRes = AxiosResponse<ResponeBody<Post>>
+type AxiosRes<T> = AxiosResponse<ResponeBody<T>>
+type PostList = AxiosRes<QueryRes<Post>>
+type PostRes = AxiosRes<Post>
 
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
@@ -75,4 +76,17 @@ export const getLikeAndFav = async (
     method: "get",
     params: { id, type }
   })
+}
+export const getTags = async () => {
+  return await axios({
+    url: `${baseUrl}/post/tags`,
+    method: "get"
+  })
+}
+
+export const getListByTag = async (tag: string) => {
+  return (await axios({
+    url: `${baseUrl}/post/tags/${tag}`,
+    method: "get"
+  })) as AxiosRes<Post[]>
 }
