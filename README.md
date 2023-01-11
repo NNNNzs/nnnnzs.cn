@@ -22,10 +22,10 @@ The preview command starts a server to preview your Nuxt application after runni
 
 ### todo
 
-- [ ] 解决 learncloud 秘钥在正式环境问题 优先级 1
 - [ ] 解决搜索无法展现的问题 优先级 3
-- [ ] 新增创建文章的功能 优先级 1
+- [x] 新增创建文章的功能 优先级 1
 - [ ] 解决文章链接同步的问题 优先级 2
+- [ ] tags页面 archives 页面
 
 # 这一次终于真的要写博客了
 

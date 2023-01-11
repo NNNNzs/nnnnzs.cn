@@ -5,6 +5,11 @@
   </div>
 </template>
 <script setup lang="ts">
+onMounted(() => {
+  if (window.location.host === 'nnnnzs.cn' && window.location.protocol !== 'https://') {
+    window.location.href = 'https://www.nnnnzs.cn' + window.location.pathname
+  }
+})
 </script>
 
 <style>
