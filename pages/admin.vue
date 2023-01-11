@@ -32,7 +32,7 @@ useHead({
   link: [
     {
       rel: "stylesheet",
-      href: "//cdn.jsdelivr.net/npm/element-plus/dist/index.css"
+      href: "/css/element-plus.css"
     }
   ]
 })
@@ -78,11 +78,13 @@ const edit = (row: Post) => {
 
 }
 const handleDelete = (row: Post) => {
-  deletePost(row.id).then(res => {
-    if (res.data.status) {
-      getList()
-    }
-  })
+  if (row.id) {
+    deletePost(row.id).then(res => {
+      if (res.data.status) {
+        getList()
+      }
+    })
+  }
 }
 
 const getList = () => {

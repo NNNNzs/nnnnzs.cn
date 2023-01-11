@@ -16,7 +16,7 @@ declare type PartialKey<T extends Object, K extends keyof T> = Pick<
   Partial<Pick<T, K>>
 
 declare interface Post {
-  id: string | number
+  id?: string | number
   title: string
   oldTitle?: string
   path: string
@@ -32,6 +32,7 @@ declare interface Post {
   visitors: number
   url?: string
 }
+declare type EditPost = PartialKey<Post, "id">
 
 declare type PostEdit = PartialKey<Post, "likes" | "visitors">
 

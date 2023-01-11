@@ -79,7 +79,7 @@ useHead({
   link: [
     {
       rel: "stylesheet",
-      href: "//cdn.jsdelivr.net/npm/element-plus/dist/index.css"
+      href: "/css/element-plus.css"
     }
   ]
 })

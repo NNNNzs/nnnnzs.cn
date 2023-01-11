@@ -71,7 +71,7 @@ const props = defineProps({
 
 const contentMap = reactive<Record<number | string, string>>({})
 
-const target = '_self';
+const target = '_blank';
 
 const dateFormat = (date: string | undefined | Date) => {
   if (!date) return "";

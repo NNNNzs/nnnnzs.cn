@@ -16,7 +16,7 @@
           </ElFormItem>
 
           <ElFormItem label="更新日期" prop="updated">
-            <ElDatePicker type="datetime" v-model="post.updated"></ElDatePicker>
+            <ElDatePicker disabled type="datetime" v-model="post.updated"></ElDatePicker>
           </ElFormItem>
 
           <ElFormItem label="发布" prop="hide">
@@ -74,7 +74,7 @@ useHead({
   link: [
     {
       rel: "stylesheet",
-      href: "//cdn.jsdelivr.net/npm/element-plus/dist/index.css"
+      href: "/css/element-plus.css"
     }
   ]
 })

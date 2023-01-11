@@ -52,7 +52,7 @@ export const createPost = async (data: PostEdit) => {
 }
 
 /** 删除文章 */
-export const deletePost = async (id) => {
+export const deletePost = async (id: string | number) => {
   const res: PostRes = await axios({
     url: `${baseUrl}/post/${id}`,
     method: "delete"
