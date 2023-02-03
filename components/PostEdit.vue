@@ -50,7 +50,7 @@
           </ElFormItem>
         </div>
       </ElForm>
-      <MdEditor @save="saveMeta" class="MdEditor" v-model="post.content"></MdEditor>
+      <MdEditor @save="saveMeta" @onUploadImg="onUploadImg" class="MdEditor" v-model="post.content"></MdEditor>
     </ClientOnly>
 
   </div>
@@ -63,6 +63,7 @@ import 'md-editor-v3/lib/style.css';
 import { getPostById, updateById, createPost } from '@/api/post'
 import { ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
+import { upload } from '@/api/fs'
 
 const props = defineProps({
   id: {
@@ -139,6 +140,23 @@ const genDescription = () => {
 const genCover = () => {
   post.cover = `https://static.nnnnzs.cn/bing/${dayjs(post.date).format('YYYYMMDD')}.png`
 }
+
+const onUploadImg = async (files: Blob[], callback: (str: string[]) => string[]) => {
+console.log('on UploadImage')
+  const queue: Promise<string>[] = files.map(file => {
+    return new Promise((resolve, reject) => {
+      upload(file).then(res => {
+        resolve(res)
+      })
+        .catch((error: string) => {
+          reject(error)
+        })
+    })
+  });
+  const res = await Promise.all(queue)
+
+  callback(res);
+};
 
 watchEffect(() => {
   useHead({

@@ -7,9 +7,9 @@ const baseUrl =
     ? "http://localhost:3006"
     : prodBaseUrl
 
-type AxiosRes<T> = AxiosResponse<ResponeBody<T>>
-type PostList = AxiosRes<QueryRes<Post>>
-type PostRes = AxiosRes<Post>
+declare type AxiosRes<T> = AxiosResponse<ResponeBody<T>>
+declare type PostList = AxiosRes<QueryRes<Post>>
+declare type PostRes = AxiosRes<Post>
 
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
@@ -45,7 +45,7 @@ export const updateById = async (id: string, data: PostEdit) => {
 
 export const createPost = async (data: PostEdit) => {
   const res: PostRes = await axios({
-    url: `${baseUrl}/post/`,
+    url: `${baseUrl}/post/create`,
     method: "post",
     data
   })

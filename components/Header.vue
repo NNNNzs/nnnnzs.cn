@@ -38,7 +38,7 @@ const state = reactive({
   menu: [
     { name: "首页", path: "/" },
     { name: "分类", path: '/tags' },
-    { name: "新增", path: '/edit/edit', target: '_blank' },
+    // { name: "新增", path: '/edit/edit', target: '_blank' },
     // { name: "旅游", path: "/travel" },
     // { name: "动态", path: "/center" },
     // { name: "关于", path: "/about" },

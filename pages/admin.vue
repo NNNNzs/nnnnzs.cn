@@ -1,8 +1,16 @@
 <template>
   <ClientOnly>
-    <div class="full">
-      <div v-if="validatePass">
-        <ElTable :data="tableList">
+    <div class="h-screen flex flex-col">
+      <div class="h-8 flex flex-row justify-between">
+        <div>
+          <el-button @click="addPost">新增</el-button>
+        </div>
+        <div class="w-50">
+          <el-input v-model="query.query"></el-input>
+        </div>
+      </div>
+      <div style="height:calc(100% - 4em)" v-if="validatePass">
+        <ElTable :data="tableList" border height="100%">
           <ElTableColumn v-for="item in tableHeader" :key="item.prop" :label="item.prop" :prop="item.prop"
             :formatter="item.formatter || undefined">
           </ElTableColumn>
@@ -15,9 +23,8 @@
           </ElTableColumn>
         </ElTable>
       </div>
-      <div>
-        <ElPagination v-model:current-page="query.pageNum" v-model:page-size="query.pageSize" :total="query.total">
-        </ElPagination>
+      <div class="h-8">
+        <ElPagination v-model:current-page="query.pageNum" v-model:page-size="query.pageSize" :total="query.total" />
       </div>
     </div>
   </ClientOnly>
@@ -25,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { ElTable, ElTableColumn, ElButton, ElPagination } from 'element-plus'
+import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
 import { getPostList, deletePost } from '@/api/post';
 import dayjs from 'dayjs'
 useHead({
@@ -38,12 +45,14 @@ useHead({
 })
 interface Query extends QueryCondition {
   hide: string,
-  total: number
+  total: number,
+  query: string
 }
 const query = reactive<Query>({
   pageSize: 10,
   pageNum: 1,
   hide: 'all',
+  query: '',
   total: 0
 });
 const tableList = ref<Post[]>([])
@@ -75,7 +84,10 @@ const show = (row: Post) => {
 }
 const edit = (row: Post) => {
   window.open('/edit/' + row.id)
+}
 
+const addPost = () => {
+  window.open('/edit/edit')
 }
 const handleDelete = (row: Post) => {
   if (row.id) {
