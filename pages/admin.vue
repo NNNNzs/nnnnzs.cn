@@ -28,13 +28,29 @@
       </div>
     </div>
   </ClientOnly>
-
 </template>
 
 <script setup lang="ts">
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
 import { getPostList, deletePost } from '@/api/post';
 import dayjs from 'dayjs'
+
+const { data } = await useAsyncData('validate', async () => {
+  return await $fetch('/api/auth')
+})
+const router = useRouter()
+const validate = data.value.status
+if (!validate) {
+  onMounted(() => {
+    const cfm = window.confirm('您没有权限，是否跳转登录');
+    if (cfm) {
+      router.push('/auth')
+    } else {
+      window.close()
+    }
+  })
+}
+
 useHead({
   link: [
     {
@@ -42,7 +58,8 @@ useHead({
       href: "/css/element-plus.css"
     }
   ]
-})
+});
+
 interface Query extends QueryCondition {
   hide: string,
   total: number,
@@ -110,14 +127,14 @@ const getList = () => {
     }
   })
 }
-watchEffect(getList)
 onMounted(() => {
-  getList()
+  if (validate) {
+    getList()
+    watchEffect(getList)
+  }
 
 })
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
