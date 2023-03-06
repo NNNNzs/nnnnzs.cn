@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { baseUrl } from "@/utils/const"
+import { baseUrl } from "@/composables/baseUrl"
 declare type AxiosRes<T> = AxiosResponse<ResponeBody<T>>
 declare type PostList = AxiosRes<QueryRes<Post>>
 declare type PostRes = AxiosRes<Post>

@@ -24,7 +24,7 @@
         </ElTable>
       </div>
       <div class="h-8">
-        <ElPagination v-model:current-page="query.pageNum" v-model:page-size="query.pageSize" :total="query.total" />
+        <ElPagination v-model:current-page="query.pageNum" v-model:page-size="query.pageSize" :total="pageTotal" />
       </div>
     </div>
   </ClientOnly>
@@ -34,23 +34,10 @@
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
 import { getPostList, deletePost } from '@/api/post';
 import dayjs from 'dayjs'
-
-const { data } = await useAsyncData('validate', async () => {
-  return await $fetch('/api/auth')
-})
+const url = baseUrl + '/auth';
+const validatePass = ref(false);
 const router = useRouter()
-const validate = data.value.status
-if (!validate) {
-  onMounted(() => {
-    const cfm = window.confirm('您没有权限，是否跳转登录');
-    if (cfm) {
-      router.push('/auth')
-    } else {
-      window.close()
-    }
-  })
-}
-
+const route = useRoute()
 useHead({
   link: [
     {
@@ -62,7 +49,6 @@ useHead({
 
 interface Query extends QueryCondition {
   hide: string,
-  total: number,
   query: string
 }
 const query = reactive<Query>({
@@ -70,8 +56,8 @@ const query = reactive<Query>({
   pageNum: 1,
   hide: 'all',
   query: '',
-  total: 0
 });
+const pageTotal = ref(0)
 const tableList = ref<Post[]>([])
 
 const tableHeader = ref([
@@ -95,7 +81,6 @@ const tableHeader = ref([
   { prop: 'description', label: "描述" },
 ])
 
-const validatePass = ref(true);
 const show = (row: Post) => {
   window.open(row.path)
 }
@@ -120,19 +105,27 @@ const getList = () => {
   getPostList(query).then(res => {
     if (res) {
       const { record, total } = res;
-      query.total = total
+      pageTotal.value = total
       if (record) {
         tableList.value = record;
       }
     }
   })
 }
-onMounted(() => {
-  if (validate) {
-    getList()
+onMounted(async () => {
+  const res: { status: boolean } = await $fetch(url)
+  validatePass.value = res.status;
+  if (!validatePass.value) {
+    const cfm = window.confirm('您没有权限，是否跳转登录');
+    if (cfm) {
+      router.push(`/auth?redi=${route.fullPath}`)
+    } else {
+      // window.close()
+    }
+  } else {
+    // getList()
     watchEffect(getList)
   }
-
 })
 
 </script>

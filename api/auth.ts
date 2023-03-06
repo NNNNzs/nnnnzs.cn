@@ -1,6 +1,5 @@
 /** 授权获取token */
 export default defineEventHandler(async (event) => {
-  return {
-    res: true
-  }
+    const res = await $fetch(baseUrl + '/auth')
+    return res;
 })

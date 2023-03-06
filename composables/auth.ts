@@ -1,4 +1,1 @@
-export const useAuth = () => {
-
-  
-}
+export const useAuth = () => { }

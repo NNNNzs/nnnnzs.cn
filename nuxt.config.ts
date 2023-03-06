@@ -45,6 +45,15 @@ export default defineNuxtConfig({
       AlgoliasearchApiKey: process.env.AlgoliasearchApiKey
     }
   },
+  nitro: {
+    devProxy: {
+      '/api-remote': {
+        target: "http://localhost:3006/",
+        changeOrigin: true,
+        rewrite: (url: string) => url.replace('/api-remote', '')
+      }
+    }
+  },
   vite: {
     plugins: [
       Components({

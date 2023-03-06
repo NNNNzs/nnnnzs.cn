@@ -6,7 +6,7 @@
   </ClientOnly>
 </template>
 <script lang="ts" setup>
-import { ElLoading } from 'element-plus'
+import { ElLoading, ElButton, ElMessage } from 'element-plus'
 const loading = ref(false);
 useHead({
   link: [
@@ -17,7 +17,9 @@ useHead({
   ]
 });
 
-const perminss = () => {
+const router = useRouter()
+const perminss = async () => {
+
   if (loading.value) return false
   let times = 0;
   setInterval(() => {
@@ -26,12 +28,17 @@ const perminss = () => {
       loadingInstance.close()
     }
   }, 1000);
-  
+
   const loadingInstance = ElLoading.service({ target: 'container', fullscreen: true, text: '授权中' });
   loading.value = true;
-  $fetch('/api/getAuth').then(res => {
+  const url = baseUrl + '/getAuth'
+  $fetch(url, { method: 'post' }).then(res => {
     loading.value = false
     loadingInstance.close()
+    ElMessage.success('授权成功即将跳转');
+    setTimeout(() => {
+      router.go(-1)
+    }, 3000);
   })
 }
 </script>
