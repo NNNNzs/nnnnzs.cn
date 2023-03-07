@@ -1,16 +1,10 @@
 import axios, { AxiosResponse } from "axios"
-
-const prodBaseUrl = "https://api.nnnnzs.cn/V2"
-
-const baseUrl =
-  process.env.NODE_ENV !== "production"
-    ? "http://localhost:3006"
-    : prodBaseUrl
-
+import { baseUrl } from "@/composables/baseUrl"
 declare type AxiosRes<T> = AxiosResponse<ResponeBody<T>>
 declare type PostList = AxiosRes<QueryRes<Post>>
 declare type PostRes = AxiosRes<Post>
 
+/** 分页获取列表 */
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
     url: `${baseUrl}/post/list`,

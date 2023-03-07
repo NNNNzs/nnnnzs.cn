@@ -1,5 +1,5 @@
 <template>
-  <ul >
+  <ul>
     <li v-for="(post, index) in posts" :key="post.title" @click="handlePostClick(post)" :id="`post_${post.id}`"
       class="post flex flex-col m-auto w-10/12 lg:w-5/6 md:w-10/12 max-w-screen-lg bg-white  transition-all duration-500 ease-in-out"
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse',
@@ -51,7 +51,6 @@
       </div>
     </li>
   </ul>
-
 </template>
 
 <script lang="ts" setup>

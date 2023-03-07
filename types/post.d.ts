@@ -9,11 +9,6 @@ declare type PostMeta = {
   disable?: boolean
   keywords?: string
 }
-declare type PartialKey<T extends Object, K extends keyof T> = Pick<
-  T,
-  Exclude<keyof T, K>
-> &
-  Partial<Pick<T, K>>
 
 declare interface Post {
   id?: string | number
@@ -41,3 +36,7 @@ declare interface HitokotoData {
   from: string
   hitokoto: string
 }
+
+declare type PostList = AxiosRes<QueryRes<Post>>
+
+declare type PostRes = AxiosRes<Post>

@@ -10,18 +10,14 @@
 <script lang="ts" setup>
 import { getPostList } from '@/api/post'
 // import AV from 'leancloud-storage/core'
-
 const postList = ref<Post[]>([]);
 const params = reactive({
   pageNum: 1,
   pageSize: 20
 });
 
-
-
 const { data, pending } = await useAsyncData('homePageData', async ctx => {
-  let res = await getPostList(params)
-  return res;
+  return await getPostList(params)
 });
 
 const elRef = ref<HTMLElement | null>(null);
@@ -29,6 +25,7 @@ const elRef = ref<HTMLElement | null>(null);
 const patchLikes = () => {
 
 }
+console.log('data', data.value);
 if (data.value?.record) {
   postList.value = data.value.record;
   patchLikes();

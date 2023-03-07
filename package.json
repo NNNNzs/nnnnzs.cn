@@ -36,7 +36,6 @@
     "md-editor-v3": "^2.5.0",
     "unplugin-vue-components": "^0.22.11",
     "vue-instantsearch": "^4.6.0",
-    "vue-starport": "^0.3.0",
     "wordcloud": "^1.2.2"
   }
 }
