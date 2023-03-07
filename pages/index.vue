@@ -25,7 +25,6 @@ const elRef = ref<HTMLElement | null>(null);
 const patchLikes = () => {
 
 }
-console.log('data', data.value);
 if (data.value?.record) {
   postList.value = data.value.record;
   patchLikes();

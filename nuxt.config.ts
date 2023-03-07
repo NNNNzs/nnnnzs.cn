@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       ],
       script: [
         { src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3" },
-        { src: "/js/track.js" },
+        { src: "/js/track.js" }
       ],
       meta: [
         {
@@ -47,10 +47,11 @@ export default defineNuxtConfig({
   },
   nitro: {
     devProxy: {
-      '/api-remote': {
+      "/api-remote": {
         target: "http://localhost:3006/",
         changeOrigin: true,
-        rewrite: (url: string) => url.replace(/^\/api-remote/, '/')
+        prependPath: true
+        // rewrite: (url: string) => url.replace(/^\/api-remote/, '/')
       }
     }
   },
