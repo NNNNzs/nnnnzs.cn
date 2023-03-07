@@ -32,6 +32,7 @@ const perminss = async () => {
   const loadingInstance = ElLoading.service({ target: 'container', fullscreen: true, text: '授权中' });
   loading.value = true;
   const url = baseUrl + '/getAuth'
+<<<<<<< HEAD
   $fetch(url, { method: 'post' }).then((res: any) => {
     loading.value = false
     loadingInstance.close()
@@ -39,6 +40,11 @@ const perminss = async () => {
     console.log(token);
     token.value = res.data as string
 
+=======
+  $fetch(url, { method: 'post' }).then(res => {
+    loading.value = false
+    loadingInstance.close()
+>>>>>>> feac4b2a1b7c1ead4f9a3dd6effad9e667aa1c3a
     ElMessage.success('授权成功即将跳转');
     setTimeout(() => {
       router.go(-1)
