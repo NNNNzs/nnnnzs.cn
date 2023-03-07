@@ -12,6 +12,7 @@ specifiers:
   cross-env: ^7.0.3
   dayjs: ^1.11.6
   element-plus: ^2.2.26
+  heic2any: ^0.0.3
   leancloud-storage: ^4.13.4
   less: ^4.1.3
   md-editor-v3: ^2.5.0
@@ -28,6 +29,7 @@ dependencies:
   axios: 1.2.1
   dayjs: 1.11.7
   element-plus: 2.2.26
+  heic2any: 0.0.3
   leancloud-storage: 4.13.4
   less: 4.1.3
   md-editor-v3: 2.6.0
@@ -4157,6 +4159,10 @@ packages:
   /hash-sum/2.0.0:
     resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
     dev: true
+
+  /heic2any/0.0.3:
+    resolution: {integrity: sha512-1KG0LzZuIPiqyJjwLgGlgrgWd3UBwUE9g5+tOuHy8PbeH2hF0U4gc4ZWT4ChlCmcdISr1xVRimSehsTOPdRXnQ==}
+    dev: false
 
   /hogan.js/3.0.2:
     resolution: {integrity: sha512-RqGs4wavGYJWE07t35JQccByczmNUXQT0E12ZYV1VKYu5UiAU9lsos/yBAcf840+zrUQQxgVduCR5/B8nNtibg==}

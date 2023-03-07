@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <div id="upload" class="w-screen h-screen flex justify-center items-center">
-      <ElUpload action="" multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
+      <ElUpload action="#" multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
         :http-request="customRequest" :show-file-list="false">
         <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
         <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>

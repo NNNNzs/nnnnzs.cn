@@ -16,8 +16,8 @@
                 <span @click="addLike">喜欢:{{ post.likes }}</span>
             </div>
             <div class="full text-slate-700">
-                <MdEditor editor-id="post-editor" class="text-slate-700" :showCodeRowNumbe="true"
-                    preview-theme="cyanosis" v-model="post.content" :previewOnly="true"></MdEditor>
+                <MdEditor editor-id="post-editor" class="text-slate-700" :showCodeRowNumbe="true" preview-theme="cyanosis"
+                    v-model="post.content" :previewOnly="true"></MdEditor>
             </div>
         </div>
         <Footer />
@@ -88,7 +88,8 @@ const addLike = () => {
 }
 
 onMounted(() => {
-    addVisitor()
+    addVisitor();
+    useHeic2Any();
 })
 </script>
 <style scoped>
