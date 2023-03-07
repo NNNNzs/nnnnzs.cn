@@ -28,7 +28,7 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             cd ${{secrets.PATH}}
-            git pull 
+            git pull -f
             pnpm install 
             pnpm run build 
             npm run pm2
