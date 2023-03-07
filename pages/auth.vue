@@ -7,6 +7,7 @@
 </template>
 <script lang="ts" setup>
 import { ElLoading, ElButton, ElMessage } from 'element-plus'
+import axios from 'axios';
 const loading = ref(false);
 useHead({
   link: [
@@ -31,18 +32,20 @@ const perminss = async () => {
 
   const loadingInstance = ElLoading.service({ target: 'container', fullscreen: true, text: '授权中' });
   loading.value = true;
-  const url = baseUrl + '/getAuth'
-  $fetch(url, { method: 'post' }).then((res: any) => {
-    loading.value = false
-    loadingInstance.close()
-    const token = useCookie('N_token');
-    console.log(token);
-    token.value = res.data as string
+  const url = baseUrl + '/getAuth';
 
-    ElMessage.success('授权成功即将跳转');
-    setTimeout(() => {
-      router.go(-1)
-    }, 3000);
+  axios({
+    url: proxyUrl + '/getAuth',
+    method: 'post',
+    withCredentials: true,
   })
+    .then((res: any) => {
+      loading.value = false
+      loadingInstance.close()
+      ElMessage.success('授权成功即将跳转');
+      setTimeout(() => {
+        router.go(-1)
+      }, 3000);
+    })
 }
 </script>

@@ -34,6 +34,7 @@
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
 import { getPostList, deletePost } from '@/api/post';
 import dayjs from 'dayjs'
+import axios from 'axios';
 const validatePass = ref(false);
 const router = useRouter()
 const route = useRoute()
@@ -111,10 +112,14 @@ const getList = () => {
     }
   })
 }
+
 onMounted(async () => {
-  const url = baseUrl + '/auth';
-  const res: { status: boolean } = await $fetch(url)
-  validatePass.value = res.status;
+  const url = proxyUrl + '/auth';
+  const res: { data: { status: boolean } } = await axios({
+    url,
+    withCredentials: true
+  })
+  validatePass.value = res.data.status;
   if (!validatePass.value) {
     const cfm = window.confirm('您没有权限，是否跳转登录');
     if (cfm) {
@@ -123,7 +128,6 @@ onMounted(async () => {
       // window.close()
     }
   } else {
-    // getList()
     watchEffect(getList)
   }
 })

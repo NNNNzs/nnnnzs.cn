@@ -8,3 +8,7 @@ export const baseUrl =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3006"
     : prodBaseUrl
+
+export const realUrl = prodBaseUrl
+
+export const proxyUrl = "/api-remote"
