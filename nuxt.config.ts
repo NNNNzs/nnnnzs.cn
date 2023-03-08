@@ -55,6 +55,16 @@ export default defineNuxtConfig({
       }
     }
   },
+  routeRules: {
+    "/c/*": {
+      ssr: false,
+      headers: { "x-power-by-NNNNzs": "client-only" }
+    },
+    "/edit/*": {
+      ssr: false,
+      headers: { "x-power-by-NNNNzs": "client-only" }
+    }
+  },
   vite: {
     plugins: [
       Components({

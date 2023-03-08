@@ -27,6 +27,4 @@ if (data.value) {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

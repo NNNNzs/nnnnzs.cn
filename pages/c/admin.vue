@@ -85,11 +85,11 @@ const show = (row: Post) => {
   window.open(row.path)
 }
 const edit = (row: Post) => {
-  window.open('/edit/' + row.id)
+  window.open('/c/edit/' + row.id)
 }
 
 const addPost = () => {
-  window.open('/edit/edit')
+  window.open('/c/edit/edit')
 }
 const handleDelete = (row: Post) => {
   if (row.id) {
@@ -123,7 +123,7 @@ onMounted(async () => {
   if (!validatePass.value) {
     const cfm = window.confirm('您没有权限，是否跳转登录');
     if (cfm) {
-      router.push(`/auth?redi=${route.fullPath}`)
+      router.push(`/c/auth?redi=${route.fullPath}`)
     } else {
       // window.close()
     }
