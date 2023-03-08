@@ -31,5 +31,7 @@ jobs:
             git pull -f
             pnpm install 
             pnpm run build 
-            npm run pm2
+            pnpm run pm2
             pm2 list
+      - name: notice
+        run: curl ${{secrets.CURL_CMD}}
