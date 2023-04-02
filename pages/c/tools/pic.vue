@@ -4,7 +4,7 @@
     </div>
     <div class="w-1/5 h-full bg-blue-50 border m-auto">
       <div class="m-auto">
-        <ElUpload action="." :http-request="customHttp">
+        <ElUpload action="." :http-request="customHttp" :drag="true">
           <ElButton>上传</ElButton>
         </ElUpload>
         {{ gpsInfo }}
@@ -18,7 +18,7 @@ import { ElUpload, ElButton } from 'element-plus';
 import type { UploadRequestHandler } from 'element-plus';
 
 import Map from 'ol/Map.js';
-import { OSM, XYZ, TileWMS } from 'ol/source';
+import { OSM, XYZ, TileWMS, WMTS } from 'ol/source';
 import TileLayer from 'ol/layer/Tile.js';
 import View from 'ol/View.js';
 import { defaults as defaultControl, MousePosition, ScaleLine, ZoomToExtent, ZoomSlider } from 'ol/control'
@@ -38,6 +38,11 @@ onMounted(() => {
         source: new XYZ({
           url: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&size=1&scl=1&style=8&ltype=0',
         })
+
+        // source: new XYZ({
+        //   url: 'http://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={x}&TILECOL={-y}&tk=544953004314caf0e718284e47e52a4d'
+        // })
+
         // source: new TileWMS({
         //   url: 'https://wmts-service.pre-fc.alibaba-inc.com/amap/service/wms',
         //   params: {
@@ -69,7 +74,7 @@ const customHttp: UploadRequestHandler = (options) => {
   // options.file;
   console.log(options.file)
   // const info = exifr.parse(options.file)
-  exifr.gps(options.file).then(res => {
+  exifr.parse(options.file).then(res => {
     gpsInfo.value = res;
     const point = fromLonLat([res.longitude, res.latitude], 'EPSG:4326')
     // fromLonLat()

@@ -56,7 +56,11 @@ export default defineNuxtConfig({
     }
   },
   routeRules: {
-    "/c/*": {
+    "/c/tools/": {
+      ssr: false,
+      headers: { "x-power-by-NNNNzs": "client-only" }
+    },
+    "/c/**/*.vue": {
       ssr: false,
       headers: { "x-power-by-NNNNzs": "client-only" }
     },
