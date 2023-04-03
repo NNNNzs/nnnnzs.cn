@@ -38,19 +38,6 @@ onMounted(() => {
         source: new XYZ({
           url: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&size=1&scl=1&style=8&ltype=0',
         })
-
-        // source: new XYZ({
-        //   url: 'http://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={x}&TILECOL={-y}&tk=544953004314caf0e718284e47e52a4d'
-        // })
-
-        // source: new TileWMS({
-        //   url: 'https://wmts-service.pre-fc.alibaba-inc.com/amap/service/wms',
-        //   params: {
-        //     'LAYERS': 'map:shanghai',
-        //     VERSION: '1.1.0'
-        //   }
-        // })
-
       }),
     ],
     controls: defaultControl().extend([

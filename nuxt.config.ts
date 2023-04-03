@@ -1,6 +1,18 @@
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 
+console.log("process.env", process.env.NODE_ENV)
+
+const plugins =
+  process.env.NODE_ENV === "development"
+    ? [
+        Components({
+          dts: true,
+          resolvers: [ElementPlusResolver()]
+        })
+      ]
+    : []
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   css: [],
@@ -70,11 +82,9 @@ export default defineNuxtConfig({
     }
   },
   vite: {
-    plugins: [
-      Components({
-        dts: true,
-        resolvers: [ElementPlusResolver()]
-      })
-    ]
+    plugins
+  },
+  build:{
+    analyze: true
   }
 })
