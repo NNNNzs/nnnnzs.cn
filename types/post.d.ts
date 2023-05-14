@@ -11,7 +11,7 @@ declare type PostMeta = {
 }
 
 declare interface Post {
-  id?: string | number
+  id: string | number
   title: string
   oldTitle?: string
   path: string

@@ -6,11 +6,11 @@ console.log("process.env", process.env.NODE_ENV)
 const plugins =
   process.env.NODE_ENV === "development"
     ? [
-        Components({
-          dts: true,
-          resolvers: [ElementPlusResolver()]
-        })
-      ]
+      Components({
+        dts: true,
+        resolvers: [ElementPlusResolver()]
+      })
+    ]
     : []
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -46,15 +46,10 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002
   },
-  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss"],
+  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia"],
   runtimeConfig: {
     public: {
-      Leancloud_appId: process.env.Leancloud_appId,
-      Leancloud_appKey: process.env.Leancloud_appKey,
-      Leancloud_serverURL: process.env.Leancloud_serverURL,
       isDev: process.env.NODE_ENV !== "production",
-      AlgoliasearchAppId: process.env.AlgoliasearchAppId,
-      AlgoliasearchApiKey: process.env.AlgoliasearchApiKey
     }
   },
   nitro: {
@@ -84,7 +79,15 @@ export default defineNuxtConfig({
   vite: {
     plugins
   },
-  build:{
+  build: {
     analyze: true
+  },
+  algolia: {
+    apiKey: process.env.ALGOLIA_API_KEY,
+    applicationId: process.env.ALGOLIA_APP_ID,
+    // DocSearch key is used to configure DocSearch extension.
+    docSearch: {
+      indexName: 'blog2',
+    }
   }
 })
