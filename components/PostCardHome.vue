@@ -32,8 +32,10 @@
           {{ post?.description }}
         </p>
         <p class="post-content text-gray-500 leading-10">
-          <MdEditor editor-id="post-editor" preview-theme="cyanosis" v-model="contentMap[post.id]" :previewOnly="true">
-          </MdEditor>
+          <ClientOnly>
+            <MdEditor editor-id="post-editor" preview-theme="cyanosis" v-model="contentMap[post.id]" :previewOnly="true">
+            </MdEditor>
+          </ClientOnly>
         </p>
         <p class="post-meta">
           <span class="leancloud_visitors my-6" id="/2021/09/12/吾爱吾师-吾更爱真理/_visitors">
@@ -93,7 +95,7 @@ const handlePostClick = (post: Post) => {
   }
   // 初次
   if (previewId.value === '') {
-    previewId.value = post.id;
+    previewId.value = post.id as string
     // lock.value = true;
     if (!contentMap[post.id]) {
       getPostById(post.id).then(res => {

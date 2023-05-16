@@ -29,6 +29,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@docsearch/js": "3",
+    "@nuxtjs/algolia": "^1.7.0",
     "axios": "^1.2.0",
     "dayjs": "^1.11.6",
     "element-plus": "^2.2.26",

@@ -6,9 +6,9 @@
         <ul class="hidden md:flex justify-between category w-80">
           <NuxtLink class="text-white" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
             :key="item.name" :to="item.path">{{
-    item.name
+              item.name
             }}</NuxtLink>
-          <div id="docsearch"></div>
+          <div id="docsearch"><AlgoliaDocSearch /></div>
         </ul>
       </div>
     </div>
@@ -17,17 +17,6 @@
 
 <script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
-import docsearch from '@docsearch/js';
-import '@docsearch/css';
-
-onMounted(() => {
-  docsearch({
-    container: '#docsearch',
-    appId: '8NXIJXZLWR',
-    indexName: 'blog2',
-    apiKey: '951bc176ffb23d41266456cc81baf396',
-  });
-});
 
 // const token = useCookie('NNNNzs_uuid');
 // console.log('token', token.value);
