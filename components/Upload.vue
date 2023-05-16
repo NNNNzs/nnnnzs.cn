@@ -62,18 +62,16 @@
 
     </div>
   </ClientOnly>
-
 </template>
 
 <script lang="ts" setup>
-import { Ref } from 'vue-demi'
 import axios, { AxiosResponse } from "axios";
 import RecentUpload, { UploadInfo } from "@/utils/hooks/RecentUpload"
 import { Close } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
 import { upload } from '@/api/fs'
 import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, UploadRequestHandler, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
-let rencetUploadList: Ref<UploadInfo[]> = ref([])
+let rencetUploadList = ref<UploadInfo[]>([])
 let recentUpload: any;
 useHead({
   link: [
@@ -123,6 +121,32 @@ const baseUrl = actionUrl.value
 
 const { copy } = useClipboard()
 
+const confirmImgRender = (text: string) => {
+  return h("div", [
+    `检测到剪贴板的图片外链`,
+    h(
+      "a",
+      {
+        href: text,
+        target: "_blank",
+      },
+      text
+    ),
+    `是否上传？`,
+    h("div", [
+      h("img", {
+        src: text,
+      }),
+    ]),
+  ])
+}
+const renderImg = (src: string) => {
+  return h("img", {
+    class: "preview",
+    src: src,
+  })
+}
+
 /**
  *
  * @param text
@@ -161,10 +185,7 @@ const handleFocus = () => {
               }
 
               hasDialog.value = true;
-              const imgVnode = h("img", {
-                class: "preview",
-                src: src,
-              })
+              const imgVnode = renderImg(src)
 
               ElMessageBox.confirm(
                 imgVnode,
@@ -195,23 +216,7 @@ const handleFocus = () => {
 
                   hasDialog.value = true;
                   ElMessageBox.confirm(
-                    h("div", [
-                      `检测到剪贴板的图片外链`,
-                      h(
-                        "a",
-                        {
-                          href: text,
-                          target: "_blank",
-                        },
-                        text
-                      ),
-                      `是否上传？`,
-                      h("div", [
-                        h("img", {
-                          src: text,
-                        }),
-                      ]),
-                    ]),
+                    confirmImgRender(text),
                     '检测到剪贴板有图片外链',
                   ).then(_ => {
                     transformImage(text).then((res) => {
