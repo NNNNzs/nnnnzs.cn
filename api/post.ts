@@ -7,12 +7,14 @@ declare type PostRes = AxiosRes<Post>
 /** 分页获取列表 */
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
-    url: `${baseUrl}/post/list`,
+    url: `http://api.nnnnzs.cn/V2/post/list`,
     method: "get",
     params
   })
   if (res.data.status) {
     return res.data.data
+  }else{
+    return null
   }
 }
 

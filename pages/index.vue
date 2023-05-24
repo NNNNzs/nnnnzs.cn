@@ -8,37 +8,36 @@
 </template>
 
 <script lang="ts" setup>
-import { getPostList } from '@/api/post'
-// import AV from 'leancloud-storage/core'
 const postList = ref<Post[]>([]);
 const params = reactive({
   pageNum: 1,
   pageSize: 20
 });
 
-const { data, pending } = await useAsyncData('homePageData', async ctx => {
-  return await getPostList(params)
-});
+const fetchPost = () => $fetch(`/api/getPostList`, { query: params });
+
+const { data, refresh } = await useAsyncData('homePageData', fetchPost);
 
 const elRef = ref<HTMLElement | null>(null);
 
 const patchLikes = () => {
 
 }
+
 if (data.value?.record) {
   postList.value = data.value.record;
   patchLikes();
 }
 
-const loadMore = () => {
+const loadMore = async () => {
   params.pageNum++
-  getPostList(params).then(res => {
-    if (res) {
-      res.record?.forEach(t => {
-        postList.value.push(t)
-      })
-    }
+
+  const res = await $fetch(`/api/getPostList`, { query: params });
+
+  res?.record?.forEach(t => {
+    postList.value.push(t)
   })
+
 };
 
 
