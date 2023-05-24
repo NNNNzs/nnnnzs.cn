@@ -56,7 +56,7 @@ export default defineNuxtConfig({
     devProxy: {
       "/api-remote": {
         // target: "http://localhost:3006/",
-        target: "http://api.nnnnzs.cn/V2/",
+        target: "https://www.nnnnzs.cn/api-remote",
         changeOrigin: true,
         prependPath: true
         // rewrite: (url: string) => url.replace(/^\/api-remote/, '/')
@@ -81,7 +81,7 @@ export default defineNuxtConfig({
     plugins
   },
   build: {
-    analyze: true
+    analyze: false,
   },
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY,

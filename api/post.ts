@@ -7,13 +7,13 @@ declare type PostRes = AxiosRes<Post>
 /** 分页获取列表 */
 export const getPostList = async (params: QueryCondition) => {
   const res: PostList = await axios({
-    url: `http://api.nnnnzs.cn/V2/post/list`,
+    url: `${baseUrl}/post/list`,
     method: "get",
     params
   })
   if (res.data.status) {
     return res.data.data
-  }else{
+  } else {
     return null
   }
 }
@@ -67,11 +67,14 @@ export const getLikeAndFav = async (
   id: number | string,
   type: FavType = FavType.visitors
 ) => {
-  return await axios({
+  const res = await axios({
     url: `${baseUrl}/post/updateLike`,
     method: "get",
     params: { id, type }
   })
+  if (res.data.status) {
+    return res.data.data
+  }
 }
 export const getTags = async () => {
   return await axios({
