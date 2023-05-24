@@ -22,9 +22,12 @@
     "@vueuse/nuxt": "^9.6.0",
     "autoprefixer": "^10.4.13",
     "cross-env": "^7.0.3",
-    "nuxt": "^3.3.1",
+    "nuxt": "^3.5.1",
     "postcss": "^8.4.19",
     "typescript": "^4.9.4"
+  },
+  "resolutions": {
+    "consola": "^3.0.0"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
