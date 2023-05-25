@@ -77,15 +77,21 @@ export const getLikeAndFav = async (
   }
 }
 export const getTags = async () => {
-  return await axios({
+  const res = await axios({
     url: `${baseUrl}/post/tags`,
     method: "get"
   })
+  if (res.data.status) {
+    return res.data.data as [string, number][]
+  }
 }
 
 export const getListByTag = async (tag: string) => {
-  return (await axios({
+  const res = await axios({
     url: `${baseUrl}/post/tags/${tag}`,
     method: "get"
-  })) as AxiosRes<Post[]>
+  });
+  if (res.data.status) {
+    return res.data.data as Post[]
+  }
 }

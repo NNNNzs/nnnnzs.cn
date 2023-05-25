@@ -38,16 +38,12 @@
           </ClientOnly>
         </p>
         <p class="post-meta">
-          <span class="leancloud_visitors my-6" id="/2021/09/12/吾爱吾师-吾更爱真理/_visitors">
-            <i class="iconfont icon-eye"></i>
-            热度
-            <i>{{ post?.visitors }}</i>
+          <span class="leancloud_visitors my-6">
+            <i class="iconfont icon-eye"></i>热度<i>{{ post?.visitors }}</i>
           </span>
 
           <span class="leancloud_likes">
-            <i class="iconfont icon-collection"></i>
-            喜欢
-            <i>{{ post?.likes }}</i>
+            <i class="iconfont icon-collection"></i>喜欢<i>{{ post?.likes }}</i>
           </span>
         </p>
       </div>
@@ -118,7 +114,7 @@ const toLink = (post: Post) => {
 
 const toEdit = (post: Post) => {
   const { id } = post;
-  return `/edit/${id}`;
+  return `/c/edit/${id}`;
 }
 
 </script>

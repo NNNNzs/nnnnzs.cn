@@ -11,6 +11,7 @@
       <i class="iconfont icon-paper-plane text-4xl text-white w-4 h-4"></i>
     </div>
   </div>
+  <div ref="anchorRef"></div>
 </template>
 
 <script lang="ts" setup>
@@ -22,7 +23,12 @@ const props = defineProps({
     type: String,
     default: `https://static.nnnnzs.cn/bing/${dayjs().format("YYYYMMDD")}.png`,
   },
+  autoScroll: {
+    type: Boolean,
+    default: true
+  }
 });
+const anchorRef = ref<HTMLElement>()
 const bannerStyle = ref({
   "background-image": `url(${props.cover})`,
 });
@@ -33,18 +39,23 @@ const oneText = ref<HitokotoData>({
   hitokoto: "",
 });
 
-// const { data } = await useAsyncData("getHit", () => {
-//   return axios.get<HitokotoData>("https://api.lwl12.com/hitokoto/");
-// });
 
 getHitokoto().then(res => {
   oneText.value = res;
 })
 
+onMounted(() => {
+  if (props.autoScroll) {
+    setTimeout(() => {
+      scrollIntoPost()
+    }, 1000);
+  }
+})
+
 const scrollIntoPost = () => {
-  window.scrollTo({
-    top: window.innerHeight,
-  });
+  anchorRef.value && anchorRef.value.scrollIntoView({
+    behavior: 'smooth'
+  })
 };
 
 // loadHitokoto();

@@ -1,7 +1,7 @@
 <template>
   <div ref="elRef">
     <Banner />
-    <PostCardHome :posts="postList" />
+    <PostCard :posts="postList" />
     <div class="WenYueQingLongTi cursor-pointer text-center" @click="loadMore">加载更多</div>
     <Footer />
   </div>

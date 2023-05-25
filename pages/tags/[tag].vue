@@ -1,13 +1,12 @@
 <template>
   <Banner></Banner>
-  <div>{{ tag }}</div>
-  <ul>
-    <li v-for="p in list" :key="p.id">{{ p.title }}</li>
-  </ul>
+  <div class=" min-h-screen">
+    <h1 class="text-center">{{ tag }}</h1>
+    <PostCard :posts="list" />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { getListByTag } from '~~/api/post'
 const route = useRoute();
 const { params } = route;
 const tag = params.tag as string
@@ -17,10 +16,9 @@ useHead({
 })
 const list = ref<Post[]>([])
 
-const { data } = useAsyncData('tags', async () => {
-  const res = await getListByTag(tag)
-  return res.data.data
-})
+const fetchTags = () => $fetch(`/api/tags/${tag}`, { method: 'GET', params: { tag: tag } });
+const { data } = useAsyncData('tag', fetchTags);
+
 if (data.value) {
   list.value = data.value;
 }
