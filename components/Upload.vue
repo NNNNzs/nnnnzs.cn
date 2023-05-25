@@ -72,7 +72,7 @@ import RecentUpload, { UploadInfo } from "@/utils/hooks/RecentUpload"
 import { Close, ArrowLeft } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
 import { upload } from '@/api/fs'
-import { baseUrl } from "@/composables/baseUrl"
+import { proxyUrl as baseUrl } from "@/composables/baseUrl"
 import ConfirmImage from "@/components/ConfirmImage.vue"
 import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
 const recentUpload = new RecentUpload();
@@ -172,7 +172,8 @@ const handleFocus = () => {
 
           const isImg = type.includes("image");
           const isText = type.includes("text");
-
+          console.log('type', type)
+          console.log('isImg', isImg)
           if (isImg) {
 
             if (hasDialog.value) {
