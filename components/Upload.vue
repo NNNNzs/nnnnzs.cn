@@ -1,78 +1,90 @@
 <template>
-  <ClientOnly>
-    <div id="upload" class="w-screen h-screen flex justify-center items-center">
-      <ElUpload action="#" multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
-        :http-request="customRequest" :show-file-list="false">
-        <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
-        <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
-      </ElUpload>
-      <ElDrawer v-model="showDrawer" :width="500" :show-close="false" title="上传列表">
-        <template #header="{ close, titleId, titleClass }">
-          <ElInput></ElInput>
-        </template>
-        <ul v-if="rencetUploadList.length > 0" bordered :class="{ done }">
-          <ElCard class="mt-4" v-for="(item, index) in rencetUploadList" :key="item.addTime">
-            <template #header>
-              <div class="flex justify-between">
-                <span>{{ item.fileName }}</span>
-                <ElButton text @click="handleRemove(item)" :icon="Close"></ElButton>
-              </div>
-            </template>
-            <ElForm>
-              <ElFormItem label="添加时间:">{{ dayjs(item.addTime).format('YYYY-MM-DD HH:mm:ss') }}</ElFormItem>
-              <ElFormItem label="文件名:">{{ item.fileName }}</ElFormItem>
-              <ElFormItem label="别名:">
-                <ElInput v-if="currentEditId === item.addTime && currentEdit" v-model="currentEdit.alisa"
-                  @keydown="handleAlisaKeydown($event as KeyboardEvent, item, index)" />
-                <span v-else>{{ item.alisa }}</span>
-              </ElFormItem>
-              <ElFormItem label="文件类型:">
-                <span @click="doCopy(item.mime)">
-                  {{ item.mime }}
-                </span>
-              </ElFormItem>
-              <ElFormItem label="链接:">
-                <ElLink target="_blank" :download="item.fileName" :href="item.url">
-                  {{ item.url }}
-                </ElLink>
-                <!-- <a >{{}}</a> -->
-              </ElFormItem>
-              <ElFormItem label="状态:">
-                <span>{{ item.status }}</span>
-                <span v-if="item.status === '同步中'" @click="fileExis(item)">检查</span>
-              </ElFormItem>
-              <ElFormItem label="进度:" v-if="item.status === '上传中'">
-                {{ item.progress }}
-              </ElFormItem>
-              <ElFormItem label="上传时间:">
-                {{ dayjs(item.finishTime).format('YYYY-MM-DD HH:mm:ss') }}
-              </ElFormItem>
-            </ElForm>
-          </ElCard>
-        </ul>
-        <ElResult v-else icon="error" title="404 资源不存在" sub-title="生活总归带点荒谬"></ElResult>
-      </ElDrawer>
+  <div id="upload" class="w-screen h-screen flex justify-center items-center relative">
 
-      <ElIcon>
-        <svg @click="showLocal" @mouseenter="showLocal" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20v-2z" fill="currentColor" />
-        </svg>
-      </ElIcon>
+    <ElUpload action="." multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
+      :http-request="customRequest" :show-file-list="false">
+      <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
+      <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
+    </ElUpload>
 
-    </div>
-  </ClientOnly>
+    <ElIcon class=" absolute right-0  top-0 bottom-0">
+      <ArrowLeft @click="showLocal" @mouseenter="showLocal"></ArrowLeft>
+    </ElIcon>
+
+
+    <ElDrawer v-model="showDrawer" :width="500" :show-close="false" title="上传列表">
+      <template #header="{ close, titleId, titleClass }">
+        <ElInput v-model="searchKey"></ElInput>
+      </template>
+      <ul v-if="rencetUploadList.length > 0" bordered :class="{ done }">
+        <ElCard class="mt-4" v-for="(item, index) in filterList" :key="item.addTime">
+          <template #header>
+            <div class="flex justify-between">
+              <span>{{ item.fileName }}</span>
+              <ElButton text @click="handleRemove(item)" :icon="Close"></ElButton>
+            </div>
+          </template>
+          <ElForm label-width="80" @submit.prevent>
+            <ElFormItem label="添加时间:">{{ dayjs(item.addTime).format('YYYY-MM-DD HH:mm:ss') }}</ElFormItem>
+            <ElFormItem v-if="item.fileName" label="文件名:">{{ item.fileName }}</ElFormItem>
+            <ElFormItem label="别名:">
+              <ElInput v-if="currentEditId === item.addTime && currentEdit" v-model="currentEdit.alisa"
+                @keydown="handleAlisaKeydown($event as KeyboardEvent, item, index)" />
+              <span @dblclick="handleEditAlisa(item, $event)" v-else class="block w-full min-w-[20px] h-full">{{
+                item.alisa
+              }}</span>
+            </ElFormItem>
+            <ElFormItem label="文件类型:">
+              <span @click="doCopy(item.mime)">
+                {{ item.mime }}
+              </span>
+            </ElFormItem>
+            <ElFormItem label="链接:">
+              <ElLink target="_blank" :download="item.fileName" :href="item.url">
+                {{ item.url }}
+              </ElLink>
+              <!-- <a >{{}}</a> -->
+            </ElFormItem>
+            <ElFormItem label="状态:">
+              <span>{{ item.status }}</span>
+              <span v-if="item.status === '同步中'" @click="fileExis(item)">检查</span>
+            </ElFormItem>
+            <ElFormItem label="进度:" v-if="item.status === '上传中'">
+              {{ item.progress }}
+            </ElFormItem>
+            <ElFormItem label="上传时间:">
+              {{ dayjs(item.finishTime).format('YYYY-MM-DD HH:mm:ss') }}
+            </ElFormItem>
+          </ElForm>
+        </ElCard>
+      </ul>
+      <ElResult v-else icon="error" title="404 资源不存在" sub-title="生活总归带点荒谬"></ElResult>
+    </ElDrawer>
+
+
+
+  </div>
 </template>
 
 <script lang="ts" setup>
 import axios, { AxiosResponse } from "axios";
 import RecentUpload, { UploadInfo } from "@/utils/hooks/RecentUpload"
-import { Close } from '@element-plus/icons-vue'
+import { Close, ArrowLeft } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
 import { upload } from '@/api/fs'
-import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, UploadRequestHandler, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
-let rencetUploadList = ref<UploadInfo[]>([])
-let recentUpload: any;
+import { baseUrl } from "@/composables/baseUrl"
+import ConfirmImage from "@/components/ConfirmImage.vue"
+import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
+const recentUpload = new RecentUpload();
+const rencetUploadList = ref<UploadInfo[]>([])
+const searchKey = ref('');
+const filterList = computed(() => {
+  if (!searchKey.value.trim()) {
+    return rencetUploadList.value
+  }
+  const keys: (keyof UploadInfo)[] = ['fileName', 'alisa', 'mime'];
+  return rencetUploadList.value.filter(row => keys.some(k => row[k]?.toString().includes(searchKey.value)))
+})
 useHead({
   link: [
     {
@@ -82,12 +94,10 @@ useHead({
   ]
 })
 
+
 onMounted(() => {
-  recentUpload = new RecentUpload();
-  rencetUploadList = recentUpload.list;
+  rencetUploadList.value = recentUpload.list.value;
 });
-
-
 
 const showLocal = () => {
   showDrawer.value = !showDrawer.value;
@@ -108,38 +118,22 @@ const flashCurrent = () => {
 // 3. 大文件分片上传
 // 4. 进度条
 // 5. 监听剪贴板粘贴图片可以上传
-
 const base64 = ref<string | null>("");
 const imgSrc = ref();
-const uploadBlob = ref<Blob>();
 const hasDialog = ref(false);
 const showDrawer = ref(false);
 const showLoading = ref(false);
 const uploadText = ref<number>(0);
-const actionUrl = ref('https://api.nnnnzs.cn/api/upload');
-const baseUrl = actionUrl.value
+
 
 const { copy } = useClipboard()
 
 const confirmImgRender = (text: string) => {
-  return h("div", [
-    `检测到剪贴板的图片外链`,
-    h(
-      "a",
-      {
-        href: text,
-        target: "_blank",
-      },
-      text
-    ),
-    `是否上传？`,
-    h("div", [
-      h("img", {
-        src: text,
-      }),
-    ]),
-  ])
+  return h(ConfirmImage, {
+    text: text
+  })
 }
+
 const renderImg = (src: string) => {
   return h("img", {
     class: "preview",
@@ -172,63 +166,55 @@ const handleFocus = () => {
   navigator.clipboard
     .read()
     .then((clipboardItems) => {
-      clipboardItems.forEach((clipboardItem) => {
+      clipboardItems.forEach(async (clipboardItem) => {
         for (const type of clipboardItem.types) {
-          clipboardItem.getType(type).then((blob) => {
-            const isImg = type.includes("image");
-            const isText = type.includes("text");
-            if (isImg) {
-              const src = URL.createObjectURL(blob);
-              imgSrc.value = src;
-              if (hasDialog.value) {
-                return false;
-              }
+          const blob = await clipboardItem.getType(type);
 
-              hasDialog.value = true;
-              const imgVnode = renderImg(src)
+          const isImg = type.includes("image");
+          const isText = type.includes("text");
 
-              ElMessageBox.confirm(
-                imgVnode,
-                "检测到剪贴板有图片，是否上传")
-                .then(res => {
-                  const addTime = new Date().getTime();
-                  handleUpload(blob).then((url) => {
-                    recentUpload.add({
-                      addTime,
-                      alisa: "",
-                      url,
-                      mime: blob.type,
-                      origin: "剪贴板",
-                      fileName: "clipboard",
-                    });
-                    hasDialog.value = false;
-                    doCopy(url);
-                  })
-                }).catch(_ => {
+          if (isImg) {
+
+            if (hasDialog.value) {
+              return false;
+            }
+
+            const src = URL.createObjectURL(blob);
+            imgSrc.value = src;
+
+            hasDialog.value = true;
+            const imgVnode = renderImg(src)
+            ElMessageBox.confirm(
+              imgVnode,
+              "检测到剪贴板有图片，是否上传"
+            )
+              .then(res => {
+                handleUpload(blob).then((url) => {
                   hasDialog.value = false;
                 })
-            } else if (isText) {
-              navigator.clipboard.readText().then((text) => {
-                if (canTransForm(text)) {
-                  if (hasDialog.value) {
-                    return false;
-                  }
+              }).catch(_ => {
+                hasDialog.value = false;
+              })
+          }
 
-                  hasDialog.value = true;
-                  ElMessageBox.confirm(
-                    confirmImgRender(text),
-                    '检测到剪贴板有图片外链',
-                  ).then(_ => {
-                    transformImage(text).then((res) => {
-                      doCopy(res);
-                    });
-                  }).catch(_ => {
-                    hasDialog.value = false;
-                  })
-                }
-              });
+          if (isText) {
+            const text = await navigator.clipboard.readText();
+            console.log('text', text)
+            if (!canTransForm(text) || hasDialog.value) {
+              return
             }
-          });
+            hasDialog.value = true;
+            ElMessageBox.confirm(
+              confirmImgRender(text),
+              '检测到剪贴板有图片外链',
+            ).then(_ => {
+              transformImage(text).then((res) => {
+                doCopy(res);
+              });
+            }).catch(_ => {
+              hasDialog.value = false;
+            })
+          }
         }
       });
     })
@@ -302,8 +288,9 @@ const handleEditAlisa = (item: UploadInfo, event: MouseEvent) => {
 
 const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: number) => {
   const { code } = event;
+  console.log('code', code);
   // 保存
-  if (code === "Enter") {
+  if (['NumpadEnter', 'Enter'].includes(code)) {
     const { value } = currentEdit;
     item = JSON.parse(JSON.stringify(value));
     currentEditId.value = null;
@@ -325,20 +312,25 @@ const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: numbe
  * @param blob
  * @description 通过后端接口上传的cos
  */
-const handleUpload = async (blob: Blob) => {
-  return await upload(blob)
-};
-
-const customRequest = (opt: UploadRequestOptions) => {
-  const { file } = opt;
-  const { type, name } = file;
+const handleUpload = async (file: Blob | File) => {
   const formData = new FormData();
   formData.append("inputFile", file);
+  const { type, name } = file;
 
   const addTime = new Date().getTime();
   showLoading.value = true;
 
-  return upload(file).then(url => {
+  const res = await axios({
+    url: baseUrl + "/upload",
+    method: "post",
+    onUploadProgress(e) {
+      uploadText.value = Number(e.progress) * 100
+    },
+    data: formData
+  });
+
+  if (res.data.data) {
+    const url = res.data.data;
     recentUpload.add({
       addTime,
       alisa: "",
@@ -348,29 +340,24 @@ const customRequest = (opt: UploadRequestOptions) => {
       fileName: name,
     });
     doCopy(url);
-  })
+  }
+  showLoading.value = false;
+  return res.data.data;
+};
 
+const customRequest = async (opt: UploadRequestOptions) => {
+  const { file } = opt;
+  handleUpload(file)
 };
 
 /**
  *
  * @param url url
  * @description 图片转换，通过后端下载图片，上传到cos，再返回给前端
+ * 该接口暂未实现
  */
-const transformImage = (url: string) => {
-  return new Promise<string>((resolve) => {
-    axios({
-      url: baseUrl + "/dupload",
-      method: "post",
-      data: {
-        url,
-      },
-    }).then((res) => {
-      if (res.data) {
-        resolve(res.data.url);
-      }
-    });
-  });
+const transformImage = async (url: string) => {
+  return await $fetch('/api/fs/dupload', { method: 'POST', query: { url } })
 };
 
 const fileExis = (item: UploadInfo) => {
@@ -389,29 +376,6 @@ const fileExis = (item: UploadInfo) => {
 </script>
 
 <style lang="less">
-body {
-  background-color: #efefef;
-  width: 100vw;
-  height: 100vh;
-}
-
-.preview {
-  border: 1px dashed #bf6464;
-  padding: 5px;
-}
-
-.drawer-content {
-  .title {
-    width: 30px;
-    position: relative;
-    margin-right: 2px;
-  }
-
-  .content {
-    word-break: break-all;
-  }
-}
-
 @keyframes flash {
   from {
     border: 1px solid blue;

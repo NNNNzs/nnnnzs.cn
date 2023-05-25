@@ -2,7 +2,7 @@
   <ClientOnly>
     <Banner></Banner>
   </ClientOnly>
-  <div class="hidden">
+  <div>
     <NuxtLink v-for="item in list" :to="`/tags/${item[0]}`"></NuxtLink>
   </div>
   <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>

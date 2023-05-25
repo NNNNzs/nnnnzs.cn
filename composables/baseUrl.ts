@@ -1,6 +1,8 @@
 // export const baseUrl = "/api-remote"
 // const prodBaseUrl = "https://api.nnnnzs.cn/V2"
-const prodBaseUrl = "https://www.nnnnzs.cn/api-remote"
+// const prodBaseUrl = "https://www.nnnnzs.cn/api-remote"
+const prodBaseUrl = "http://localhost:3006"
+
 
 // export const baseUrl = "/api-remote"
 export const baseUrl = prodBaseUrl
