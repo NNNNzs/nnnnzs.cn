@@ -22,10 +22,12 @@ The preview command starts a server to preview your Nuxt application after runni
 
 ### todo
 
-- [ ] 解决搜索无法展现的问题 优先级 3
+- [ ] 解决搜索无法展现的问题 优先级 1
 - [x] 新增创建文章的功能 优先级 1
-- [ ] 解决文章链接同步的问题 优先级 2
-- [ ] tags页面 archives 页面 优先级 1
+- [x] 解决文章链接同步的问题 优先级 2
+- [x] tags页面 archives 页面 优先级 1
+- [ ] upload页面，检测剪贴板的时候，取消了，但是还一直报弹窗
+- [ ] upload生产环境预请求了一次，还跨域
 
 # 这一次终于真的要写博客了
 

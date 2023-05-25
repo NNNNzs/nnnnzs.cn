@@ -46,7 +46,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002
   },
-  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia"],
+  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia", '@pinia/nuxt'],
   runtimeConfig: {
     public: {
       isDev: process.env.NODE_ENV !== "production",

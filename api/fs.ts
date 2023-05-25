@@ -25,5 +25,5 @@ export const upload = (blob: Blob) => {
   })
 }
 
-export const downloadFile = () => {}
-export const previewFile = () => {}
+export const downloadFile = () => { }
+export const previewFile = () => { }

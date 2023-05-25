@@ -118,7 +118,7 @@ const saveMeta = () => {
       if (res.data.status) {
         ElMessage.success('保存成功');
         const id = res.data.data.id;
-        router.replace(`/edit/${id}`)
+        router.replace(`/c/edit/${id}`)
       }
     })
   } else {
