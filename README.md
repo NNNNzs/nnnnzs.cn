@@ -75,19 +75,16 @@ OAuth 先把 github 的走通了
 # 技术层面
 
 ## 前端
-
-vite vue3.0 全家桶 ant-design-vue tailwind
-后续肯定要转 ts 的 再说吧
+nuxtjs  tailwind ts 
 
 ## 后端
-
-express + serveless + jwt
-目前没啥好的后端框架选型，express 一把梭的 restful 了
+nextjs 
+express + serveless + jwt 
 
 ## 运维
 
-自动部署肯定要有，serveless 看看能不能 工作流搞起来
+github action 自动部署
 
-## git
 
-github pre-lint-hook
+# QA
+1. server/api里面使用$fetch 是不是不走nuxt.config.ts nitro.devProxy这个代理
