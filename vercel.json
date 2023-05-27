@@ -1,0 +1,9 @@
+{
+  "name": "nnnnzs.cn",
+  "rewrites": [
+    {
+      "source": "/api-remote",
+      "destination": "https://www.nnnnzs.cn/api-remote"
+    }
+  ]
+}
