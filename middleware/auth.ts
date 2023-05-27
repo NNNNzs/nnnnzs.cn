@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo({
       path: AUTH_PATH,
       query: {
-        reid: to.fullPath
+        nextPath: to.fullPath
       }
     })
   } else {

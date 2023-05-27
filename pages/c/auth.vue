@@ -19,25 +19,36 @@ useHead({
 
 const router = useRouter();
 const route = useRoute()
-const redi = route.query.redi as string;
+const nextPath = route.query.nextPath as string;
+
+onMounted(() => {
+  $fetch('/api/auth/v', { method: 'POST', credentials: 'include', }).then(res => {
+    if (res.status) {
+      router.push({
+        path: nextPath
+      })
+    }
+  })
+})
+
 const perminss = async () => {
   const loadingInstance = ElLoading.service({ target: 'container', fullscreen: true, text: '授权中' });
 
   const { stop, start } = useTimeoutFn(() => {
     loadingInstance.close()
-  }, 5000)
+  }, 5 * 1000 * 60)
 
   start();
+
 
   await $fetch('/api/auth/getAuth', { method: 'POST', credentials: 'include', });
 
   stop();
-  loadingInstance.close()
-  navigateTo({
-    path: redi
+  loadingInstance.close();
+
+  router.push({
+    path: nextPath
   })
-
-
 
 }
 </script>
