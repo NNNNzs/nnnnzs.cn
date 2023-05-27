@@ -1,5 +1,5 @@
 <template>
-  <div id="upload" class="w-screen h-screen flex justify-center items-center relative">
+  <div id="upload" class="w-full h-full flex justify-center items-center relative">
 
     <ElUpload action="." multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
       :http-request="customRequest" :show-file-list="false">
@@ -7,9 +7,11 @@
       <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
     </ElUpload>
 
-    <ElIcon class=" absolute right-0  top-0 bottom-0">
-      <ArrowLeft @click="showLocal" @mouseenter="showLocal"></ArrowLeft>
-    </ElIcon>
+    <div class="absolute right-0 top-0 bottom-0">
+      <ElIcon :size="40">
+        <ArrowLeft @click="showLocal" @mouseenter="showLocal"></ArrowLeft>
+      </ElIcon>
+    </div>
 
 
     <ElDrawer v-model="showDrawer" :width="500" :show-close="false" title="上传列表">
@@ -61,14 +63,12 @@
       <ElResult v-else icon="error" title="404 资源不存在" sub-title="生活总归带点荒谬"></ElResult>
     </ElDrawer>
 
-
-
   </div>
 </template>
 
 <script lang="ts" setup>
 import axios, { AxiosResponse } from "axios";
-import RecentUpload, { UploadInfo } from "@/utils/hooks/RecentUpload"
+import RecentUpload, { UploadInfo } from "~/composables/RecentUpload"
 import { Close, ArrowLeft } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
 import { upload } from '@/api/fs'
@@ -161,8 +161,13 @@ const doCopy = (str: string) => {
   flashCurrent();
   ElMessage("上传成功，成功复制到剪贴板" + str);
 };
+const focused = useWindowFocus()
 
 const handleFocus = () => {
+
+  if (!focused.value) {
+    return
+  }
   navigator.clipboard
     .read()
     .then((clipboardItems) => {
@@ -255,7 +260,6 @@ const hanlePaste = (e: any) => {
 const handleRemove = (item: UploadInfo) => {
   recentUpload.remove(item);
 };
-
 onMounted(() => {
   window.addEventListener("focus", handleFocus);
   window.addEventListener("paste", hanlePaste);

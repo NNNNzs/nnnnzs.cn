@@ -1,6 +1,6 @@
 /* This is the file that contains the utilities */
 @tailwind base;
-/* @tailwind components; */
+@tailwind components;
 @tailwind utilities;
 
 /* @import '~node_modules/bytemd/dist/index.css' */

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full flex justify-center items-center">
     <div class="w-2/4">
       <ElInput type="textarea" v-model="url" :autosize="{ minRows: 5 }"></ElInput>
       <ElButton class="mt-4" @click="reflashCDN">提交</ElButton>

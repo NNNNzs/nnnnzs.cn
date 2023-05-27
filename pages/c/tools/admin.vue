@@ -23,7 +23,7 @@
           </ElTableColumn>
         </ElTable>
       </div>
-      <div class="h-8">
+      <div class="h-8 flex justify-end">
         <ElPagination v-model:current-page="query.pageNum" v-model:page-size="query.pageSize" :total="pageTotal" />
       </div>
     </div>
@@ -100,10 +100,6 @@ const getList = async () => {
   pageTotal.value = res.total;
   tableList.value = res.record;
 }
-
-onMounted(() => {
-  getList()
-})
 
 watchEffect(() => {
   getList()

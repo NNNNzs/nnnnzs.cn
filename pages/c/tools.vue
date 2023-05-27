@@ -1,20 +1,21 @@
 <template>
-  <div class="w-screen h-screen flex flex-col p-4">
-
-    <div class="asd">
-      <ElMenu mode="horizontal" :default-active="route.path">
-        <ElMenuItem v-for="p in list" :index="p.path">
-          <NuxtLink :to="p.path">
-            {{ p.name }}
+  <ClientOnly>
+    <div class="w-screen h-screen flex flex-col p-4">
+      <div class="menu">
+        <ElMenu mode="horizontal" :default-active="route.path">
+          <NuxtLink v-for="p in list" :to="p.path">
+            <ElMenuItem :index="p.path">
+              {{ p.name }}
+            </ElMenuItem>
           </NuxtLink>
-        </ElMenuItem>
-      </ElMenu>
-    </div>
+        </ElMenu>
+      </div>
 
-    <div class="flex-1 overflow-hidden">
-      <NuxtPage />
+      <div class="flex-1 overflow-hidden">
+        <NuxtPage />
+      </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

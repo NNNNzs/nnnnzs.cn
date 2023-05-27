@@ -5,8 +5,6 @@
 <script setup lang="ts">
 const router = useRouter();
 
-
-
 router.replace({
   path: TOOLES_PAGE
 })
