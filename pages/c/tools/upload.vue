@@ -1,7 +1,5 @@
 <template>
-  <ClientOnly>
-    <Upload></Upload>
-  </ClientOnly>
+  <Upload class="w-full h-full"></Upload>
 </template>
 
 <script setup lang="ts">

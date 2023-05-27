@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import { baseUrl } from "@/composables/baseUrl"
 declare type AxiosRes<T> = AxiosResponse<ResponeBody<T>>
-declare type PostList = AxiosRes<QueryRes<Post>>
+declare type PostList = AxiosRes<PageQueryRes<Post>>
 declare type PostRes = AxiosRes<Post>
 
 /** 分页获取列表 */
@@ -11,11 +11,7 @@ export const getPostList = async (params: QueryCondition) => {
     method: "get",
     params
   })
-  if (res.data.status) {
-    return res.data.data
-  } else {
-    return null
-  }
+  return res.data.data;
 }
 
 /** 根据id或者标题，获取 */
@@ -25,9 +21,7 @@ export const getPostById = async (id: number | string) => {
     url: `${baseUrl}/post/${t}`,
     method: "get"
   })
-  if (res.data.status) {
-    return res.data.data
-  }
+  return res.data.data
 }
 
 export const updateById = async (id: string, data: PostEdit) => {

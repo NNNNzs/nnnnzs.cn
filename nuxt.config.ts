@@ -46,17 +46,31 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002
   },
-  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia", '@pinia/nuxt'],
+  modules: [
+    "@vueuse/nuxt",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/algolia",
+    [
+      "@pinia/nuxt",
+      {
+        autoImports: [
+          // 自动引入 `defineStore(), storeToRefs()`
+          "defineStore",
+          "storeToRefs"
+        ]
+      }
+    ]
+  ],
   runtimeConfig: {
     public: {
-      isDev: process.env.NODE_ENV !== "production",
+      isDev: process.env.NODE_ENV !== "production"
     }
   },
   nitro: {
     devProxy: {
       "/api-remote": {
-        // target: "http://localhost:3006/",
-        target: "https://www.nnnnzs.cn/api-remote",
+        target: "http://localhost:3006/",
+        // target: "https://www.nnnnzs.cn/api-remote",
         changeOrigin: true,
         prependPath: true
         // rewrite: (url: string) => url.replace(/^\/api-remote/, '/')
@@ -77,14 +91,14 @@ export default defineNuxtConfig({
     plugins
   },
   build: {
-    analyze: false,
+    analyze: false
   },
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY,
     applicationId: process.env.ALGOLIA_APP_ID,
     // DocSearch key is used to configure DocSearch extension.
     docSearch: {
-      indexName: 'blog2',
+      indexName: "blog2"
     }
   }
 })

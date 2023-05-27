@@ -173,7 +173,7 @@ const handleFocus = () => {
           const isImg = type.includes("image");
           const isText = type.includes("text");
           console.log('type', type)
-          console.log('isImg', isImg)
+          console.log('isImg', type)
           if (isImg) {
 
             if (hasDialog.value) {
@@ -314,6 +314,7 @@ const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: numbe
  * @description 通过后端接口上传的cos
  */
 const handleUpload = async (file: Blob | File) => {
+  console.log('file', file)
   const formData = new FormData();
   formData.append("inputFile", file);
   const { type, name } = file;

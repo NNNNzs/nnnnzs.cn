@@ -4,11 +4,13 @@
       <div class="mx-auto menu flex  items-center justify-between leading-4">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
         <ul class="hidden md:flex justify-between category w-80">
-          <NuxtLink class="text-white" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
-            :key="item.name" :to="item.path">{{
+          <NuxtLink class="text-white" role="li" is="li" :target="'_self'" v-for="item in state.menu" :key="item.name"
+            :to="item.path">{{
               item.name
             }}</NuxtLink>
-          <div id="docsearch"><AlgoliaDocSearch /></div>
+          <div id="docsearch">
+            <AlgoliaDocSearch />
+          </div>
         </ul>
       </div>
     </div>
@@ -17,10 +19,6 @@
 
 <script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
-
-// const token = useCookie('NNNNzs_uuid');
-// console.log('token', token.value);
-
 
 const state = reactive({
   value: "",

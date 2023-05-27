@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center">
+  <div class="w-full h-full">
     <div class="w-2/4">
       <ElInput type="textarea" v-model="url" :autosize="{ minRows: 5 }"></ElInput>
       <ElButton class="mt-4" @click="reflashCDN">提交</ElButton>
@@ -14,14 +14,8 @@
 import { ElInput, ElButton, ElTableV2 } from 'element-plus';
 import type { Column } from 'element-plus';
 import axios from 'axios';
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-});
+
+
 const tableList = ref<any[]>([]);
 const columns: Column[] = [
   { title: 'CreateTime', dataKey: 'CreateTime', width: 100 },

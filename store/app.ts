@@ -1,23 +1,25 @@
-import { defineStore } from "@pinia/nuxt/dist/runtime/composables"
+import { useStorage } from "@vueuse/core";
+import { skipHydrate } from 'pinia'
 
 interface AppState {
-  theme: string,
-  [key: string]: any
+  token: string
+  theme: string
 }
-export const useAppStore = defineStore('app', {
-  state(): AppState {
-    return {
-      theme: 'dark'
-    }
-  },
-  actions: {
-    setTheme(theme: string) {
-      this.theme = theme;
-    },
-    setValueByKey<T extends keyof AppState>(key: T, value: AppState[T]) {
-      Object.assign(this.$state, {
-        [key]: value
-      })
-    }
+export const useAppStore = defineStore('app', () => {
+  const data = useStorage('nnnnzs.cn_app', {
+    token: '',
+    theme: ''
+  });
+
+  const setValueByKey = <T extends keyof AppState>(key: T, value: AppState[T]) => {
+    console.log('setValueByKey', key, value);
+    Object.assign(data, {
+      [key]: value
+    })
+  }
+  return {
+    // data: skipHydrate(data),
+    data,
+    setValueByKey
   }
 })

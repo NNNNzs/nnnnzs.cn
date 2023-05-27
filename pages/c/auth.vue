@@ -7,8 +7,7 @@
 </template>
 <script lang="ts" setup>
 import { ElLoading, ElButton, ElMessage } from 'element-plus'
-import axios from 'axios';
-const loading = ref(false);
+
 useHead({
   link: [
     {
@@ -18,34 +17,27 @@ useHead({
   ]
 });
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute()
+const redi = route.query.redi as string;
 const perminss = async () => {
-
-  if (loading.value) return false
-  let times = 0;
-  setInterval(() => {
-    if (times++ >= 100) {
-      loading.value = false
-      loadingInstance.close()
-    }
-  }, 1000);
-
   const loadingInstance = ElLoading.service({ target: 'container', fullscreen: true, text: '授权中' });
-  loading.value = true;
-  const url = baseUrl + '/getAuth';
 
-  axios({
-    url: proxyUrl + '/getAuth',
-    method: 'post',
-    withCredentials: true,
+  const { stop, start } = useTimeoutFn(() => {
+    loadingInstance.close()
+  }, 5000)
+
+  start();
+
+  await $fetch('/api/auth/getAuth', { method: 'POST', credentials: 'include', });
+
+  stop();
+  loadingInstance.close()
+  navigateTo({
+    path: redi
   })
-    .then((res: any) => {
-      loading.value = false
-      loadingInstance.close()
-      ElMessage.success('授权成功即将跳转');
-      setTimeout(() => {
-        router.go(-1)
-      }, 3000);
-    })
+
+
+
 }
 </script>

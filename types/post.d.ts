@@ -37,6 +37,6 @@ declare interface HitokotoData {
   hitokoto: string
 }
 
-declare type PostList = AxiosRes<QueryRes<Post>>
+declare type PostList = AxiosRes<PageQueryRes<Post>>
 
 declare type PostRes = AxiosRes<Post>

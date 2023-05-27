@@ -1,11 +1,11 @@
 <template>
-  <ClientOnly>
-    <Banner></Banner>
-  </ClientOnly>
+  <Banner></Banner>
   <div>
     <NuxtLink v-for="item in list" :to="`/tags/${item[0]}`"></NuxtLink>
   </div>
-  <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>
+  <ClientOnly>
+    <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
