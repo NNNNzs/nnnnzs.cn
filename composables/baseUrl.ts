@@ -1,4 +1,4 @@
-const prodBaseUrl = "http://localhost:3006"
+const prodBaseUrl = "https://www.nnnnzs.cn/api-remote"
 
 
 /**

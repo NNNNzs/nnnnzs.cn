@@ -4,12 +4,10 @@ interface LayzeLoadImgElement extends HTMLImageElement {
     src?: string
   }
 }
-const default_img = 'https://static.nnnnzs.cn/bing/20230202.png?imageMogr2/thumbnail/680x/format/webp/interlace/1/quality/100'
+const default_img = 'https://static.nnnnzs.cn/upload/c794699b0dcd2d1db62b4d3b583744a9.gif';
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("lazyload", {
     created(el: LayzeLoadImgElement) {
-      const src = el.getAttribute('src') as string;
-      el.dataset.src = src;
       el.setAttribute('src', default_img)
     },
     mounted(el: LayzeLoadImgElement) {
