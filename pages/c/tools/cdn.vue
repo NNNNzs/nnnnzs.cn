@@ -30,7 +30,7 @@ const columns: Column[] = [
 const url = ref('')
 const reflashCDN = () => {
   axios({
-    url: proxyUrl + '/common/purgeUrlsCache',
+    url: baseUrl + '/common/purgeUrlsCache',
     method: 'post',
     data: url.value.split('\n')
   })
@@ -39,7 +39,7 @@ const reflashCDN = () => {
 
 const getList = () => {
   axios({
-    url: proxyUrl + '/common/purgeTasks',
+    url: baseUrl + '/common/purgeTasks',
   }).then(res => {
     if (res.data.status) {
       tableList.value = res.data.data.list;

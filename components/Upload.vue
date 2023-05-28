@@ -72,7 +72,6 @@ import RecentUpload, { UploadInfo } from "~/composables/RecentUpload"
 import { Close, ArrowLeft } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
 import { upload } from '@/api/fs'
-import { proxyUrl as baseUrl } from "@/composables/baseUrl"
 import ConfirmImage from "@/components/ConfirmImage.vue"
 import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
 const recentUpload = new RecentUpload();
@@ -331,7 +330,7 @@ const handleUpload = async (file: Blob | File) => {
     url: baseUrl + "/upload",
     method: "post",
     onUploadProgress(e) {
-      uploadText.value = Number(e.progress) * 100
+      uploadText.value = Number(e.progress) * 100 
     },
     data: formData
   });

@@ -27,7 +27,7 @@ declare interface Post {
   visitors: number
   url?: string
 }
-declare type EditPost = PartialKey<Post, "id">
+declare type PostAdd = PartialKey<Post, "id">
 
 declare type PostEdit = PartialKey<Post, "likes" | "visitors">
 

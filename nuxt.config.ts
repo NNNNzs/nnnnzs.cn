@@ -69,8 +69,9 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       "/api-remote": {
-        target: "http://localhost:3006/",
+        // target: "http://localhost:3006/",
         // target: "https://www.nnnnzs.cn/api-remote",
+        target: "https://api.nnnnzs.cn/v2/",
         changeOrigin: true,
         prependPath: true
         // rewrite: (url: string) => url.replace(/^\/api-remote/, '/')

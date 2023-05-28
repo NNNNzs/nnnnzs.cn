@@ -54,7 +54,6 @@
     </ClientOnly>
 
   </div>
-
 </template>
 
 <script setup name="edit" lang="ts">
@@ -87,7 +86,7 @@ const rules = {
   title: { required: true },
 }
 
-const post = reactive<Post>({
+const post = reactive<PostAdd>({
   title: '',
   path: '',
   oldTitle: '',
@@ -142,7 +141,7 @@ const genCover = () => {
 }
 
 const onUploadImg = async (files: Blob[], callback: (str: string[]) => string[]) => {
-console.log('on UploadImage')
+  console.log('on UploadImage')
   const queue: Promise<string>[] = files.map(file => {
     return new Promise((resolve, reject) => {
       upload(file).then(res => {

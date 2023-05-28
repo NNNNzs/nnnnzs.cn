@@ -24,7 +24,7 @@ export const getPostById = async (id: number | string) => {
   return res.data.data
 }
 
-export const updateById = async (id: string, data: PostEdit) => {
+export const updateById = async (id: string, data: PostAdd) => {
   const res: PostRes = await axios({
     url: `${baseUrl}/post/${id}`,
     method: "put",
@@ -33,7 +33,7 @@ export const updateById = async (id: string, data: PostEdit) => {
   return res
 }
 
-export const createPost = async (data: PostEdit) => {
+export const createPost = async (data: PostAdd) => {
   const res: PostRes = await axios({
     url: `${baseUrl}/post/create`,
     method: "post",
