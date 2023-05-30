@@ -31,6 +31,7 @@ const list = [
   { path: '/pic', name: "图片测试" },
   { path: '/upload', name: "上传" },
   { path: '/admin', name: "管理" },
+  { path: '/log', name: "日志" },
 ].map(e => {
   e.path = TOOLSE_PERFIX_PAGE + e.path
   return e;
