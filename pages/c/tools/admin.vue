@@ -43,6 +43,7 @@ interface Query extends QueryCondition {
   query: string
 }
 
+
 const query = reactive<Query>({
   pageSize: 10,
   pageNum: 1,
