@@ -35,10 +35,12 @@ const state = reactive({
   menu: base
 });
 
-const { status } = await $fetch('/api/auth/v', { method: "POST", credentials: 'include' });
-if (status) {
-  state.menu = base.concat(loginMenu)
-}
+onMounted(async () => {
+  const { status } = await $fetch('/api/auth/v', { method: "POST", credentials: 'include' });
+  if (status) {
+    state.menu = base.concat(loginMenu)
+  }
+})
 
 </script>
 <style lang="less">
