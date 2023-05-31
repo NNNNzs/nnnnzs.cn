@@ -27,9 +27,9 @@ declare interface Post {
   visitors: number
   url?: string
 }
-declare type PostAdd = PartialKey<Post, "id">
+declare type PostAdd = PartialKey<Post, "id" | "updated">
 
-declare type PostEdit = PartialKey<Post, "likes" | "visitors">
+declare type PostEdit = PartialKey<Post, "likes" | "visitors" | "updated" | "date">
 
 declare interface HitokotoData {
   creator: string

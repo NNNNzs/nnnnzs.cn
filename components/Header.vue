@@ -21,12 +21,13 @@
 <script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
 const base = [
-  { name: "首页", path: "/" },
+  { name: "首页", path: "/", target: "_self" },
   { name: "分类", path: '/tags' },
 ]
 
 const loginMenu = [
   { name: "新增", path: EDIT_PAGE + 'edit', target: '_blank' },
+  { name: "管理", path: TOOLSE_PERFIX_PAGE, target: '_blank' },
   { name: "日志", path: TOOLSE_PERFIX_PAGE + '/log' },
 ]
 const state = reactive({
