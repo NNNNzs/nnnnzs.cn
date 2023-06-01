@@ -1,21 +1,19 @@
 <template>
-  <ClientOnly>
-    <div class="w-screen h-screen flex flex-col p-4">
-      <div class="menu">
-        <ElMenu mode="horizontal" :default-active="route.path">
-          <NuxtLink v-for="p in list" :to="p.path">
-            <ElMenuItem :index="p.path">
-              {{ p.name }}
-            </ElMenuItem>
+  <div class="w-screen h-screen flex flex-col p-4">
+    <div class="asd">
+      <ElMenu mode="horizontal">
+        <ElMenuItem v-for="p in list" :index="p.path">
+          <NuxtLink :to="p.path">
+            {{ p.name }}
           </NuxtLink>
-        </ElMenu>
-      </div>
-
-      <div class="flex-1 overflow-hidden">
-        <NuxtPage />
-      </div>
+        </ElMenuItem>
+      </ElMenu>
     </div>
-  </ClientOnly>
+
+    <div class="flex-1 overflow-hidden">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -30,12 +28,11 @@ const list = [
   { path: '/cdn', name: "刷新CDN" },
   { path: '/pic', name: "图片测试" },
   { path: '/upload', name: "上传" },
-  { path: '/admin', name: "管理" },
-  { path: '/log', name: "日志" },
+  { path: '/admin', name: "上传" },
 ].map(e => {
   e.path = TOOLSE_PERFIX_PAGE + e.path
   return e;
-})
+});
 
 useHead({
   link: [

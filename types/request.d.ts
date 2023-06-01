@@ -5,8 +5,8 @@ declare interface QueryCondition {
 }
 
 /** 分页响应参数 */
-declare interface QueryRes<T> extends QueryCondition {
-  record: T[] | null
+declare interface PageQueryRes<T> extends QueryCondition {
+  record: T[] 
   total: number
 }
 

@@ -27,9 +27,9 @@ declare interface Post {
   visitors: number
   url?: string
 }
-declare type EditPost = PartialKey<Post, "id">
+declare type PostAdd = PartialKey<Post, "id" | "updated">
 
-declare type PostEdit = PartialKey<Post, "likes" | "visitors">
+declare type PostEdit = PartialKey<Post, "likes" | "visitors" | "updated" | "date">
 
 declare interface HitokotoData {
   creator: string
@@ -37,6 +37,6 @@ declare interface HitokotoData {
   hitokoto: string
 }
 
-declare type PostList = AxiosRes<QueryRes<Post>>
+declare type PostList = AxiosRes<PageQueryRes<Post>>
 
 declare type PostRes = AxiosRes<Post>

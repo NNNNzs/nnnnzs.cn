@@ -1,78 +1,77 @@
 <template>
-  <div id="upload" class="w-screen h-screen flex justify-center items-center relative">
+  <ClientOnly>
+    <div id="upload" class="w-full h-full flex justify-center items-center relative">
+      <ElUpload action="." multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
+        :http-request="customRequest" :show-file-list="false">
+        <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
+        <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
+      </ElUpload>
 
-    <ElUpload action="." multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
-      :http-request="customRequest" :show-file-list="false">
-      <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
-      <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
-    </ElUpload>
-
-    <ElIcon class=" absolute right-0  top-0 bottom-0">
-      <ArrowLeft @click="showLocal" @mouseenter="showLocal"></ArrowLeft>
-    </ElIcon>
-
-
-    <ElDrawer v-model="showDrawer" :width="500" :show-close="false" title="上传列表">
-      <template #header="{ close, titleId, titleClass }">
-        <ElInput v-model="searchKey"></ElInput>
-      </template>
-      <ul v-if="rencetUploadList.length > 0" bordered :class="{ done }">
-        <ElCard class="mt-4" v-for="(item, index) in filterList" :key="item.addTime">
-          <template #header>
-            <div class="flex justify-between">
-              <span>{{ item.fileName }}</span>
-              <ElButton text @click="handleRemove(item)" :icon="Close"></ElButton>
-            </div>
-          </template>
-          <ElForm label-width="80" @submit.prevent>
-            <ElFormItem label="添加时间:">{{ dayjs(item.addTime).format('YYYY-MM-DD HH:mm:ss') }}</ElFormItem>
-            <ElFormItem v-if="item.fileName" label="文件名:">{{ item.fileName }}</ElFormItem>
-            <ElFormItem label="别名:">
-              <ElInput v-if="currentEditId === item.addTime && currentEdit" v-model="currentEdit.alisa"
-                @keydown="handleAlisaKeydown($event as KeyboardEvent, item, index)" />
-              <span @dblclick="handleEditAlisa(item, $event)" v-else class="block w-full min-w-[20px] h-full">{{
-                item.alisa
-              }}</span>
-            </ElFormItem>
-            <ElFormItem label="文件类型:">
-              <span @click="doCopy(item.mime)">
-                {{ item.mime }}
-              </span>
-            </ElFormItem>
-            <ElFormItem label="链接:">
-              <ElLink target="_blank" :download="item.fileName" :href="item.url">
-                {{ item.url }}
-              </ElLink>
-              <!-- <a >{{}}</a> -->
-            </ElFormItem>
-            <ElFormItem label="状态:">
-              <span>{{ item.status }}</span>
-              <span v-if="item.status === '同步中'" @click="fileExis(item)">检查</span>
-            </ElFormItem>
-            <ElFormItem label="进度:" v-if="item.status === '上传中'">
-              {{ item.progress }}
-            </ElFormItem>
-            <ElFormItem label="上传时间:">
-              {{ dayjs(item.finishTime).format('YYYY-MM-DD HH:mm:ss') }}
-            </ElFormItem>
-          </ElForm>
-        </ElCard>
-      </ul>
-      <ElResult v-else icon="error" title="404 资源不存在" sub-title="生活总归带点荒谬"></ElResult>
-    </ElDrawer>
+      <div class="absolute right-0 top-0 bottom-0">
+        <ElIcon :size="40">
+          <ArrowLeft @click="showLocal" @mouseenter="showLocal"></ArrowLeft>
+        </ElIcon>
+      </div>
 
 
-
-  </div>
+      <ElDrawer v-model="showDrawer" :width="500" :show-close="false" title="上传列表">
+        <template #header="{ close, titleId, titleClass }">
+          <ElInput v-model="searchKey"></ElInput>
+        </template>
+        <ul v-if="rencetUploadList.length > 0" bordered :class="{ done }">
+          <ElCard class="mt-4" v-for="(item, index) in filterList" :key="item.addTime">
+            <template #header>
+              <div class="flex justify-between">
+                <span>{{ item.fileName }}</span>
+                <ElButton text @click="handleRemove(item)" :icon="Close"></ElButton>
+              </div>
+            </template>
+            <ElForm label-width="80" @submit.prevent>
+              <ElFormItem label="添加时间:">{{ dayjs(item.addTime).format('YYYY-MM-DD HH:mm:ss') }}</ElFormItem>
+              <ElFormItem v-if="item.fileName" label="文件名:">{{ item.fileName }}</ElFormItem>
+              <ElFormItem label="别名:">
+                <ElInput v-if="currentEditId === item.addTime && currentEdit" v-model="currentEdit.alisa"
+                  @keydown="handleAlisaKeydown($event as KeyboardEvent, item, index)" />
+                <span @dblclick="handleEditAlisa(item, $event)" v-else class="block w-full min-w-[20px] h-full">{{
+                  item.alisa
+                }}</span>
+              </ElFormItem>
+              <ElFormItem label="文件类型:">
+                <span @click="doCopy(item.mime)">
+                  {{ item.mime }}
+                </span>
+              </ElFormItem>
+              <ElFormItem label="链接:">
+                <ElLink target="_blank" :download="item.fileName" :href="item.url" class=" break-words">
+                  {{ item.url }}
+                </ElLink>
+                <!-- <a >{{}}</a> -->
+              </ElFormItem>
+              <ElFormItem label="状态:">
+                <span>{{ item.status }}</span>
+                <span v-if="item.status === '同步中'" @click="fileExis(item)">检查</span>
+              </ElFormItem>
+              <ElFormItem label="进度:" v-if="item.status === '上传中'">
+                {{ item.progress }}
+              </ElFormItem>
+              <ElFormItem label="上传时间:">
+                {{ dayjs(item.finishTime).format('YYYY-MM-DD HH:mm:ss') }}
+              </ElFormItem>
+            </ElForm>
+          </ElCard>
+        </ul>
+        <ElResult v-else icon="error" title="404 资源不存在" sub-title="生活总归带点荒谬"></ElResult>
+      </ElDrawer>
+    </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
 import axios, { AxiosResponse } from "axios";
-import RecentUpload, { UploadInfo } from "@/utils/hooks/RecentUpload"
+import RecentUpload, { UploadInfo } from "~/composables/RecentUpload"
 import { Close, ArrowLeft } from '@element-plus/icons-vue'
 import dayjs from "dayjs";
 import { upload } from '@/api/fs'
-import { proxyUrl as baseUrl } from "@/composables/baseUrl"
 import ConfirmImage from "@/components/ConfirmImage.vue"
 import { ElMessage, ElLink, ElProgress, ElDrawer, ElCard, ElResult, ElInput, ElUpload, ElButton, ElMessageBox, UploadRequestOptions, ElDialog, ElIcon, ElForm, ElFormItem } from 'element-plus'
 const recentUpload = new RecentUpload();
@@ -85,6 +84,7 @@ const filterList = computed(() => {
   const keys: (keyof UploadInfo)[] = ['fileName', 'alisa', 'mime'];
   return rencetUploadList.value.filter(row => keys.some(k => row[k]?.toString().includes(searchKey.value)))
 })
+
 useHead({
   link: [
     {
@@ -162,7 +162,12 @@ const doCopy = (str: string) => {
   ElMessage("上传成功，成功复制到剪贴板" + str);
 };
 
+const focused = useWindowFocus()
+
 const handleFocus = () => {
+  if (!focused.value) {
+    return
+  }
   navigator.clipboard
     .read()
     .then((clipboardItems) => {
@@ -173,7 +178,7 @@ const handleFocus = () => {
           const isImg = type.includes("image");
           const isText = type.includes("text");
           console.log('type', type)
-          console.log('isImg', isImg)
+          console.log('isImg', type)
           if (isImg) {
 
             if (hasDialog.value) {
@@ -255,7 +260,6 @@ const hanlePaste = (e: any) => {
 const handleRemove = (item: UploadInfo) => {
   recentUpload.remove(item);
 };
-
 onMounted(() => {
   window.addEventListener("focus", handleFocus);
   window.addEventListener("paste", hanlePaste);
@@ -314,6 +318,7 @@ const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: numbe
  * @description 通过后端接口上传的cos
  */
 const handleUpload = async (file: Blob | File) => {
+  console.log('file', file)
   const formData = new FormData();
   formData.append("inputFile", file);
   const { type, name } = file;
@@ -325,7 +330,7 @@ const handleUpload = async (file: Blob | File) => {
     url: baseUrl + "/upload",
     method: "post",
     onUploadProgress(e) {
-      uploadText.value = Number(e.progress) * 100
+      uploadText.value = Number(e.progress) * 100 
     },
     data: formData
   });

@@ -5,8 +5,7 @@
       :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse',
       previewId === post.id ? 'fixed fixedCard overflow-auto !w-screen h-screen left-0 top-0 right-0 z-10 ' : 'my-8']">
       <a class="post-cover w-full lg:w-3/5 text-center" :target="target" :href="toLink(post)" :title="post.title">
-        <img class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl" :src="homeThumbnail(post.cover)"
-          :data-src="homeThumbnail(post.cover)" />
+        <img class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl" v-lazyload :data-src="homeThumbnail(post.cover)" />
       </a>
 
       <div

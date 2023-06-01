@@ -16,7 +16,7 @@
           </ElFormItem>
 
           <ElFormItem label="更新日期" prop="updated">
-            <ElDatePicker disabled type="datetime" v-model="post.updated"></ElDatePicker>
+            <ElDatePicker disabled type="datetime" :model-value="post.updated"></ElDatePicker>
           </ElFormItem>
 
           <ElFormItem label="发布" prop="hide">
@@ -54,7 +54,6 @@
     </ClientOnly>
 
   </div>
-
 </template>
 
 <script setup name="edit" lang="ts">
@@ -87,7 +86,7 @@ const rules = {
   title: { required: true },
 }
 
-const post = reactive<Post>({
+const post = reactive<PostAdd>({
   title: '',
   path: '',
   oldTitle: '',
@@ -97,7 +96,7 @@ const post = reactive<Post>({
   date: new Date(),
   description: "",
   updated: new Date(),
-  hide: '',
+  hide: '1',
   likes: 0,
   visitors: 0
 });
@@ -114,11 +113,12 @@ const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
   Object.assign(post, { path, oldTitle })
   if (id === 'edit') {
+    post.updated = void 0;
     createPost(post).then(res => {
       if (res.data.status) {
         ElMessage.success('保存成功');
         const id = res.data.data.id;
-        router.replace(`/c/edit/${id}`)
+        router.replace(EDIT_PAGE + id)
       }
     })
   } else {
@@ -142,7 +142,7 @@ const genCover = () => {
 }
 
 const onUploadImg = async (files: Blob[], callback: (str: string[]) => string[]) => {
-console.log('on UploadImage')
+  console.log('on UploadImage')
   const queue: Promise<string>[] = files.map(file => {
     return new Promise((resolve, reject) => {
       upload(file).then(res => {

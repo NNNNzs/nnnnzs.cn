@@ -1,6 +1,6 @@
 import MyIndexDB from "@/utils/hooks/IndexDB"
 import axios from "axios"
-import RecentUpload from "./RecentUpload"
+import RecentUpload from "../../composables/RecentUpload"
 
 const recentUpload = new RecentUpload()
 // 每个文件切片大小定为10MB;

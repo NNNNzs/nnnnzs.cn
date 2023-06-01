@@ -3,13 +3,16 @@
     <div class="mx-auto">
       <div class="mx-auto menu flex  items-center justify-between leading-4">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
-        <ul class="hidden md:flex justify-between category w-80">
-          <NuxtLink class="text-white" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
-            :key="item.name" :to="item.path">{{
-              item.name
-            }}</NuxtLink>
-          <div id="docsearch"><AlgoliaDocSearch /></div>
-        </ul>
+        <div>
+          <ul class="hidden md:flex justify-between category w-auto">
+            <NuxtLink class="text-white mr-4" role="li" is="li" :target="item.target || '_self'"
+              v-for="item in state.menu" :key="item.name" :to="item.path">{{
+                item.name
+              }}</NuxtLink>
+
+            <AlgoliaDocSearch />
+          </ul>
+        </div>
       </div>
     </div>
   </header>
@@ -17,22 +20,28 @@
 
 <script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
+const base = [
+  { name: "首页", path: "/", target: "_self" },
+  { name: "分类", path: '/tags' },
+]
 
-// const token = useCookie('NNNNzs_uuid');
-// console.log('token', token.value);
-
-
+const loginMenu = [
+  { name: "新增", path: EDIT_PAGE + 'edit', target: '_blank' },
+  { name: "管理", path: TOOLSE_PERFIX_PAGE, target: '_blank' },
+  { name: "日志", path: TOOLSE_PERFIX_PAGE + '/log' },
+]
 const state = reactive({
   value: "",
-  menu: [
-    { name: "首页", path: "/" },
-    { name: "分类", path: '/tags' },
-    // { name: "新增", path: '/edit/edit', target: '_blank' },
-    // { name: "旅游", path: "/travel" },
-    // { name: "动态", path: "/center" },
-    // { name: "关于", path: "/about" },
-  ],
+  menu: base
 });
+
+onMounted(async () => {
+  const { status } = await $fetch('/api/auth/v', { method: "POST", credentials: 'include' });
+  if (status) {
+    state.menu = base.concat(loginMenu)
+  }
+})
+
 </script>
 <style lang="less">
 .header {

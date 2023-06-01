@@ -14,7 +14,7 @@ const params = reactive({
   pageSize: 20
 });
 
-const fetchPost = () => $fetch(`/api/getPostList`, { query: params });
+const fetchPost = () => $fetch(`/api/post/list`, { query: params });
 
 const { data, refresh } = await useAsyncData('homePageData', fetchPost);
 
@@ -32,7 +32,7 @@ if (data.value?.record) {
 const loadMore = async () => {
   params.pageNum++
 
-  const res = await $fetch(`/api/getPostList`, { query: params });
+  const res = await $fetch(`/api/post/list`, { query: params });
 
   res?.record?.forEach(t => {
     postList.value.push(t)

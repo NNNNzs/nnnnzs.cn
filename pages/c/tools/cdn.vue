@@ -1,34 +1,31 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center">
+  <div class="w-full h-full flex flex-col justify-center items-center">
     <div class="w-2/4">
       <ElInput type="textarea" v-model="url" :autosize="{ minRows: 5 }"></ElInput>
       <ElButton class="mt-4" @click="reflashCDN">提交</ElButton>
       <ElButton class="mt-4" @click="getList">刷新</ElButton>
-      <ElTableV2 :data="tableList" :columns="columns" :height="200" :width="800">
-      </ElTableV2>
+    </div>
+    <div class="w-full flex-1 overflow-hidden">
+      <ElTable :data="tableList" fit height="100%" border>
+        <ElTableColumn v-for="col in columns" :label="col.title" :prop="col.prop"></ElTableColumn>
+      </ElTable>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ElInput, ElButton, ElTableV2 } from 'element-plus';
+import { ElInput, ElButton, ElTable, ElTableColumn } from 'element-plus';
 import type { Column } from 'element-plus';
 import axios from 'axios';
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-});
+
+
 const tableList = ref<any[]>([]);
 const columns: Column[] = [
-  { title: 'CreateTime', dataKey: 'CreateTime', width: 100 },
-  { title: 'Status', dataKey: 'Status', width: 100 },
-  { title: 'Url', dataKey: 'Url', width: 500 },
-  { title: 'FlushType', dataKey: 'FlushType', width: 100 },
-  { title: 'Status', dataKey: 'Status', width: 100 },
+  { title: 'CreateTime', prop: 'CreateTime', width: 100 },
+  { title: 'Status', prop: 'Status', width: 100 },
+  { title: 'Url', prop: 'Url', width: 500 },
+  { title: 'FlushType', prop: 'FlushType', width: 100 },
+  { title: 'Status', prop: 'Status', width: 100 },
 ]
 const url = ref('')
 const reflashCDN = () => {
@@ -38,17 +35,21 @@ const reflashCDN = () => {
     data: url.value.split('\n')
   })
   console.log(url.value.split('\n'));
-
 }
+
 const getList = () => {
   axios({
-    url: baseUrl + '/common/',
+    url: baseUrl + '/common/purgeTasks',
   }).then(res => {
     if (res.data.status) {
       tableList.value = res.data.data.list;
     }
   })
 }
+onMounted(() => {
+  getList()
+});
+
 </script>
 
 
