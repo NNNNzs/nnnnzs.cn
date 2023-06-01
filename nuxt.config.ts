@@ -28,7 +28,6 @@ export default defineNuxtConfig({
         }
       ],
       script: [
-        { src: "https://cdn.jsdelivr.net/npm/@docsearch/js@3" },
         { src: "/js/track.js" }
       ],
       meta: [
