@@ -112,8 +112,8 @@ const router = useRouter()
 const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
   Object.assign(post, { path, oldTitle })
+  post.updated = void 0;
   if (id === 'edit') {
-    post.updated = void 0;
     createPost(post).then(res => {
       if (res.data.status) {
         ElMessage.success('保存成功');
