@@ -12,7 +12,7 @@
       <div class="flex-1 overflow-hidden">
         <ElTable :data="tableList" border height="100%">
           <ElTableColumn v-for="item in tableHeader" :key="item.prop" :label="item.prop" :prop="item.prop"
-            :formatter="item.formatter || undefined">
+            :width="item.width" :formatter="item.formatter || undefined">
           </ElTableColumn>
           <ElTableColumn prop="edit" label="操作">
             <template #default="{ row }">
@@ -55,16 +55,21 @@ const pageTotal = ref(0)
 const tableList = ref<Post[]>([])
 
 const tableHeader = ref([
-  { prop: 'id', label: "id" },
+  { prop: 'id', label: "id", width: 50 },
   { prop: 'title', label: "标题" },
   {
-    prop: 'date', label: "date", formatter(row: Post) {
+    prop: 'date', label: "发布时间", formatter(row: Post) {
       return dayjs(row.date).format('YYYY-MM-DD HH:mm:ss')
+    }
+  },
+  {
+    prop: 'updated', label: "更新时间", formatter(row: Post) {
+      return dayjs(row.updated).format('YYYY-MM-DD HH:mm:ss')
     }
   },
   { prop: 'tags', label: "tags" },
   {
-    prop: 'hide', label: "隐藏", formatter(row: Post) {
+    prop: 'hide', label: "隐藏",width: 60, formatter(row: Post) {
       if (row.hide === '1') {
         return '隐藏'
       }

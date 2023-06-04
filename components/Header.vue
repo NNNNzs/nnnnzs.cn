@@ -27,7 +27,7 @@ const base = [
 
 const loginMenu = [
   { name: "新增", path: EDIT_PAGE + 'edit', target: '_blank' },
-  { name: "管理", path: TOOLSE_PERFIX_PAGE, target: '_blank' },
+  { name: "管理", path: TOOLSE_PERFIX_PAGE + '/admin', target: '_blank' },
   { name: "日志", path: TOOLSE_PERFIX_PAGE + '/log' },
 ]
 const state = reactive({
