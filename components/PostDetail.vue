@@ -63,11 +63,13 @@ if (!post.title) {
     router.push('/404')
 }
 
+
 useHead({
     title: title,
     meta: [
         { name: 'keywords', content: post.tags + ',' + post.description },
-        { name: 'description', content: post.description }
+        { name: 'description', content: post.description },
+        { name: 'update', id: 'update', content: dayjs(post.updated).format('YYYYMMDDHHMMss') }
     ]
 })
 
