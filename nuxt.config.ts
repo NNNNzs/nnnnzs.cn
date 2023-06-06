@@ -96,9 +96,12 @@ export default defineNuxtConfig({
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY,
     applicationId: process.env.ALGOLIA_APP_ID,
+    instantSearch: {
+      theme: 'algolia'
+    },
     // DocSearch key is used to configure DocSearch extension.
     docSearch: {
-      indexName: "blog2"
+      indexName: process.env.ALGOLIA_APP_INDEX_DB
     }
   }
 })

@@ -1,12 +1,14 @@
 <template>
   <ClientOnly>
     <div class="w-full h-full flex flex-col p-4 bg-blue-50">
-      <div class="h-8 flex flex-row justify-between mb-4">
-        <div>
+      <div class="h-1/2 flex flex-row justify-between mb-4">
+        <!-- <div>
           <el-button type="primary" @click="addPost">新增</el-button>
-        </div>
+        </div> -->
         <div class="w-50">
-          <el-input v-model.lazy="query.query"></el-input>
+          <div class="w-50">
+            <AlgoliaDocSearch />
+          </div>
         </div>
       </div>
       <div class="flex-1 overflow-hidden">
@@ -36,18 +38,29 @@
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
 import { deletePost } from '@/api/post';
 import dayjs from 'dayjs'
+const indexName = 'blog2';
+const algolia = useAlgoliaRef()
+// @ts-ignore
+import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 
+const { result, search } = useAlgoliaSearch('blog2')
 
 interface Query extends QueryCondition {
   hide: string,
   query: string
 }
 
+
 const query = reactive<Query>({
   pageSize: 10,
   pageNum: 1,
   hide: 'all',
   query: '',
+});
+
+watch(() => query.query, (newVal) => {
+  search({ query: newVal });
+  console.log(result.value)
 });
 
 const pageTotal = ref(0)
@@ -100,10 +113,6 @@ const getList = async () => {
   pageTotal.value = res.total;
   tableList.value = res.record;
 }
-
-watchEffect(() => {
-  getList()
-})
 
 
 </script>
