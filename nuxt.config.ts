@@ -62,7 +62,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      isDev: process.env.NODE_ENV !== "production"
+      isDev: process.env.NODE_ENV !== "production",
     }
   },
   nitro: {
@@ -96,12 +96,13 @@ export default defineNuxtConfig({
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY,
     applicationId: process.env.ALGOLIA_APP_ID,
-    instantSearch: {
-      theme: 'algolia'
-    },
     // DocSearch key is used to configure DocSearch extension.
     docSearch: {
-      indexName: process.env.ALGOLIA_APP_INDEX_DB
+      indexName: process.env.ALGOLIA_APP_INDEX_DB,
+      facetFilters: ''
+    },
+    instantSearch: {
+      theme: 'algolia'
     }
   }
 })

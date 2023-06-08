@@ -9,8 +9,7 @@
               v-for="item in state.menu" :key="item.name" :to="item.path">{{
                 item.name
               }}</NuxtLink>
-
-            <AlgoliaDocSearch />
+            <Search></Search>
           </ul>
         </div>
       </div>

@@ -7,7 +7,7 @@
         </div> -->
         <div class="w-50">
           <div class="w-50">
-            <AlgoliaDocSearch />
+            <Search></Search>
           </div>
         </div>
       </div>
