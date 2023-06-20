@@ -38,12 +38,11 @@
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
 import { deletePost } from '@/api/post';
 import dayjs from 'dayjs'
-const indexName = 'blog2';
-const algolia = useAlgoliaRef()
+
 // @ts-ignore
 import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 
-const { result, search } = useAlgoliaSearch('blog2')
+const { result, search } = useAlgoliaSearch('nnnnzs')
 
 interface Query extends QueryCondition {
   hide: string,
