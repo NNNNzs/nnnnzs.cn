@@ -22,6 +22,7 @@ import { reactive, toRefs, ref, watchEffect, watch } from "vue";
 const base = [
   { name: "首页", path: "/", target: "_self" },
   { name: "分类", path: '/tags' },
+  { name: "归档", path: '/timeline' },
 ]
 
 const loginMenu = [

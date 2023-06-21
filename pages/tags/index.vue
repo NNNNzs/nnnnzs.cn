@@ -3,9 +3,7 @@
   <div>
     <NuxtLink v-for="item in list" :to="`/tags/${item[0]}`"></NuxtLink>
   </div>
-  <ClientOnly>
-    <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>
-  </ClientOnly>
+  <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>
 </template>
 
 <script setup lang="ts">
@@ -34,6 +32,7 @@ const clickFun = (item: Entry) => {
 }
 
 onMounted(() => {
+
   if (wordCloudRef.value) {
 
     window.WordCloud(wordCloudRef.value, {
@@ -46,6 +45,8 @@ onMounted(() => {
       shape: "cardioid",
       click: clickFun
     })
+  } else {
+    console.log('')
   }
 })
 
