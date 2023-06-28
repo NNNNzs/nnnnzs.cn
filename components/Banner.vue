@@ -43,9 +43,9 @@ const oneText = ref<HitokotoData>({
 getHitokoto().then(res => {
   oneText.value = res;
 })
-
+const route = useRoute()
 onMounted(() => {
-  if (props.autoScroll) {
+  if (!route.hash && props.autoScroll) {
     setTimeout(() => {
       scrollIntoPost()
     }, 1000);

@@ -1,12 +1,16 @@
 <template>
   <ul>
-    <li v-for="(post, index) in posts" :key="post.title" @click="handlePostClick(post)" :id="`post_${post.id}`"
-      class="post flex flex-col m-auto w-10/12 lg:w-5/6 md:w-10/12 max-w-screen-lg bg-white  transition-all duration-500 ease-in-out"
-      :class="[index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse',
-      previewId === post.id ? 'fixed fixedCard overflow-auto !w-screen h-screen left-0 top-0 right-0 z-10 ' : 'my-8']">
-      <a class="post-cover w-full lg:w-3/5 text-center" :target="target" :href="toLink(post)" :title="post.title">
-        <img class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl" v-lazyload :data-src="homeThumbnail(post.cover)" />
-      </a>
+    <li v-for="(post, index) in  posts " class="post flex-col md:flex-row" :key="post.id" @click="handlePostClick(post)"
+      :id="`post_${post.id}`" :class="[
+        { preview: previewId === post.id },
+        { 'md:flex-row-reverse': index % 2 === 1 }
+      ]">
+      <div class="close top-[-2em]" @click.stop="exitPreview(post)">X</div>
+
+      <div class="post-cover w-full lg:w-3/5 text-center">
+        <img class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl" v-lazyload
+          :data-src="homeThumbnail(post.cover)" />
+      </div>
 
       <div
         class="post-text  text-left w-full p-6 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border border-gray-300 border-t-0"
@@ -21,7 +25,7 @@
           <!-- <a style="margin-left:10px" :href="toEdit(post)" :target="target">编辑</a> -->
         </h2>
         <div class="post-tags">
-          <span v-for="tag in   post.tags.split(',')" :key="tag">
+          <span v-for=" tag  in    post.tags.split(',') " :key="tag">
             <a :href="`/tags/${tag}/`" :target="target">
               {{ tag }}
             </a>
@@ -84,14 +88,31 @@ onMounted(() => {
 })
 
 const handlePostClick = (post: Post) => {
+  const dom = document.querySelector(`#post_${[post.id]}`) as HTMLLIElement;
+  const { left, top } = dom.getBoundingClientRect();
 
   if (breakpoints.greater('lg').value) {
     return false;
   }
-  // 初次
-  if (previewId.value === '') {
+  console.log('top', top);
+  Object.assign(dom.style, {
+    top: top + 'px',
+    left: "0px",
+    right: '0px'
+  })
+
+  setTimeout(() => {
+    Object.assign(dom.style, {
+      top: '0px',
+      bottom: '0px',
+      left: "0px",
+      right: '0px'
+    })
+  }, 300);
+
+  if (!previewId.value) {
+    lock.value = true;
     previewId.value = post.id as string
-    // lock.value = true;
     if (!contentMap[post.id]) {
       getPostById(post.id).then(res => {
         if (post.id && res?.content) {
@@ -99,11 +120,20 @@ const handlePostClick = (post: Post) => {
         }
       })
     }
-  } else if (previewId.value === post.id) {
-    // 退出
-    lock.value = false;
-    previewId.value = ''
   }
+
+}
+
+const exitPreview = (post: Post) => {
+  lock.value = false;
+  previewId.value = '';
+  const dom = document.querySelector(`#post_${[post.id]}`) as HTMLLIElement;
+  Object.assign(dom.style, {
+    left: '',
+    right: '',
+    top: '',
+    bottom: '',
+  })
 }
 
 const toLink = (post: Post) => {
@@ -118,11 +148,34 @@ const toEdit = (post: Post) => {
 
 </script>
 
-<style lang="less">
+<style lang="postcss">
 .post {
-  // transition:left 5s linear 0s,top 5s linear 0,width 2s linear 3s;
-  transition: height 100ms linear 100ms, width 300ms linear 0s, left 300ms linear 1s, top 300ms linear 1s, ;
-  // border-radius: 3em;
+  --base-line: 1;
+  /* transition: height 100ms linear 100ms, width 300ms linear 0s, left 300ms linear 1s, top 300ms linear 1s, ; */
+  transition: top 10s linear 0ms, left 300ms linear 0ms, width 600ms linear 1s;
+  @apply flex relative m-auto w-5/6 max-w-screen-lg bg-white transition-all duration-500 ease-in-out my-8;
+
+  &.preview {
+    @apply fixed overflow-auto !w-screen h-screen z-10 my-0 top-0;
+
+    .close {
+      @apply visible right-4 top-4;
+    }
+
+    .post-meta,
+    .post-description {
+      @apply hidden;
+    }
+
+    .post-content {
+      display: block;
+    }
+  }
+
+  .close {
+    transition: top 0.3s linear 300ms;
+    @apply fixed block invisible;
+  }
 }
 
 .post-content,
@@ -132,20 +185,5 @@ const toEdit = (post: Post) => {
 
 .post-content {
   display: none;
-}
-
-.fixedCard {
-
-  .post-meta {
-    display: none;
-  }
-
-  .post-description {
-    display: none;
-  }
-
-  .post-content {
-    display: block;
-  }
 }
 </style>
