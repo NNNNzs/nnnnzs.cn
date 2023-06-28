@@ -5,15 +5,14 @@
         { preview: previewId === post.id },
         { 'md:flex-row-reverse': index % 2 === 1 }
       ]">
-      <div class="close top-[-2em]" @click.stop="exitPreview(post)">X</div>
 
-      <div class="post-cover w-full lg:w-3/5 text-center">
-        <img class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl" v-lazyload
+      <div class="post-cover w-full lg:w-3/5 text-center ">
+        <img v-lazyload class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl rounded-t-lg"
           :data-src="homeThumbnail(post.cover)" />
       </div>
 
       <div
-        class="post-text  text-left w-full p-6 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border border-gray-300 border-t-0"
+        class="post-text text-left w-full p-4 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border border-gray-300 border-t-0"
         :class="[index % 2 === 0 ? 'lg:border-l-0' : 'lg:border-r-0']">
         <p class="post-time text-gray-300">
           {{ dateFormat(post?.date) }}
@@ -24,7 +23,7 @@
           </a>
           <!-- <a style="margin-left:10px" :href="toEdit(post)" :target="target">编辑</a> -->
         </h2>
-        <div class="post-tags">
+        <div class="post-tags hidden md:block">
           <span v-for=" tag  in    post.tags.split(',') " :key="tag">
             <a :href="`/tags/${tag}/`" :target="target">
               {{ tag }}
@@ -52,6 +51,12 @@
       </div>
     </li>
   </ul>
+
+  <div :class="{ postPreiview: !!previewId }" class="close text-white top-[-2em]" @click.stop="exitPreview()">
+    <el-icon size="20">
+      <CircleClose />
+    </el-icon>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -61,6 +66,9 @@ import dayjs from "dayjs";
 import { getPostById } from "~~/api/post";
 import MdEditor from 'md-editor-v3';
 import { breakpointsTailwind } from '@vueuse/core'
+// import { CloseCircleOutlined } from "@ant-design/icons-vue";
+import { ElIcon } from "element-plus";
+import { CircleClose } from '@element-plus/icons-vue'
 
 const props = defineProps({
   posts: {
@@ -89,26 +97,19 @@ onMounted(() => {
 
 const handlePostClick = (post: Post) => {
   const dom = document.querySelector(`#post_${[post.id]}`) as HTMLLIElement;
-  const { left, top } = dom.getBoundingClientRect();
+  const { top } = dom.getBoundingClientRect();
 
   if (breakpoints.greater('lg').value) {
     return false;
   }
-  console.log('top', top);
+  const offsetTop = useCssVar('--offset-top', dom);
+
   Object.assign(dom.style, {
-    top: top + 'px',
+    top: `${top}px`,
     left: "0px",
     right: '0px'
   })
-
-  setTimeout(() => {
-    Object.assign(dom.style, {
-      top: '0px',
-      bottom: '0px',
-      left: "0px",
-      right: '0px'
-    })
-  }, 300);
+  offsetTop.value = `${-top}px`
 
   if (!previewId.value) {
     lock.value = true;
@@ -124,16 +125,16 @@ const handlePostClick = (post: Post) => {
 
 }
 
-const exitPreview = (post: Post) => {
+const exitPreview = () => {
   lock.value = false;
-  previewId.value = '';
-  const dom = document.querySelector(`#post_${[post.id]}`) as HTMLLIElement;
+  const dom = document.querySelector(`#post_${[previewId.value]}`) as HTMLLIElement;
   Object.assign(dom.style, {
     left: '',
     right: '',
     top: '',
     bottom: '',
   })
+  previewId.value = '';
 }
 
 const toLink = (post: Post) => {
@@ -150,40 +151,67 @@ const toEdit = (post: Post) => {
 
 <style lang="postcss">
 .post {
-  --base-line: 1;
-  /* transition: height 100ms linear 100ms, width 300ms linear 0s, left 300ms linear 1s, top 300ms linear 1s, ; */
-  transition: top 10s linear 0ms, left 300ms linear 0ms, width 600ms linear 1s;
-  @apply flex relative m-auto w-5/6 max-w-screen-lg bg-white transition-all duration-500 ease-in-out my-8;
+  --cubic-line: cubic-bezier(0, 0, 0.13, 1.82);
+  /* --cubic-line: cubic-bezier(0, 1, 0.95, 1.05); */
+  --base-duration: 600ms;
+  --base-delay: 100ms;
+
+
+  transition:
+    /* height calc(3 * var(--base-duration)) var(--cubic-line) 0s, */
+    width var(--base-duration) var(--cubic-line) var(--base-delay),
+    transform 300ms var(--cubic-line) var(--base-delay);
+  @apply flex relative m-auto w-11/12 max-w-screen-lg bg-white my-8 shadow-xl overflow-hidden;
+
+  &-content,
+  &-description,
+  &-meta,
+  &-tags {
+    word-break: break-all;
+  }
+
+  &-description,
+  &-meta,
+  &-content {
+    display: none;
+    @apply md:block;
+  }
+
+  &-text {
+    display: block;
+    transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
+  }
 
   &.preview {
-    @apply fixed overflow-auto !w-screen h-screen z-10 my-0 top-0;
+    @apply fixed overflow-auto !w-screen h-screen z-10 my-0 pointer-events-none;
+    transform: translateY(var(--offset-top));
 
-    .close {
-      @apply visible right-4 top-4;
+    .post-cover img {
+      transition: border-radius 3s var(--cubic-line) 0s;
+      @apply rounded-none;
     }
 
     .post-meta,
-    .post-description {
-      @apply hidden;
-    }
-
     .post-content {
       display: block;
     }
+
+    .post-text {
+      display: block;
+      transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
+      /* height: 100%; */
+    }
   }
 
-  .close {
-    transition: top 0.3s linear 300ms;
-    @apply fixed block invisible;
+}
+
+
+.close {
+  @apply fixed block invisible w-4 h-4 z-20;
+  transition: top 300ms linear 300ms;
+
+  &.postPreiview {
+    @apply visible right-4 top-4;
   }
-}
-
-.post-content,
-.post-description {
-  word-break: break-all;
-}
-
-.post-content {
-  display: none;
 }
 </style>
