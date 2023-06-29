@@ -1,13 +1,13 @@
 <template>
   <ul>
-    <li v-for="(post, index) in  posts " class="post flex-col md:flex-row" :key="post.id" @click="handlePostClick(post)"
-      :id="`post_${post.id}`" :class="[
+    <li v-for="(post, index) in  posts " class="post flex-col active:shadow-2xl md:flex-row rounded-b-[1em] md:rounded-none" :key="post.id"
+      @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
         { preview: previewId === post.id },
         { 'md:flex-row-reverse': index % 2 === 1 }
       ]">
 
       <div class="post-cover w-full lg:w-3/5 text-center ">
-        <img v-lazyload class="w-full max-h-96 h-auto  lg:rounded-xl hover:shadow-2xl rounded-t-lg"
+        <img v-lazyload class="w-full max-h-96 h-auto  lg:rounded-xl md:hover:shadow-2xl rounded-t-[1em]"
           :data-src="homeThumbnail(post.cover)" />
       </div>
 
@@ -30,7 +30,7 @@
             </a>
           </span>
         </div>
-        <p class="post-description text-gray-500 leading-10">
+        <p class="post-description hidden md:block text-gray-500 leading-10">
           {{ post?.description }}
         </p>
         <p class="post-content text-gray-500 leading-10">
@@ -39,7 +39,7 @@
             </MdEditor>
           </ClientOnly>
         </p>
-        <p class="post-meta">
+        <p class="post-meta hidden md:block">
           <span class="leancloud_visitors my-6">
             <i class="iconfont icon-eye"></i>热度<i>{{ post?.visitors }}</i>
           </span>
@@ -53,7 +53,7 @@
   </ul>
 
   <div :class="{ postPreiview: !!previewId }" class="close text-white top-[-2em]" @click.stop="exitPreview()">
-    <el-icon size="20">
+    <el-icon size="30">
       <CircleClose />
     </el-icon>
   </div>
@@ -106,8 +106,6 @@ const handlePostClick = (post: Post) => {
 
   Object.assign(dom.style, {
     top: `${top}px`,
-    left: "0px",
-    right: '0px'
   })
   offsetTop.value = `${-top}px`
 
@@ -129,8 +127,6 @@ const exitPreview = () => {
   lock.value = false;
   const dom = document.querySelector(`#post_${[previewId.value]}`) as HTMLLIElement;
   Object.assign(dom.style, {
-    left: '',
-    right: '',
     top: '',
     bottom: '',
   })
@@ -159,9 +155,9 @@ const toEdit = (post: Post) => {
 
   transition:
     /* height calc(3 * var(--base-duration)) var(--cubic-line) 0s, */
-    width var(--base-duration) var(--cubic-line) var(--base-delay),
+    width var(--base-duration) var(--cubic-line) calc( 3 * var(--base-delay)),
     transform 300ms var(--cubic-line) var(--base-delay);
-  @apply flex relative m-auto w-11/12 max-w-screen-lg bg-white my-8 shadow-xl overflow-hidden;
+  @apply flex relative m-auto w-11/12 max-w-screen-lg bg-white my-8 shadow-md left-0 right-0 overflow-hidden;
 
   &-content,
   &-description,
@@ -170,11 +166,9 @@ const toEdit = (post: Post) => {
     word-break: break-all;
   }
 
-  &-description,
-  &-meta,
   &-content {
-    display: none;
-    @apply md:block;
+    transform: height calc(3 * var(--base-duration)) var(--cubic-line) 10s;
+    height: 0;
   }
 
   &-text {
@@ -187,19 +181,17 @@ const toEdit = (post: Post) => {
     transform: translateY(var(--offset-top));
 
     .post-cover img {
-      transition: border-radius 3s var(--cubic-line) 0s;
+      transition: border-radius var(--base-duration) var(--cubic-line) 0s;
       @apply rounded-none;
     }
 
-    .post-meta,
     .post-content {
-      display: block;
+      height: 100vh;
     }
 
     .post-text {
       display: block;
       transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
-      /* height: 100%; */
     }
   }
 
@@ -207,7 +199,7 @@ const toEdit = (post: Post) => {
 
 
 .close {
-  @apply fixed block invisible w-4 h-4 z-20;
+  @apply fixed block invisible w-8 h-8 z-20;
   transition: top 300ms linear 300ms;
 
   &.postPreiview {
