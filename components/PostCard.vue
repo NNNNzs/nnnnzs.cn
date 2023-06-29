@@ -1,20 +1,18 @@
 <template>
   <ul>
     <li v-for="(post, index) in  posts "
-      class="post flex-col active:shadow-2xl md:flex-row rounded-b-[1em] md:rounded-none" :key="post.id"
-      @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
-        { preview: previewId === post.id },
-        { 'md:flex-row-reverse': index % 2 === 1 }
+      class="h-[19rem] md:h-auto post flex-col active:shadow-2xl md:flex-row rounded-b-[1em] md:rounded-none md:even:flex-row-reverse"
+      :key="post.id" @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
+        { preview: previewId === post.id }
       ]">
 
       <div class="post-cover w-full lg:w-3/5 text-center ">
-        <img v-lazyload class="w-full h-48 md:max-h-96 md:h-auto  lg:rounded-xl md:hover:shadow-2xl rounded-t-[1em]"
+        <img v-lazyload class="w-full h-48 md:max-h-96 md:h-auto md:hover:shadow-2xl lg:rounded-xl  rounded-t-[1em]"
           :data-src="homeThumbnail(post.cover)" />
       </div>
 
       <div
-        class="post-text text-left w-full p-4 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border-gray-300 border-t-0"
-        :class="[index % 2 === 0 ? 'lg:border-l-0' : 'lg:border-r-0']">
+        class="post-text text-left w-full p-4 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border-gray-300 border-t-0 even:lg:border-l-0 odd:lg:border-r-0">
         <p class="post-time text-gray-300">
           {{ dateFormat(post?.date) }}
         </p>
@@ -149,17 +147,16 @@ const toEdit = (post: Post) => {
 .post {
   --cubic-line: cubic-bezier(0, 0, 0.13, 1.82);
   /* --cubic-line: cubic-bezier(0, 1, 0.95, 1.05); */
-  --base-duration: 500ms;
+  --base-duration: 400ms;
   --base-delay: 100ms;
 
 
   transition:
-    height calc(3 * var(--base-duration)) var(--cubic-line) 0s,
+    height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
     width var(--base-duration) var(--cubic-line) calc(3 * var(--base-delay)),
     transform calc(1 * var(--base-duration)) var(--cubic-line) calc(3 * var(--base-delay)),
     border-radius var(--base-duration) var(--cubic-line) var(--base-delay);
-  @apply flex relative m-auto w-11/12 max-w-screen-lg bg-white my-8 shadow-md left-0 right-0 overflow-hidden;
-  height: 19rem;
+  @apply flex m-auto w-11/12 max-w-screen-lg bg-white my-8 shadow-md left-0 right-0 overflow-hidden;
 
   &-content,
   &-description,
@@ -171,11 +168,11 @@ const toEdit = (post: Post) => {
   &-content {
     transform: height calc(1 * var(--base-duration)) var(--cubic-line) 0;
     overflow: hidden;
+    display: none;
   }
 
   &-text {
     transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
-    height: 7rem;
   }
 
   &-cover {
@@ -192,13 +189,12 @@ const toEdit = (post: Post) => {
       @apply rounded-none;
     }
 
-    .post-text {
-      height: calc(100vh - 12rem);
+    .post-content {
+      display: block;
     }
   }
 
 }
-
 
 .close {
   @apply fixed block invisible w-8 h-8 z-20;
