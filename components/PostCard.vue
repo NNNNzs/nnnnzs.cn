@@ -1,18 +1,19 @@
 <template>
   <ul>
-    <li v-for="(post, index) in  posts " class="post flex-col active:shadow-2xl md:flex-row rounded-b-[1em] md:rounded-none" :key="post.id"
+    <li v-for="(post, index) in  posts "
+      class="post flex-col active:shadow-2xl md:flex-row rounded-b-[1em] md:rounded-none" :key="post.id"
       @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
         { preview: previewId === post.id },
         { 'md:flex-row-reverse': index % 2 === 1 }
       ]">
 
       <div class="post-cover w-full lg:w-3/5 text-center ">
-        <img v-lazyload class="w-full max-h-96 h-auto  lg:rounded-xl md:hover:shadow-2xl rounded-t-[1em]"
+        <img v-lazyload class="w-full h-48 md:max-h-96 md:h-auto  lg:rounded-xl md:hover:shadow-2xl rounded-t-[1em]"
           :data-src="homeThumbnail(post.cover)" />
       </div>
 
       <div
-        class="post-text text-left w-full p-4 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border border-gray-300 border-t-0"
+        class="post-text text-left w-full p-4 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border-gray-300 border-t-0"
         :class="[index % 2 === 0 ? 'lg:border-l-0' : 'lg:border-r-0']">
         <p class="post-time text-gray-300">
           {{ dateFormat(post?.date) }}
@@ -128,7 +129,6 @@ const exitPreview = () => {
   const dom = document.querySelector(`#post_${[previewId.value]}`) as HTMLLIElement;
   Object.assign(dom.style, {
     top: '',
-    bottom: '',
   })
   previewId.value = '';
 }
@@ -149,15 +149,17 @@ const toEdit = (post: Post) => {
 .post {
   --cubic-line: cubic-bezier(0, 0, 0.13, 1.82);
   /* --cubic-line: cubic-bezier(0, 1, 0.95, 1.05); */
-  --base-duration: 600ms;
+  --base-duration: 500ms;
   --base-delay: 100ms;
 
 
   transition:
-    /* height calc(3 * var(--base-duration)) var(--cubic-line) 0s, */
-    width var(--base-duration) var(--cubic-line) calc( 3 * var(--base-delay)),
-    transform 300ms var(--cubic-line) var(--base-delay);
+    height calc(3 * var(--base-duration)) var(--cubic-line) 0s,
+    width var(--base-duration) var(--cubic-line) calc(3 * var(--base-delay)),
+    transform calc(1 * var(--base-duration)) var(--cubic-line) calc(3 * var(--base-delay)),
+    border-radius var(--base-duration) var(--cubic-line) var(--base-delay);
   @apply flex relative m-auto w-11/12 max-w-screen-lg bg-white my-8 shadow-md left-0 right-0 overflow-hidden;
+  height: 19rem;
 
   &-content,
   &-description,
@@ -167,31 +169,31 @@ const toEdit = (post: Post) => {
   }
 
   &-content {
-    transform: height calc(3 * var(--base-duration)) var(--cubic-line) 10s;
-    height: 0;
+    transform: height calc(1 * var(--base-duration)) var(--cubic-line) 0;
+    overflow: hidden;
   }
 
   &-text {
-    display: block;
     transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
+    height: 7rem;
+  }
+
+  &-cover {
+    img {
+      transition: border-radius var(--base-duration) var(--cubic-line) var(--base-delay);
+    }
   }
 
   &.preview {
-    @apply fixed overflow-auto !w-screen h-screen z-10 my-0 pointer-events-none;
+    @apply fixed overflow-auto !w-screen h-screen z-10 my-0 pointer-events-none flex flex-col;
     transform: translateY(var(--offset-top));
 
     .post-cover img {
-      transition: border-radius var(--base-duration) var(--cubic-line) 0s;
       @apply rounded-none;
     }
 
-    .post-content {
-      height: 100vh;
-    }
-
     .post-text {
-      display: block;
-      transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
+      height: calc(100vh - 12rem);
     }
   }
 
