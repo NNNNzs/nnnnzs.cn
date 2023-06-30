@@ -1,30 +1,49 @@
 <template>
   <header class="header absolute top-0 text-white px-6">
-    <div class="mx-auto">
-      <div class="mx-auto menu flex  items-center justify-between leading-4">
+    <div class="mx-auto h-full">
+      <div class="mx-auto h-full menu flex  items-center justify-between leading-8">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
-        <div>
-          <ul class="hidden md:flex justify-between category w-auto">
-            <NuxtLink class="text-white mr-4" role="li" is="li" :target="item.target || '_self'"
-              v-for="item in state.menu" :key="item.name" :to="item.path">{{
-                item.name
-              }}</NuxtLink>
-            <Search></Search>
-          </ul>
+
+        <ul class="hidden md:flex justify-between category w-auto">
+          <NuxtLink class="text-white mr-4" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
+            :key="item.name" :to="item.path">{{
+              item.name
+            }}</NuxtLink>
+          <Search></Search>
+        </ul>
+        <div class="w-4 h-4 md:hidden cursor-pointer">
+          <el-icon @click="drawer = !drawer">
+            <Menu />
+          </el-icon>
         </div>
       </div>
+    </div>
+    <div class="drawer pt-8  fixed w-[8rem] top-0 h-screen bg-white shadow-md flex flex-col text-center right-[-8rem]"
+      :class="[drawer ? 'show' : '']">
+      <div class="absolute w-4 h-4 right-2 top-2 cursor-pointer">
+        <el-icon @click="drawer = !drawer" class="text-black ">
+          <CircleClose />
+        </el-icon>
+      </div>
+      <NuxtLink class="text-black mr-4" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
+        :key="item.name" :to="item.path">{{
+          item.name
+        }}</NuxtLink>
     </div>
   </header>
 </template>
 
 <script lang="ts" setup >
 import { reactive, toRefs, ref, watchEffect, watch } from "vue";
+import { ElIcon } from "element-plus";
+import { Menu, CircleClose } from '@element-plus/icons-vue';
+
 const base = [
   { name: "首页", path: "/", target: "_self" },
   { name: "分类", path: '/tags' },
   { name: "归档", path: '/timeline' },
 ]
-
+const drawer = ref(false);
 const loginMenu = [
   { name: "新增", path: EDIT_PAGE + 'edit', target: '_blank' },
   { name: "管理", path: TOOLSE_PERFIX_PAGE + '/admin', target: '_blank' },
@@ -45,7 +64,7 @@ onMounted(async () => {
 </script>
 <style lang="less">
 .header {
-  --height: 36px;
+  --height: 2rem;
   height: var(--height);
   margin-bottom: var(--space);
   box-shadow: 0 1px 3px rgb(18 18 18 / 10%);
@@ -72,6 +91,15 @@ onMounted(async () => {
           // background-color: violet;
         }
       }
+    }
+  }
+
+  .drawer {
+    z-index: 9;
+    transition: transform 300ms cubic-bezier(0, 0, 0, 1.16) 0s;
+
+    &.show {
+      transform: translateX(-8rem);
     }
   }
 }
