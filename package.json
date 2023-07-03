@@ -13,7 +13,8 @@
     "g": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "pm2": "pm2 start ecosystem.config.cjs --only nnnnzs.cn "
+    "pm2": "pm2 start ecosystem.config.cjs --only nnnnzs.cn ",
+    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0  -n ./changelog-option.js"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.1.0",
@@ -22,7 +23,12 @@
     "@vueuse/core": "^9.6.0",
     "@vueuse/nuxt": "^9.6.0",
     "autoprefixer": "^10.4.13",
+    "compare-func": "^2.0.0",
+    "conventional-changelog": "^4.0.0",
+    "conventional-changelog-cli": "^3.0.0",
+    "conventional-changelog-custom-config": "^0.3.1",
     "cross-env": "^7.0.3",
+    "husky": "^8.0.3",
     "nuxt": "^3.5.1",
     "postcss": "^8.4.19",
     "typescript": "^4.9.4"
@@ -32,6 +38,8 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@docsearch/js": "3",
     "@nuxtjs/algolia": "^1.7.0",
     "@pinia/nuxt": "^0.4.11",
