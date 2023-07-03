@@ -1,6 +1,6 @@
 <template>
   <Header></Header>
-  <div class="banner relative h-screen bg-fixed bg-cover flex justify-center items-center" :style="bannerStyle">
+  <div class="banner relative h-screen bg-scroll md:bg-fixed  bg- bg-cover flex justify-center items-center" :style="bannerStyle">
     <div class="antialiased text-2xl WenYueQingLongTi text-white">
       <p class="mb-20">{{ oneText.hitokoto }}</p>
       <p class="text-center" v-if="Boolean(oneText.from)">
