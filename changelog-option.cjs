@@ -1,6 +1,6 @@
-import compareFunc from "compare-func"
+const compareFunc = require("compare-func")
 
-export default = {
+module.exports = {
   writerOpts: {
     transform: (commit, context) => {
       let discard = true

@@ -14,7 +14,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "pm2": "pm2 start ecosystem.config.cjs --only nnnnzs.cn ",
-    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0  -n ./changelog-option.js"
+    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0  -n ./changelog-option.cjs"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.1.0",
