@@ -1,10 +1,12 @@
 <template>
   <ul>
     <li v-for="(post, index) in  posts "
-      class="h-[19rem] md:h-auto post flex-col active:shadow-2xl md:flex-row md:rounded-none md:even:flex-row-reverse"
-      :key="post.id" @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
-        { preview: previewId === post.id }
-      ]">
+      class="max-h-[30rem] md:h-auto post flex-col md:flex-row md:rounded-none md:even:flex-row-reverse" :key="post.id"
+      @click="handlePostClick(post)" :id="`post_${post.id}`" @touchstart="toucheId = post.id" @touchend="toucheId = -1"
+      :class="[
+        { preview: previewId === post.id },
+        { active: toucheId === post.id }
+      ]" @contextmenu.capture="onLongPress">
 
       <div class="post-cover w-full lg:w-3/5 text-center rounded-t-[1em] bg-transparent">
         <img v-lazyload class="w-full h-48 md:max-h-96 md:h-auto md:hover:shadow-2xl lg:rounded-xl  rounded-t-[1em]"
@@ -140,6 +142,11 @@ const toEdit = (post: Post) => {
   const { id } = post;
   return `/c/edit/${id}`;
 }
+const onLongPress = (e: MouseEvent) => {
+  e.preventDefault()
+}
+
+const toucheId = ref<string | number>(-1);
 
 </script>
 
@@ -147,15 +154,22 @@ const toEdit = (post: Post) => {
 .post {
   --cubic-line: cubic-bezier(0, 0, 0.13, 1.82);
   /* --cubic-line: cubic-bezier(0, 1, 0.95, 1.05); */
-  --base-duration: 400ms;
-  --base-delay: var(--base-duration);
+  --base-duration: 300ms;
+  --base-delay: calc(0.8 * var(--base-duration));
+
+  &:hover,
+  &:active,
+  .active {
+    @apply shadow-2xl;
+  }
 
 
-  transition:
-    height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
-    width var(--base-duration) var(--cubic-line) calc(1 * var(--base-delay)),
-    transform calc(1 * var(--base-duration)) var(--cubic-line) calc(1 * var(--base-delay)),
-    border-radius var(--base-duration) var(--cubic-line) 0s;
+
+  transition: height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  max-height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  width var(--base-duration) var(--cubic-line) calc(1 * var(--base-delay)),
+  transform calc(1 * var(--base-duration)) var(--cubic-line) calc(1 * var(--base-delay)),
+  border-radius var(--base-duration) var(--cubic-line) 0s;
   @apply flex m-auto w-11/12 max-w-screen-lg my-8 shadow-md left-0 right-0 overflow-hidden rounded-none;
 
   &-content,
@@ -194,7 +208,7 @@ const toEdit = (post: Post) => {
   }
 
   &.preview {
-    @apply fixed overflow-auto !w-screen h-screen z-10 my-0 flex flex-col;
+    @apply fixed overflow-auto !w-screen max-h-screen z-10 my-0 flex flex-col;
     transform: translateY(var(--offset-top));
 
     &,
