@@ -59,6 +59,7 @@
 
 ### 🐛 Bug Fixes | Bug 修复
 
+* 修复背景图在移动端模糊不展示问题 ([5b6de5a](https://github.com/NNNNzs/nnnnzs.cn/commit/5b6de5a))
 * 修复环境 ([41f2e0e](https://github.com/NNNNzs/nnnnzs.cn/commit/41f2e0e))
 * 修复验证页面无法跳转问题 ([2495af7](https://github.com/NNNNzs/nnnnzs.cn/commit/2495af7))
 * 修复预览模式无法滚动 ([d605d8d](https://github.com/NNNNzs/nnnnzs.cn/commit/d605d8d))
