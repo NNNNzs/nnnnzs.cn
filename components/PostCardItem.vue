@@ -71,12 +71,10 @@ const emit = defineEmits(['on-click']);
 const postRef = ref<HTMLLIElement | null>(null);
 const cache = ref('')
 
-const { vibrate, stop, isSupported } = useVibrate({ pattern: [300, 100, 300] })
 const { pressed } = useMousePressed({ target: postRef.value })
 
 watchEffect(() => {
   if (pressed) {
-    isSupported && vibrate()
   }
 })
 
@@ -125,7 +123,7 @@ const handlePostClick = (post: Post) => {
   --cubic-line: cubic-bezier(0, 0, 0.13, 1.82);
   /* --cubic-line: cubic-bezier(0, 1, 0.95, 1.05); */
   --base-duration: 300ms;
-  --base-delay: calc(0.8 * var(--base-duration));
+  --base-delay: calc(0.5 * var(--base-duration));
 
   &:hover,
   .active {
@@ -152,6 +150,7 @@ const handlePostClick = (post: Post) => {
     transform: height calc(1 * var(--base-duration)) var(--cubic-line) 0;
     overflow: hidden;
     display: none;
+    background-color: #fff;
   }
 
   &-text {
