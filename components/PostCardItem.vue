@@ -1,15 +1,15 @@
 <template>
-  <li class="max-h-[30rem] md:h-auto post flex-col md:flex-row md:rounded-none md:even:flex-row-reverse" ref="postRef"
-    @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
+  <li class="post max-h-[30rem] md:h-auto flex-col md:flex-row md:even:flex-row-reverse rounded-2xl md:11/12"
+    ref="postRef" @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[
+      { preview }
     ]">
-
-    <div class="post-cover w-full lg:w-3/5 text-center rounded-t-[1em] bg-transparent">
-      <img v-lazyload class="w-full h-48 md:max-h-96 md:h-auto md:hover:shadow-2xl lg:rounded-xl  rounded-t-[1em]"
+    <div class="post-cover w-full  md:w-3/5 text-center  bg-transparent md:rounded-2xl">
+      <img v-lazyload class="w-full h-48 md:max-h-96 md:h-auto md:hover:shadow-2xl rounded-t-xl md:rounded-2xl"
         :data-src="homeThumbnail(post.cover)" />
     </div>
 
     <div
-      class="post-text bg-white text-left w-full p-4 lg:w-2/5 lg:relative lg:top-4 lg:border lg:border-gray-300 border-gray-300 border-t-0 even:lg:border-l-0 odd:lg:border-r-0">
+      class="post-text bg-white text-left w-full p-4 md:w-2/5 md:relative md:border md:border-gray-300  border-t-0 even:lg:border-l-0 odd:lg:border-r-0">
       <p class="post-time text-gray-300">
         {{ dateFormat(post?.date) }}
       </p>
@@ -31,7 +31,7 @@
       </p>
       <p class="post-content text-gray-500 leading-10">
         <ClientOnly>
-          <MdEditor editor-id="post-editor" preview-theme="cyanosis" :value="cache" :previewOnly="true">
+          <MdEditor :editor-id="`post-editor-${post.id}`" preview-theme="cyanosis" v-model="cache" :previewOnly="true">
           </MdEditor>
         </ClientOnly>
       </p>
@@ -51,13 +51,13 @@
 <script lang="ts" setup>
 import { PropType } from "vue";
 import { homeThumbnail } from "../utils/img";
-import dayjs from "dayjs";
 import { getPostById } from "~~/api/post";
 import MdEditor from 'md-editor-v3';
-import { breakpointsTailwind } from '@vueuse/core'
+import { breakpointsTailwind } from '@vueuse/core';
+import { dateFormat } from "~/composables/date";
 const target = '_blank';
 
-defineProps({
+const props = defineProps({
   post: {
     type: Object as PropType<Post>,
     default: () => ({}),
@@ -67,16 +67,25 @@ defineProps({
     default: false
   }
 });
+const emit = defineEmits(['on-click']);
+const postRef = ref<HTMLLIElement | null>(null);
+const cache = ref('')
 
-let lock = ref(false);
+const { vibrate, stop, isSupported } = useVibrate({ pattern: [300, 100, 300] })
+const { pressed } = useMousePressed({ target: postRef.value })
+
+watchEffect(() => {
+  if (pressed) {
+    isSupported && vibrate()
+  }
+})
+
 let breakpoints: any
+
 onMounted(() => {
-  lock = useScrollLock(document.body);
   breakpoints = useBreakpoints(breakpointsTailwind);
 })
 
-const cache = ref('')
-const postRef = ref<HTMLLIElement | null>(null)
 
 const toLink = (post: Post) => {
   const { path } = post;
@@ -84,12 +93,14 @@ const toLink = (post: Post) => {
 };
 
 const handlePostClick = (post: Post) => {
-  const dom = postRef.value as HTMLLIElement
-  const { top } = dom.getBoundingClientRect();
-
-  if (breakpoints.greater('lg').value) {
+  if (breakpoints.greater('md').value) {
     return false;
   }
+  if (props.preview) {
+    return false
+  }
+  const dom = postRef.value as HTMLLIElement
+  const { top } = dom.getBoundingClientRect();
   const offsetTop = useCssVar('--offset-top', dom);
 
   Object.assign(dom.style, {
@@ -97,23 +108,84 @@ const handlePostClick = (post: Post) => {
   });
 
   offsetTop.value = `${-top}px`
-
   if (!cache.value) {
-    lock.value = true;
-    cache.value = post.id as string
-    if (!cache.value) {
-      getPostById(post.id).then(res => {
-        if (post.id && res?.content) {
-          cache.value = res?.content
-        }
-      })
+    getPostById(post.id).then(res => {
+      if (post.id && res?.content) {
+        cache.value = res?.content
+      }
+    })
+  }
+  emit('on-click', post)
+}
+
+</script>
+
+<style lang="postcss">
+.post {
+  --cubic-line: cubic-bezier(0, 0, 0.13, 1.82);
+  /* --cubic-line: cubic-bezier(0, 1, 0.95, 1.05); */
+  --base-duration: 300ms;
+  --base-delay: calc(0.8 * var(--base-duration));
+
+  &:hover,
+  .active {
+    @apply shadow-2xl touch-pinch-zoom;
+  }
+
+
+
+  transition: height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  max-height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  width var(--base-duration) var(--cubic-line) calc(1 * var(--base-delay)),
+  transform calc(1 * var(--base-duration)) var(--cubic-line) calc(1 * var(--base-delay)),
+  border-radius var(--base-duration) var(--cubic-line) 0s;
+  @apply flex m-auto w-5/6 max-w-screen-lg my-8 shadow-md left-0 right-0 overflow-hidden;
+
+  &-content,
+  &-description,
+  &-meta,
+  &-tags {
+    word-break: break-all;
+  }
+
+  &-content {
+    transform: height calc(1 * var(--base-duration)) var(--cubic-line) 0;
+    overflow: hidden;
+    display: none;
+  }
+
+  &-text {
+    transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
+  }
+
+  &-cover {
+    img {
+      transition: border-radius var(--base-duration) var(--cubic-line) var(--base-delay);
+    }
+  }
+
+  &.preview {
+    @apply fixed overflow-auto !w-screen max-h-screen min-h-screen z-10 my-0 flex flex-col;
+    transform: translateY(var(--offset-top));
+
+    &,
+    .post-cover,
+    .post-cover img {
+      border-radius: unset;
+    }
+
+    .post-text {
+      min-height: calc(100vh - 12rem);
+    }
+
+    .post-cover img {
+      @apply rounded-none;
+    }
+
+    .post-content {
+      display: block;
     }
   }
 
 }
-
-const dateFormat = (date: string | undefined | Date) => {
-  if (!date) return "";
-  return dayjs(date).format("MM月 DD日, YYYY");
-};
-</script>
+</style>
