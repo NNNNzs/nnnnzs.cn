@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-04)
+## 0.0.1 (2023-07-05)
 
 
 ### ✨ Features | 新功能
@@ -64,6 +64,7 @@
 * 修复验证页面无法跳转问题 ([2495af7](https://github.com/NNNNzs/nnnnzs.cn/commit/2495af7))
 * 修复预览模式无法滚动 ([d605d8d](https://github.com/NNNNzs/nnnnzs.cn/commit/d605d8d))
 * 修复updated大小 ([bba2cec](https://github.com/NNNNzs/nnnnzs.cn/commit/bba2cec))
+* 移除震动 ([c103b7a](https://github.com/NNNNzs/nnnnzs.cn/commit/c103b7a))
 * dayjs ([8a11cf3](https://github.com/NNNNzs/nnnnzs.cn/commit/8a11cf3))
 * leancloud问题修复 ([342f517](https://github.com/NNNNzs/nnnnzs.cn/commit/342f517))
 
