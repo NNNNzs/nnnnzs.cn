@@ -5,6 +5,11 @@ import path from 'path'
 
 console.log("process.env", process.env.NODE_ENV)
 
+const totalPlugin = [
+  createSvgIconsPlugin({
+    iconDirs: [path.resolve(process.cwd(), 'assets/svg')]
+  })
+]
 const plugins =
   process.env.NODE_ENV === "development"
     ? [
@@ -12,9 +17,7 @@ const plugins =
         dts: true,
         resolvers: [ElementPlusResolver()]
       }),
-      createSvgIconsPlugin({
-        iconDirs: [path.resolve(process.cwd(), 'assets/svg')]
-      })
+
     ]
     : []
 
@@ -93,7 +96,7 @@ export default defineNuxtConfig({
     }
   },
   vite: {
-    plugins
+    plugins: totalPlugin.concat(plugins)
   },
   build: {
     analyze: false
