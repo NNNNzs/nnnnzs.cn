@@ -73,6 +73,9 @@ export default defineNuxtConfig({
       isDev: process.env.NODE_ENV !== "production",
     }
   },
+  /**
+   * @see 
+   */
   nitro: {
     devProxy: {
       "/api-remote": {

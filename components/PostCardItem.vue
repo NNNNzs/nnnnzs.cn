@@ -52,6 +52,8 @@ import { getPostById } from "~~/api/post"
 import MdEditor from "md-editor-v3"
 import { breakpointsTailwind } from "@vueuse/core"
 import { dateFormat } from "~/composables/date"
+import { isDark } from "~/composables/useSystemDark"
+
 const target = "_blank"
 
 const props = defineProps({
@@ -64,14 +66,13 @@ const props = defineProps({
     default: false
   }
 })
-const dark = useDark()
 const emit = defineEmits(["on-click"])
 const postRef = ref<HTMLLIElement | null>(null)
 const cache = ref("")
 
 const { pressed } = useMousePressed({ target: postRef.value })
 const theme = computed(() => {
-  return isDark ? "dark" : "light"
+  return isDark.value ? "dark" : "light"
 })
 
 watchEffect(() => {
@@ -181,5 +182,9 @@ const handlePostClick = (post: Post) => {
       display: block;
     }
   }
+}
+
+.dark .post .md-editor-dark {
+  --md-bk-color: theme(colors.slate.800);
 }
 </style>

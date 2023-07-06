@@ -29,8 +29,13 @@ let lock = ref(false);
 onMounted(() => {
   lock = useScrollLock(document.body);
 
+  /**
+   * @see https://github.com/vueuse/vueuse/blob/main/packages/core/useScrollLock/index.ts
+   * ios直接禁止了touchmove事件
+   */
   watchEffect(() => {
-    lock.value = !!previewId.value
+    // document.body.style.overflow = !!previewId.value ? 'hidden' : 'auto'
+    // lock.value = !!previewId.value
   })
 })
 

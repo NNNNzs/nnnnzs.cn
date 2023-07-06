@@ -64,7 +64,7 @@ const post = reactive<Post>({
 })
 
 const theme = computed(() => {
-  return isDark ? "dark" : "light"
+  return isDark.value ? "dark" : "light"
 })
 
 const router = useRouter()

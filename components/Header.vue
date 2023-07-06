@@ -6,8 +6,9 @@
 
         <div class="hidden md:flex justify-between category w-auto">
           <ul class="h-full">
-            <NuxtLink class="h-full inline-block mr-4 after:bg-white dark:after:bg-slate-800" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
-              :key="item.name" :to="item.path">{{ item.name }}</NuxtLink>
+            <NuxtLink class="h-full inline-block mr-4 after:bg-white dark:after:bg-slate-800" role="li" is="li"
+              :target="item.target || '_self'" v-for="item in state.menu" :key="item.name" :to="item.path">{{ item.name }}
+            </NuxtLink>
           </ul>
           <button @click="toggleDark()">
             <svg-icon class="" :name="isDark ? 'moon' : 'sun'"></svg-icon>
@@ -28,8 +29,13 @@
           <CircleClose />
         </el-icon>
       </div>
-      <NuxtLink class="text-black mr-4" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
+      <NuxtLink class="text-black" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
         :key="item.name" :to="item.path">{{ item.name }}</NuxtLink>
+      <div class="w-full  text-slate-800">
+        <button class="text-center" @click="toggleDark()">
+          <svg-icon class="" :name="isDark ? 'moon' : 'sun'"></svg-icon>
+        </button>
+      </div>
     </div>
   </header>
 </template>
@@ -44,7 +50,9 @@ const base = [
   { name: "首页", path: "/", target: "_self" },
   { name: "分类", path: "/tags" },
   { name: "归档", path: "/timeline" }
-]
+];
+
+
 const drawer = ref(false)
 const loginMenu = [
   { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
