@@ -1,6 +1,6 @@
 <template>
   <!-- <AlgoliaDocSearch :options="options" /> -->
-  <div id="docsearch"></div>
+  <div id="docsearch" class="flex items-center" ></div>
 </template>
 
 <script setup lang="ts">

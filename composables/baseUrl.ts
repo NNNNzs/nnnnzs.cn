@@ -11,6 +11,6 @@ const prodBaseUrl = "https://www.nnnnzs.cn/api-remote"
 
 export const baseUrl =
   process.env.NODE_ENV !== "production"
-    ? "http://localhost:3006"
-    // ? "https://www.nnnnzs.cn/api-remote"
+    // ? "http://localhost:3006"
+    ? "https://api.nnnnzs.cn/V2"
     : prodBaseUrl
