@@ -1,5 +1,7 @@
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
+import svgIcons, { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
 
 console.log("process.env", process.env.NODE_ENV)
 
@@ -9,6 +11,9 @@ const plugins =
       Components({
         dts: true,
         resolvers: [ElementPlusResolver()]
+      }),
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), 'assets/svg')]
       })
     ]
     : []

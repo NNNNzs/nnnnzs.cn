@@ -1,28 +1,16 @@
 <template>
-  <header class="header absolute top-0 text-white px-6">
+  <header class="header text-white dark:text-slate-900  absolute top-0 px-6">
     <div class="mx-auto h-full">
-      <div
-        class="mx-auto h-full menu flex items-center justify-between leading-8"
-      >
+      <div class="mx-auto h-full menu flex items-center justify-between leading-8">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
 
         <div class="hidden md:flex justify-between category w-auto">
-          <ul>
-            <NuxtLink
-              class="text-white mr-4"
-              role="li"
-              is="li"
-              :target="item.target || '_self'"
-              v-for="item in state.menu"
-              :key="item.name"
-              :to="item.path"
-              >{{ item.name }}</NuxtLink
-            >
+          <ul class="h-full">
+            <NuxtLink class="h-full inline-block mr-4 after:bg-white dark:after:bg-slate-800" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
+              :key="item.name" :to="item.path">{{ item.name }}</NuxtLink>
           </ul>
           <button @click="toggleDark()">
-            <i class="inline-block align-middle" />
-
-            <span class="ml-2">{{ isDark ? "Dark" : "Light" }}</span>
+            <svg-icon class="" :name="isDark ? 'moon' : 'sun'"></svg-icon>
           </button>
           <Search></Search>
         </div>
@@ -33,25 +21,15 @@
         </div>
       </div>
     </div>
-    <div
-      class="drawer pt-8 fixed w-[8rem] top-0 h-screen bg-white shadow-md flex flex-col text-center right-[-8rem]"
-      :class="[drawer ? 'show' : '']"
-    >
+    <div class="drawer pt-8 fixed w-[8rem] top-0 h-screen bg-white shadow-md flex flex-col text-center right-[-8rem]"
+      :class="[drawer ? 'show' : '']">
       <div class="absolute w-4 h-4 right-2 top-2 cursor-pointer">
         <el-icon @click="drawer = !drawer" class="text-black">
           <CircleClose />
         </el-icon>
       </div>
-      <NuxtLink
-        class="text-black mr-4"
-        role="li"
-        is="li"
-        :target="item.target || '_self'"
-        v-for="item in state.menu"
-        :key="item.name"
-        :to="item.path"
-        >{{ item.name }}</NuxtLink
-      >
+      <NuxtLink class="text-black mr-4" role="li" is="li" :target="item.target || '_self'" v-for="item in state.menu"
+        :key="item.name" :to="item.path">{{ item.name }}</NuxtLink>
     </div>
   </header>
 </template>
@@ -108,13 +86,11 @@ onMounted(async () => {
 
         &::after {
           position: absolute;
-          bottom: 0px;
+          bottom: 0;
           left: 0;
           content: "";
           width: 100%;
-          height: 3px;
-          background-color: #fff;
-          // background-color: violet;
+          height: 1px;
         }
       }
     }

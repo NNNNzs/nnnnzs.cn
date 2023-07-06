@@ -1,59 +1,36 @@
 <template>
   <li
     class="post max-h-[30rem] md:h-auto flex-col md:flex-row md:even:flex-row-reverse rounded-2xl md:11/12 bg-white dark:bg-slate-800 group"
-    ref="postRef"
-    @click="handlePostClick(post)"
-    :id="`post_${post.id}`"
-    :class="[{ preview }]"
-  >
+    ref="postRef" @click="handlePostClick(post)" :id="`post_${post.id}`" :class="[{ preview }]">
     <div class="post-cover w-full md:w-3/5 text-center bg-transparent">
-      <img
-        v-lazyload
-        class="w-full h-48 md:max-h-96 md:h-auto md:hover:shadow-2xl rounded-t-xl md:rounded-2xl group-even:md:rounded-l-none group-odd:md:rounded-r-none"
-        :data-src="homeThumbnail(post.cover)"
-      />
+      <img v-lazyload
+        class="w-full h-48 md:max-h-96 md:h-full md:hover:shadow-2xl rounded-t-xl md:rounded-2xl group-even:md:rounded-l-none group-odd:md:rounded-r-none"
+        :data-src="homeThumbnail(post.cover)" />
     </div>
 
     <div
-      class="post-text dark:border-none bg-white dark:bg-slate-800 text-left w-full p-4 md:w-2/5 md:relative md:border md:border-gray-300 border-t-0 even:lg:border-l-0 odd:lg:border-r-0"
-    >
+      class="post-text dark:border-none bg-white dark:bg-slate-800 text-left w-full p-4 md:w-2/5 md:relative md:border md:border-gray-300 border-t-0 even:lg:border-l-0 odd:lg:border-r-0">
       <p class="post-time text-gray-300">
         {{ dateFormat(post?.date) }}
       </p>
-      <h2 class="post-title text-gray-500 dark:text-white text-2xl my-4">
-        <a
-          :href="toLink(post)"
-          class="WenYueQingLongTi"
-          :title="post.title"
-          :target="target"
-        >
+      <h2 class="post-title md:line-clamp-1 text-slate-950 dark:text-white text-2xl my-4">
+        <a :href="toLink(post)" class="WenYueQingLongTi" :title="post.title" :target="target">
           {{ post.title }}
         </a>
       </h2>
-      <div class="post-tags hidden md:block text-gray dark:text-slate-400">
-        <PostCardTags :post="post"></PostCardTags>
-      </div>
-      <p class="post-description hidden md:block text-gray-500 leading-10">
+      <PostCardTags :post="post"></PostCardTags>
+      <p class="post-description hidden md:block md:h-[11rem] text-gray-500 leading-10">
         {{ post?.description }}
       </p>
-      <p
-        class="post-content bg-white dark:bg-slate-800 text-gray-500 leading-10"
-      >
+      <p class="post-content bg-white dark:bg-slate-800 text-gray-500 leading-10">
         <ClientOnly>
-          <MdEditor
-            preview-theme="cyanosis"
-            :editor-id="`post-editor-${post.id}`"
-            :theme="dark ? 'dark' : 'light'"
-            v-model="cache"
-            :previewOnly="true"
-          >
+          <MdEditor preview-theme="cyanosis" :editor-id="`post-editor-${post.id}`" :theme="theme" :model-value="cache"
+            :previewOnly="true">
           </MdEditor>
         </ClientOnly>
       </p>
 
-      <p
-        class="text-slate-700 dark:text-slate-400 post-meta hidden md:block"
-      >
+      <p class="text-slate-700 dark:text-slate-400 post-meta hidden md:block">
         <span class="leancloud_visitors my-6">
           <i class="iconfont icon-eye"></i>热度<i>{{ post?.visitors }}</i>
         </span>
@@ -93,6 +70,9 @@ const postRef = ref<HTMLLIElement | null>(null)
 const cache = ref("")
 
 const { pressed } = useMousePressed({ target: postRef.value })
+const theme = computed(() => {
+  return isDark ? "dark" : "light"
+})
 
 watchEffect(() => {
   if (pressed) {
@@ -149,14 +129,11 @@ const handlePostClick = (post: Post) => {
     @apply shadow-2xl touch-pinch-zoom;
   }
 
-  transition:
-    height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
-    max-height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
-    width var(--base-duration) var(--cubic-line)
-      calc(1 * var(--base-delay)),
-    transform calc(1 * var(--base-duration)) var(--cubic-line)
-      calc(1 * var(--base-delay)),
-    border-radius var(--base-duration) var(--cubic-line) 0s;
+  transition: height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  max-height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  width var(--base-duration) var(--cubic-line) calc(1 * var(--base-delay)),
+  transform calc(1 * var(--base-duration)) var(--cubic-line) calc(1 * var(--base-delay)),
+  border-radius var(--base-duration) var(--cubic-line) 0s;
   @apply flex m-auto w-5/6 max-w-screen-lg my-8 shadow-md left-0 right-0 overflow-hidden;
 
   &-content,
@@ -173,14 +150,12 @@ const handlePostClick = (post: Post) => {
   }
 
   &-text {
-    transform: height var(--base-duration) 300ms var(--cubic-line)
-      var(--base-delay);
+    transform: height var(--base-duration) 300ms var(--cubic-line) var(--base-delay);
   }
 
   &-cover {
     img {
-      transition: border-radius var(--base-duration) var(--cubic-line)
-        var(--base-delay);
+      transition: border-radius var(--base-duration) var(--cubic-line) var(--base-delay);
     }
   }
 

@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-05)
+## [0.0.2](https://github.com/NNNNzs/nnnnzs.cn/compare/a62d4de...v0.0.2) (2023-07-05)
 
 
 ### ✨ Features | 新功能

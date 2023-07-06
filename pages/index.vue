@@ -2,7 +2,7 @@
   <div ref="elRef">
     <Banner />
     <PostCard :posts="postList" />
-    <div class="WenYueQingLongTi cursor-pointer text-center" @click="loadMore">加载更多</div>
+    <div class="WenYueQingLongTi cursor-pointer text-center text-slate-950 dark:text-white" @click="loadMore">加载更多</div>
     <Footer />
   </div>
 </template>

@@ -9,7 +9,6 @@
         <h1
           class="text-gray-900 dark:text-white text-center my-4 text-4xl WenYueQingLongTi"
         >
-          {{ isDark }}
           {{ title }}
         </h1>
       </div>
@@ -29,7 +28,7 @@
           preview-theme="cyanosis"
           :showCodeRowNumbe="true"
           :model-value="post.content"
-          :theme="isDark ? 'dark' : 'light'"
+          :theme="theme"
           :previewOnly="true"
         ></MdEditor>
       </div>
@@ -62,6 +61,10 @@ const post = reactive<Post>({
   hide: "0",
   visitors: 0,
   likes: 0
+})
+
+const theme = computed(() => {
+  return isDark ? "dark" : "light"
 })
 
 const router = useRouter()
