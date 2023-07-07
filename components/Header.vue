@@ -52,9 +52,6 @@ import { ElIcon } from "element-plus"
 import { Menu, CircleClose } from "@element-plus/icons-vue"
 import { isDark, toggleDark } from "~/composables/useSystemDark"
 
-watchEffect(() => {
-  console.log('isDark', isDark.value)
-})
 const base = [
   { name: "首页", path: "/", target: "_self" },
   { name: "分类", path: "/tags" },

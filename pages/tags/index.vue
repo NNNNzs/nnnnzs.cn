@@ -1,7 +1,7 @@
 <template>
   <Banner></Banner>
   <div>
-    <NuxtLink v-for="item in list" :to="`/tags/${item[0]}`"></NuxtLink>
+    <NuxtLink v-for="item in list" :to="`${TAG_PREFIX_PAGE}/${item[0]}`"></NuxtLink>
   </div>
   <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>
 </template>
@@ -20,21 +20,16 @@ if (data.value) {
 
 useHead({
   title: '标签',
-  script: [
-    { src: '/js/wordcloud2.js' }
-  ]
 });
 
 const clickFun = (item: Entry) => {
   const [tag] = item;
-  const path = `/tags/${tag}`
+  const path = `${TAG_PREFIX_PAGE}/${tag}`
   window.open(path)
 }
 
-onMounted(() => {
-
+const init = () => {
   if (wordCloudRef.value) {
-
     window.WordCloud(wordCloudRef.value, {
       list: list.value,
       // clearCanvas: true,
@@ -46,10 +41,15 @@ onMounted(() => {
       click: clickFun
     })
   } else {
-    console.log('')
+    setTimeout(() => {
+      init()
+    }, 1);
   }
-})
+}
 
+useScriptTag('/js/wordcloud2.js', () => {
+  init()
+})
 
 
 </script>
