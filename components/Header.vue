@@ -1,21 +1,25 @@
 <template>
-  <header class="header text-white dark:text-slate-900  absolute top-0 px-6">
-    <div class="mx-auto h-full">
-      <div class="mx-auto h-full menu flex items-center justify-between leading-8">
+  <header class="header  bg-white text-slate-900 dark:bg-slate-900 dark:text-white  absolute top-0">
+    <div class="mx-auto container h-full">
+      <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
 
-        <div class="hidden md:flex justify-between category w-auto">
+        <div class="hidden md:flex justify-between category w-auto h-full">
+          <Search class="mr-4"></Search>
+
           <ul class="h-full">
             <NuxtLink class="h-full inline-block mr-4 after:bg-white dark:after:bg-slate-800" role="li" is="li"
               :target="item.target || '_self'" v-for="item in state.menu" :key="item.name" :to="item.path">{{ item.name }}
             </NuxtLink>
           </ul>
-          <button @click="toggleDark()">
+          <button @click="toggleDark()" class="mr-4">
             <ClientOnly>
-              <svg-icon :name="isDark ? 'moon' : 'sun'"></svg-icon>
+              <svg-icon class="text-[1.2rem]" :name="isDark ? 'moon' : 'sun'"></svg-icon>
             </ClientOnly>
           </button>
-          <Search></Search>
+          <a target="_blank" class="mr-4 h-full align-middle flex items-center" href="https://github.com/NNNNzs/nnnnzs.cn">
+            <svg-icon class="text-[1.2rem]" name="github"></svg-icon>
+          </a>
         </div>
         <div class="w-4 h-4 md:hidden cursor-pointer">
           <el-icon @click="drawer = !drawer">
