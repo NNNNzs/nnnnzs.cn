@@ -1,14 +1,9 @@
 <template>
   <NuxtLayout>
     <Banner :cover="post?.cover"></Banner>
-    <div
-      id="post"
-      class="center text-left lg:w-3/5 sm:w-full md:w-3/5 m-auto border-l-fuchsia-900 p-8"
-    >
+    <div id="post" class="center text-left lg:w-3/5 sm:w-full md:w-3/5 m-auto border-l-fuchsia-900 p-8">
       <div class="m-auto mb4">
-        <h1
-          class="text-gray-900 dark:text-white text-center my-4 text-4xl WenYueQingLongTi"
-        >
+        <h1 class="text-gray-900 dark:text-white text-center my-4 text-4xl WenYueQingLongTi">
           {{ title }}
         </h1>
       </div>
@@ -23,14 +18,8 @@
         <span @click="addLike">喜欢:{{ post.likes }}</span>
       </div>
       <div class="full text-slate-700">
-        <MdEditor
-          editor-id="post-editor"
-          preview-theme="cyanosis"
-          :showCodeRowNumbe="true"
-          :model-value="post.content"
-          :theme="theme"
-          :previewOnly="true"
-        ></MdEditor>
+        <MdEditor editor-id="post-editor" preview-theme="cyanosis" :showCodeRowNumbe="true" :model-value="post.content"
+          :theme="theme" :previewOnly="true"></MdEditor>
       </div>
     </div>
     <Footer />
@@ -63,9 +52,16 @@ const post = reactive<Post>({
   likes: 0
 })
 
-const theme = computed(() => {
-  return isDark.value ? "dark" : "light"
+const theme = ref<'dark' | 'light'>('light');
+onMounted(() => {
+  theme.value = isDark.value ? "dark" : "light";
+  
+  watchEffect(() => {
+    theme.value = isDark.value ? "dark" : "light"
+  })
 })
+
+
 
 const router = useRouter()
 
