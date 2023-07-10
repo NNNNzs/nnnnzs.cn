@@ -1,6 +1,6 @@
 <template>
-  <header class="header  bg-white text-slate-900 dark:bg-slate-900 dark:text-white  absolute top-0">
-    <div class="mx-auto container h-full">
+  <header class="header sticky bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 ">
+    <div class="mx-auto container h-full px-4">
       <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
 
@@ -46,6 +46,7 @@
         </div>
       </ClientOnly>
     </div>
+    <div ref="scrollBarRef" class="absolute bottom-0 h-[1px] bg-slate-500 w-[var(--percent)]"></div>
   </header>
 </template>
 
@@ -66,7 +67,7 @@ const base: MenuItem[] = [
   { name: "分类", path: "/tags" },
   { name: "归档", path: "/timeline" }
 ];
-
+const cookie = useCookie('N_token')
 const loginMenu: MenuItem[] = [
   { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
   { name: "管理", path: TOOLSE_PERFIX_PAGE + "/admin", target: "_blank" },
@@ -74,16 +75,30 @@ const loginMenu: MenuItem[] = [
 ]
 const menu = ref<MenuItem[]>([])
 
-const { status } = await $fetch("/api/auth/v", {
-  method: "POST",
-  credentials: "include"
-});
+const { data } = await useFetch('/api/auth/v', {
+  method: 'POST',
+  credentials: 'include'
+})
 
-if (status) {
+if (data.value!.status) {
   menu.value = base.concat(loginMenu)
 } else {
   menu.value = base
 }
+const scrollTop = ref(0);
+const scrollBarRef = ref<HTMLDivElement>();
+
+onMounted(() => {
+  const { y } = useWindowScroll();
+  const percent = useCssVar('--percent', scrollBarRef.value);
+  const handlerScroll = () => {
+
+    percent.value = ((y.value > 0 ? y.value + window.innerHeight : 0) / document.body.scrollHeight) * 100 + '%';
+  }
+
+  watchEffect(handlerScroll);
+
+})
 
 </script>
 <style lang="less">
