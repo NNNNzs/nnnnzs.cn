@@ -80,7 +80,7 @@ export default defineNuxtConfig({
     devProxy: {
       "/api-remote": {
         // target: "http://localhost:3006/",
-        target: "http://www.nnnnzs.cn/api-remote",
+        target: "https://www.nnnnzs.cn/api-remote",
         // target: "https://api.nnnnzs.cn/v2/",
         changeOrigin: true,
         prependPath: true
@@ -99,6 +99,7 @@ export default defineNuxtConfig({
     }
   },
   vite: {
+    // @ts-ignore
     plugins: totalPlugin.concat(plugins)
   },
   build: {

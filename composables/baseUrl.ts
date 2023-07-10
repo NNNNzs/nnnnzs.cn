@@ -1,4 +1,4 @@
-const prodBaseUrl = "https://www.nnnnzs.cn/api-remote"
+const prodBaseUrl = "http://www.nnnnzs.cn/api-remote"
 
 
 /**
