@@ -105,7 +105,7 @@ onMounted(() => {
 .header {
   --height: 3rem;
   height: var(--height);
-  margin-bottom: var(--space);
+  margin-bottom: 1rem;
   box-shadow: 0 1px 3px rgb(18 18 18 / 10%);
   width: 100%;
   z-index: 2;

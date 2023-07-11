@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios"
-import { baseUrl } from "@/composables/baseUrl"
-const uploadUrl = baseUrl + "/upload"
+import { clientUrl } from "@/composables/baseUrl"
+const uploadUrl = clientUrl + "/upload"
 
 export const upload = (blob: Blob) => {
   const formData = new FormData()

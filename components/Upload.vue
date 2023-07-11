@@ -177,8 +177,7 @@ const handleFocus = () => {
 
           const isImg = type.includes("image");
           const isText = type.includes("text");
-          console.log('type', type)
-          console.log('isImg', type)
+          
           if (isImg) {
 
             if (hasDialog.value) {
@@ -330,7 +329,7 @@ const handleUpload = async (file: Blob | File) => {
     url: baseUrl + "/upload",
     method: "post",
     onUploadProgress(e) {
-      uploadText.value = Number(e.progress) * 100 
+      uploadText.value = Number(e.progress) * 100
     },
     data: formData
   });

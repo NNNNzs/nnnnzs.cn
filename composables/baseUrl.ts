@@ -1,5 +1,8 @@
 const prodBaseUrl = "http://www.nnnnzs.cn/api-remote"
 
+/** 浏览器端使用的代理地址 */
+export const clientUrl = '/api-remote'
+
 
 /**
  * 服务端运行的时候，无法走代理
