@@ -108,11 +108,10 @@ const handlePostClick = (post: Post) => {
 
   offsetTop.value = `${-top}px`
   if (!cache.value) {
-    getPostById(post.id).then((res) => {
-      if (post.id && res?.content) {
-        cache.value = res?.content
-      }
-    })
+    $fetch(`/api/post`, { method: "GET", query: { title: post.id } })
+      .then((res: Post) => {
+        cache.value = res.content;
+      })
   }
   emit("on-click", post)
 }
