@@ -31,12 +31,12 @@
       </p>
 
       <p class="text-slate-700 dark:text-slate-400 post-meta hidden md:block">
-        <span class="leancloud_visitors my-6">
-          <i class="iconfont icon-eye"></i>热度<i>{{ post?.visitors }}</i>
+        <span class="leancloud_visitors my-6 mr-4">
+          <svg-icon name="eye"></svg-icon>热度<i>{{ post?.visitors }}</i>
         </span>
 
         <span class="leancloud_likes">
-          <i class="iconfont icon-collection"></i>喜欢<i>{{
+          <svg-icon name="collection"></svg-icon>喜欢<i>{{
             post?.likes
           }}</i>
         </span>

@@ -30,10 +30,6 @@ export default defineNuxtConfig({
       title: "孤人独影",
       link: [
         { rel: "shortcut icon", href: "/img/logo_N.png" },
-        {
-          rel: "stylesheet",
-          href: "//at.alicdn.com/t/c/font_3807384_gfjqftmcc.css"
-        }
       ],
       script: [
         { src: "/js/track.js" }

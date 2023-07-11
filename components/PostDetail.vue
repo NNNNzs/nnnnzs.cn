@@ -8,13 +8,13 @@
         </h1>
       </div>
       <div class="meta text-center text-gray-600 mb-4">
-        <i class="iconfont icon-calendaralt-fill mr-2"></i>
+        <svg-icon name="calendar" class="mr-2"></svg-icon>
         <span class="mr-8">发表于:{{ fomat(post?.date) }}</span>
-        <i class="iconfont icon-tag-fill mr-2"></i>
+        <svg-icon name="tag-fill" class="mr-2"></svg-icon>
         <span class="mr-8">{{ post.tags }}</span>
-        <i class="iconfont icon-eye mr-2"></i>
+        <svg-icon name="eye" class="mr-2"></svg-icon>
         <span class="mr-8">热度:{{ post.visitors }}</span>
-        <i class="iconfont icon-collection mr-2"></i>
+        <svg-icon name="collection" class="mr-2"></svg-icon>
         <span @click="addLike">喜欢:{{ post.likes }}</span>
       </div>
       <div class="full text-slate-700">
@@ -55,7 +55,7 @@ const post = reactive<Post>({
 const theme = ref<'dark' | 'light'>('light');
 onMounted(() => {
   theme.value = isDark.value ? "dark" : "light";
-  
+
   watchEffect(() => {
     theme.value = isDark.value ? "dark" : "light"
   })
@@ -117,7 +117,11 @@ onMounted(() => {
 })
 </script>
 <style lang="postcss">
-.dark .md-editor-dark {
+#post .md-editor {
+  --md-bk-color: #efefef;
+}
+
+.dark #post .md-editor-dark {
   --md-bk-color: theme(colors.slate.900);
 }
 </style>

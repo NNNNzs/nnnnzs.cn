@@ -1,14 +1,16 @@
 <template>
   <Header></Header>
-  <div class="banner relative h-screen bg-scroll md:bg-fixed  bg- bg-cover flex justify-center items-center" :style="bannerStyle">
+  <div class="banner relative h-screen bg-scroll md:bg-fixed  bg- bg-cover flex justify-center items-center"
+    :style="bannerStyle">
     <div class="antialiased text-2xl WenYueQingLongTi text-white">
       <p class="mb-20">{{ oneText.hitokoto }}</p>
       <p class="text-center" v-if="Boolean(oneText.from)">
         {{ oneText.from }}-{{ oneText.creator }}
       </p>
     </div>
-    <div @click="scrollIntoPost" class="animate-bounce absolute left-0 right-0 bottom-1 text-center cursor-pointer">
-      <i class="iconfont icon-paper-plane text-4xl text-white w-4 h-4"></i>
+    <div @click="scrollIntoPost"
+      class="animate-bounce absolute left-0 right-0 bottom-1 text-center cursor-pointer text-white ">
+      <svg-icon name="paper-plane" class="text-4xl w-4 h-4"></svg-icon>
     </div>
   </div>
   <div ref="anchorRef"></div>

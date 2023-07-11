@@ -29,5 +29,6 @@ const svgClass = computed(() => {
   height: 1em;
   fill: currentColor;
   vertical-align: middle;
+  display: inline-block;
 }
 </style>
