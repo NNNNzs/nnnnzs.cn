@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
-    <div id="upload" class="w-full h-full flex justify-center items-center relative">
-      <ElUpload action="." multiple ref="upload" @mouseenter="handleFocus" :disabled="showLoading"
+    <div class="w-full h-full flex justify-center items-center relative">
+      <ElUpload action="." multiple ref="uploadRef" @mouseenter="handleFocus" :disabled="showLoading"
         :http-request="customRequest" :show-file-list="false">
         <ElButton v-if="!showLoading" size="large" type="primary">上传</ElButton>
         <ElProgress v-else type="circle" :percentage="uploadText"></ElProgress>
@@ -177,7 +177,7 @@ const handleFocus = () => {
 
           const isImg = type.includes("image");
           const isText = type.includes("text");
-          
+
           if (isImg) {
 
             if (hasDialog.value) {
@@ -251,6 +251,7 @@ const hanlePaste = (e: any) => {
           }
         };
       }
+      console.log('hanlePaste')
       handleUpload(blob);
     }
   }
@@ -283,7 +284,6 @@ const currentEdit = ref<UploadInfo>({
 const currentEditId = ref<number | Date | null>(null);
 
 const handleEditAlisa = (item: UploadInfo, event: MouseEvent) => {
-  console.log("event", event);
   currentEdit.value = item as UploadInfo;
   currentEditId.value = item.addTime;
   currentEditBak.value = JSON.parse(JSON.stringify(item));
@@ -292,7 +292,6 @@ const handleEditAlisa = (item: UploadInfo, event: MouseEvent) => {
 
 const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: number) => {
   const { code } = event;
-  console.log('code', code);
   // 保存
   if (['NumpadEnter', 'Enter'].includes(code)) {
     const { value } = currentEdit;
@@ -317,37 +316,35 @@ const handleAlisaKeydown = (event: KeyboardEvent, item: UploadInfo, index: numbe
  * @description 通过后端接口上传的cos
  */
 const handleUpload = async (file: Blob | File) => {
-  console.log('file', file)
-  const formData = new FormData();
-  formData.append("inputFile", file);
   const { type, name } = file;
 
   const addTime = new Date().getTime();
   showLoading.value = true;
 
-  const res = await axios({
-    url: baseUrl + "/upload",
-    method: "post",
-    onUploadProgress(e) {
-      uploadText.value = Number(e.progress) * 100
-    },
-    data: formData
-  });
+  const { success, error, process, response } = upload(file)
 
-  if (res.data.data) {
-    const url = res.data.data;
-    recentUpload.add({
-      addTime,
-      alisa: "",
-      url,
-      mime: type || "",
-      origin: "主动上传",
-      fileName: name,
-    });
-    doCopy(url);
-  }
-  showLoading.value = false;
-  return res.data.data;
+  const cancel = watchEffect(() => {
+    if (success.value) {
+      recentUpload.add({
+        addTime,
+        alisa: "",
+        url: response.value,
+        mime: type || "",
+        origin: "主动上传",
+        fileName: name,
+      });
+      doCopy(response.value);
+      showLoading.value = false;
+      cancel()
+    }
+
+    if (error.value) {
+      showLoading.value = false;
+      cancel()
+    }
+    uploadText.value = process.value
+
+  })
 };
 
 const customRequest = async (opt: UploadRequestOptions) => {

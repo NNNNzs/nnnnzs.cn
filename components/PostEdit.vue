@@ -145,12 +145,16 @@ const onUploadImg = async (files: Blob[], callback: (str: string[]) => string[])
   console.log('on UploadImage')
   const queue: Promise<string>[] = files.map(file => {
     return new Promise((resolve, reject) => {
-      upload(file).then(res => {
-        resolve(res)
+      const { success, error, response } = upload(file)
+      const cancel = watchEffect(() => {
+        if (success.value) {
+          resolve(response.value);
+          cancel()
+        }
+        if (error.value) {
+          reject(response.value)
+        }
       })
-        .catch((error: string) => {
-          reject(error)
-        })
     })
   });
   const res = await Promise.all(queue)

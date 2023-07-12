@@ -1,28 +1,39 @@
 import axios, { AxiosResponse } from "axios"
 import { clientUrl } from "@/composables/baseUrl"
-const uploadUrl = clientUrl + "/upload"
+import { ref, reactive } from 'vue';
 
 export const upload = (blob: Blob) => {
+
+  const success = ref(false);
+  const error = ref('');
+  const process = ref(0);
+  const response = ref('')
+
   const formData = new FormData()
   formData.append("inputFile", blob)
-  return new Promise<string>((resolve, reject) => {
-    axios({
-      url: uploadUrl,
-      method: "post",
-      data: formData
-    })
-      .then((res: AxiosResponse<ResponeBody<string>>) => {
-        const { status, data, msg } = res.data
-        if (status) {
-          resolve(data)
-        } else {
-          reject(res)
-        }
-      })
-      .catch((err) => {
-        reject(err)
-      })
+  axios({
+    url: clientUrl + "/upload",
+    method: "post",
+    data: formData,
+    onUploadProgress(e) {
+      process.value = Number((Number(e.progress) * 100).toFixed(2))
+    },
   })
+    .then((res: AxiosResponse<ResponeBody<string>>) => {
+      const { status, data, msg } = res.data
+      if (status) {
+        success.value = true;
+        response.value = data
+      } else {
+        error.value = msg
+      }
+    })
+    .catch((err) => {
+
+    })
+
+  return toRefs({ success, error, process, response })
+
 }
 
 export const downloadFile = () => { }
