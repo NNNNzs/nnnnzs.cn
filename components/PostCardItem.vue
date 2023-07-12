@@ -160,7 +160,7 @@ const handlePostClick = (post: Post) => {
   }
 
   &.preview {
-    @apply fixed overflow-auto !w-screen max-h-screen min-h-screen z-10 my-0 flex flex-col;
+    @apply fixed overflow-auto !w-screen max-h-screen min-h-screen z-50 my-0 flex flex-col;
     transform: translateY(var(--offset-top));
 
     &,

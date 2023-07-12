@@ -4,7 +4,8 @@
     </PostCardItem>
   </ul>
 
-  <div :class="{ postPreiview: !!previewId }" class="close text-white top-[-2em]" @click.stop="exitPreview()">
+  <div :class="{ postPreiview: !!previewId }" class="close text-white top-[-2em] fixed block invisible w-8 h-8 z-[60]"
+    @click.stop="exitPreview()">
     <el-icon size="30">
       <CircleClose />
     </el-icon>
@@ -34,7 +35,7 @@ onMounted(() => {
    * ios直接禁止了touchmove事件
    */
   watchEffect(() => {
-    // document.body.style.overflow = !!previewId.value ? 'hidden' : 'auto'
+    document.body.style.overflow = !!previewId.value ? 'hidden' : 'auto'
     // lock.value = !!previewId.value
   })
 })
@@ -60,7 +61,6 @@ const onLongPress = (e: MouseEvent) => {
 
 <style lang="postcss">
 .close {
-  @apply fixed block invisible w-8 h-8 z-20;
   transition: top 300ms linear 300ms;
 
   &.postPreiview {
