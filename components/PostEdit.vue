@@ -59,7 +59,6 @@
 <script setup name="edit" lang="ts">
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { getPostById, updateById, createPost } from '@/api/post'
 import { ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 import { upload } from '@/api/fs'
@@ -103,33 +102,49 @@ const post = reactive<PostAdd>({
 
 
 onMounted(() => {
-  getPostById(id as string).then(data => {
-    Object.assign(post, data)
-  })
+  if (id !== 'edit') {
+    $fetch('/api/post', { method: 'GET', params: { title: id } }).then(res => {
+      Object.assign(post, res)
+    })
+  }
+
 })
 
 const router = useRouter()
+
 const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
   Object.assign(post, { path, oldTitle })
   post.updated = void 0;
   if (id === 'edit') {
-    createPost(post).then(res => {
-      if (res.data.status) {
-        ElMessage.success('保存成功');
-        const id = res.data.data.id;
-        router.replace(EDIT_PAGE + id)
-      }
+
+    $fetch('/api/post/create', {
+      method: "POST",
+      body: post
+    }).then(post => {
+      const id = post.id;
+      router.replace(EDIT_PAGE + id)
+      ElMessage.success('保存成功');
     })
   } else {
-    updateById(id + '', post).then(res => {
-      if (res.data.status) {
+
+    $fetch('/api/post/update', {
+      method: 'PUT',
+      query: { id },
+      body: post
+    }).then(res => {
+      if (res.status) {
         ElMessage.success('保存成功');
-        getPostById(id as string).then(data => {
-          Object.assign(post, data);
-        })
+
+        $fetch('/api/post', { method: 'GET', params: { title: id } }).then(res => {
+          Object.assign(post, res)
+        });
+
+      } else {
+
       }
     })
+
   }
 }
 

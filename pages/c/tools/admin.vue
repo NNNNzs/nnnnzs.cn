@@ -34,7 +34,6 @@
 
 
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
-import { deletePost } from '@/api/post';
 import dayjs from 'dayjs'
 
 
@@ -69,7 +68,7 @@ const tableHeader = ref([
   },
   { prop: 'tags', label: "tags" },
   {
-    prop: 'hide', label: "隐藏",width: 60, formatter(row: Post) {
+    prop: 'hide', label: "隐藏", width: 60, formatter(row: Post) {
       if (row.hide === '1') {
         return '隐藏'
       }
@@ -93,11 +92,15 @@ const addPost = () => {
 
 const handleDelete = (row: Post) => {
   if (row.id) {
-    deletePost(row.id).then(res => {
-      if (res.data.status) {
-        getList()
-      }
+    $fetch('/api/post/del', {
+      method: 'DELETE',
+      query: { id: row.id }
     })
+      .then(res => {
+        if (res.status) {
+          getList()
+        }
+      })
   }
 }
 

@@ -21,25 +21,25 @@ export const getPostById = async (id: number | string) => {
     url: `${baseUrl}/post/${t}`,
     method: "get"
   })
-  return res.data.data
+  return res.data.data as Post
 }
 
 export const updateById = async (id: string, data: PostAdd) => {
-  const res: PostRes = await axios({
+  const res = await axios({
     url: `${baseUrl}/post/${id}`,
     method: "put",
     data
   })
-  return res
+  return res.data as ResponeBody
 }
 
 export const createPost = async (data: PostAdd) => {
-  const res: PostRes = await axios({
+  const res = await axios({
     url: `${baseUrl}/post/create`,
     method: "post",
     data
   })
-  return res
+  return res.data.data as Post
 }
 
 /** 删除文章 */
@@ -48,7 +48,7 @@ export const deletePost = async (id: string | number) => {
     url: `${baseUrl}/post/${id}`,
     method: "delete"
   })
-  return res
+  return res.data as ResponeBody
 }
 
 export enum FavType {

@@ -36,7 +36,7 @@
 
 
 import { ElTable, ElTableColumn, ElButton, ElPagination, ElInput } from 'element-plus'
-import { deletePost } from '@/api/post';
+
 import dayjs from 'dayjs'
 
 // @ts-ignore
@@ -99,11 +99,15 @@ const addPost = () => {
 
 const handleDelete = (row: Post) => {
   if (row.id) {
-    deletePost(row.id).then(res => {
-      if (res.data.status) {
-        getList()
-      }
+    $fetch('/api/post/del', {
+      method: 'DELETE',
+      query: { id: row.id }
     })
+      .then(res => {
+        if (res.status) {
+          getList()
+        }
+      })
   }
 }
 

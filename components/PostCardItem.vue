@@ -48,7 +48,6 @@
 <script lang="ts" setup>
 import { PropType } from "vue"
 import { homeThumbnail } from "../utils/img"
-import { getPostById } from "~~/api/post"
 import MdEditor from "md-editor-v3"
 import { breakpointsTailwind } from "@vueuse/core"
 import { dateFormat } from "~/composables/date"

@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { getTags } from '~~/api/post';
 const wordCloudRef = ref<HTMLElement | null>(null)
 type Entry = [string, number]
 
