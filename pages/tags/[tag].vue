@@ -1,7 +1,9 @@
 <template>
   <Banner></Banner>
-  <div class=" min-h-screen">
-    <h1 class="text-center">{{ tag }}</h1>
+  <div class="min-h-screen tag-detail">
+    <h1 class="text-center text-[4rem] text-white tagh1 WenYueQingLongTi ">
+      {{ tag }}
+    </h1>
     <PostCard :posts="list" />
   </div>
 </template>
@@ -12,7 +14,7 @@ const { params } = route;
 const tag = params.tag as string
 
 useHead({
-  title: `tag: | ${tag}`
+  title: `tag: | ${tag}`,
 })
 const list = ref<Post[]>([])
 
@@ -25,4 +27,17 @@ if (data.value) {
 
 </script>
 
-<style scoped></style>
+<style scoped lang="postcss">
+
+.tag-detail {
+  background: linear-gradient(45deg, #bfbfbf, #e6e6e6);
+
+  .tagh1 {
+    color: #e6e6e6;
+    letter-spacing: 5px;
+    text-shadow: 1px -1px #fff,
+      -1px 1px #999,
+      -5px 5px #80808080;
+  }
+}
+</style>

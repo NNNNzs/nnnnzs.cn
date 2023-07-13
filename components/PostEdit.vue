@@ -7,8 +7,10 @@
             <ElInput v-model="post.title"></ElInput>
           </ElFormItem>
 
-          <ElFormItem label="标签" prop="tags">
-            <ElInput v-model="post.tags"></ElInput>
+          <ElFormItem label="标签" prop="tagsString">
+            <ElSelect v-model="post.tagsString" filterable multiple clearable allow-create class="w-[400px]">
+              <ElOption v-for="item in tags" :value="item[0]" :label="item[0]"></ElOption>
+            </ElSelect>
           </ElFormItem>
 
           <ElFormItem label="发布日期" prop="date">
@@ -59,7 +61,7 @@
 <script setup name="edit" lang="ts">
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import { ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
+import { ElSelect, ElOption, ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 import { upload } from '@/api/fs'
 
@@ -77,6 +79,9 @@ useHead({
     }
   ]
 })
+type Entry = [string, number]
+
+const tags: Entry[] = await $fetch(`/api/tags`, { method: 'GET' })
 
 const route = useRoute();
 const { params } = route;
@@ -85,7 +90,7 @@ const rules = {
   title: { required: true },
 }
 
-const post = reactive<PostAdd>({
+const post = reactive<PostAdd & { tagsString: string[] }>({
   title: '',
   path: '',
   oldTitle: '',
@@ -97,17 +102,21 @@ const post = reactive<PostAdd>({
   updated: new Date(),
   hide: '1',
   likes: 0,
-  visitors: 0
+  visitors: 0,
+  tagsString: []
 });
 
-
-onMounted(() => {
+const getPost = () => {
   if (id !== 'edit') {
     $fetch('/api/post', { method: 'GET', params: { title: id } }).then(res => {
       Object.assign(post, res)
+      post.tagsString = post.tags.split(',')
     })
   }
+};
 
+onMounted(() => {
+  getPost()
 })
 
 const router = useRouter()
@@ -116,8 +125,9 @@ const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
   Object.assign(post, { path, oldTitle })
   post.updated = void 0;
-  if (id === 'edit') {
+  post.tags = post.tagsString.join(',');
 
+  if (id === 'edit') {
     $fetch('/api/post/create', {
       method: "POST",
       body: post
@@ -136,9 +146,7 @@ const saveMeta = () => {
       if (res.status) {
         ElMessage.success('保存成功');
 
-        $fetch('/api/post', { method: 'GET', params: { title: id } }).then(res => {
-          Object.assign(post, res)
-        });
+        getPost()
 
       } else {
 

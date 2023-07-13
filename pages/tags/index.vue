@@ -28,7 +28,7 @@ const clickFun = (item: Entry) => {
 }
 
 const init = () => {
-  if (wordCloudRef.value) {
+  if (wordCloudRef.value && window.WordCloud) {
     window.WordCloud(wordCloudRef.value, {
       list: list.value,
       // clearCanvas: true,
@@ -42,7 +42,7 @@ const init = () => {
   } else {
     setTimeout(() => {
       init()
-    }, 1);
+    }, 100);
   }
 }
 
