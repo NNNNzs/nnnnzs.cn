@@ -26,9 +26,9 @@ defineProps({
 
 const previewId = ref<string | number>('')
 
-let lock = ref(false);
+// let lock = ref(false);
 onMounted(() => {
-  lock = useScrollLock(document.body);
+  // lock = useScrollLock(document.body);
 
   /**
    * @see https://github.com/vueuse/vueuse/blob/main/packages/core/useScrollLock/index.ts
@@ -45,7 +45,7 @@ const onPostLick = (post: Post) => {
 }
 
 const exitPreview = () => {
-  lock.value = false;
+  // lock.value = false;
   const dom = document.querySelector(`#post_${[previewId.value]}`) as HTMLLIElement;
   Object.assign(dom.style, {
     top: '',

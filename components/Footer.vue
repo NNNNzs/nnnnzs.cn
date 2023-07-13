@@ -1,15 +1,18 @@
 <template>
   <footer class="bg-gray-800 text-gray-400 py-4 mt-8">
-    <div class="social  margin-auto">
+    <div class="social    margin-auto">
       <ul class="
+          container
           flex
+          w-1/2
+          md:w-1/5
           m-auto
-          w-1/5
           max-auto
-          justify-around
+          justify-between
           items-center
           text-center
           margin-auto
+          
         ">
         <li v-for="s in social" :key="s.href" class="cursor-pointer" :title="s.title">
           <a :href="s.href" target="_blank">

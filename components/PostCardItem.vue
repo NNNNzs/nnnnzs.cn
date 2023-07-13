@@ -13,7 +13,7 @@
       <p class="post-time text-gray-300">
         {{ dateFormat(post?.date) }}
       </p>
-      <h2 class="post-title md:line-clamp-1 text-slate-950 dark:text-white text-2xl my-4">
+      <h2 class="post-title md:line-clamp-1 text-slate-950 dark:text-white text-2xl my-4 bg-white dark:bg-slate-800">
         <a :href="toLink(post)" class="WenYueQingLongTi" :title="post.title" :target="target">
           {{ post.title }}
         </a>
@@ -69,15 +69,11 @@ const emit = defineEmits(["on-click"])
 const postRef = ref<HTMLLIElement | null>(null)
 const cache = ref("")
 
-const { pressed } = useMousePressed({ target: postRef.value })
+// const { pressed } = useMousePressed({ target: postRef.value })
 const theme = computed(() => {
   return isDark.value ? "dark" : "light"
 })
 
-watchEffect(() => {
-  if (pressed) {
-  }
-})
 
 let breakpoints: any
 
@@ -92,10 +88,10 @@ const toLink = (post: Post) => {
 
 const handlePostClick = (post: Post) => {
   if (breakpoints.greater("md").value) {
-    return false
+    return
   }
   if (props.preview) {
-    return false
+    return
   }
   const dom = postRef.value as HTMLLIElement
   const { top } = dom.getBoundingClientRect()
@@ -104,6 +100,7 @@ const handlePostClick = (post: Post) => {
   Object.assign(dom.style, {
     top: `${top}px`
   })
+
 
   offsetTop.value = `${-top}px`
   if (!cache.value) {
@@ -129,7 +126,7 @@ const handlePostClick = (post: Post) => {
   }
 
   transition: height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
-  max-height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
+  max-height calc(3 * var(--base-duration)) linear 0s,
   width var(--base-duration) var(--cubic-line) calc(1 * var(--base-delay)),
   transform calc(1 * var(--base-duration)) var(--cubic-line) calc(1 * var(--base-delay)),
   border-radius var(--base-duration) var(--cubic-line) 0s;
@@ -168,8 +165,19 @@ const handlePostClick = (post: Post) => {
       border-radius: unset;
     }
 
+    .post-time {
+      padding-top: 1rem;
+    }
+
     .post-text {
-      min-height: calc(100vh - 12rem);
+      height: auto;
+      overflow: auto;
+      padding-top: 0px;
+    }
+
+    .post-title {
+      position: sticky;
+      top: 0rem;
     }
 
     .post-cover img {

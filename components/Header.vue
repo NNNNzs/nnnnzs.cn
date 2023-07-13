@@ -29,15 +29,20 @@
         </div>
       </div>
     </div>
-    <div class="drawer pt-8 fixed w-[8rem] top-0 h-screen bg-white shadow-md flex flex-col text-center right-[-8rem]"
+    <div
+      class="drawer text-black pt-8 fixed w-[8rem] top-0 h-screen bg-white shadow-md flex flex-col text-center right-[-8rem]"
       :class="[drawer ? 'show' : '']">
       <div class="absolute w-4 h-4 right-2 top-2 cursor-pointer">
         <el-icon @click="drawer = !drawer" class="text-black">
           <CircleClose />
         </el-icon>
       </div>
-      <NuxtLink class="text-black" role="li" is="li" :target="item.target || '_self'" v-for="item in menu"
+      <NuxtLink class="text-black mb-2" role="li" is="li" :target="item.target || '_self'" v-for="item in menu"
         :key="item.name" :to="item.path">{{ item.name }}</NuxtLink>
+
+      <a target="_blank" class="mb-2 w-full align-middle flex justify-center" href="https://github.com/NNNNzs/nnnnzs.cn">
+        <svg-icon class="text-[1.2rem]" name="github"></svg-icon>
+      </a>
       <ClientOnly>
         <div class="w-full  text-slate-800">
           <button class="text-center" @click="toggleDark()">
@@ -45,6 +50,7 @@
           </button>
         </div>
       </ClientOnly>
+
     </div>
     <div ref="scrollBarRef" class="absolute bottom-0 h-[1px] bg-slate-500 w-[var(--percent)]"></div>
   </header>
@@ -105,7 +111,6 @@ onMounted(() => {
 .header {
   --height: 3rem;
   height: var(--height);
-  margin-bottom: 1rem;
   box-shadow: 0 1px 3px rgb(18 18 18 / 10%);
   width: 100%;
   z-index: 2;
