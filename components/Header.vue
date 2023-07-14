@@ -1,4 +1,5 @@
 <template>
+  <div ref="headerRef"></div>
   <header class="header sticky bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 ">
     <div class="mx-auto container h-full px-4">
       <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
@@ -54,6 +55,12 @@
     </div>
     <div ref="scrollBarRef" class="absolute bottom-0 h-[1px] bg-slate-500 w-[var(--percent)]"></div>
   </header>
+  <ClientOnly>
+    <div @click="returnTop"
+      class="fixed bottom-4 right-5 border rounded shadow hover:shadow-lg w-8 h-8 bg-white cursor-pointer flex justify-center items-center dark:bg-slate-800 dark:text-white">
+      <svg-icon class="dark:text-white dark:fill-white" name="totop"></svg-icon>
+    </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
@@ -75,7 +82,13 @@ const base: MenuItem[] = [
 ];
 const route = useRoute();
 
-console.log(route.name)
+const headerRef = ref<HTMLElement>();
+
+const returnTop = () => {
+  headerRef.value?.scrollIntoView({
+    behavior: 'smooth'
+  })
+}
 
 const loginMenu: MenuItem[] = [
   { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
