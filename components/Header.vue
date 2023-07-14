@@ -73,12 +73,21 @@ const base: MenuItem[] = [
   { name: "分类", path: "/tags" },
   { name: "归档", path: "/timeline" }
 ];
-const cookie = useCookie('N_token')
+const route = useRoute();
+
+console.log(route.name)
+
 const loginMenu: MenuItem[] = [
   { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
   { name: "管理", path: TOOLSE_PERFIX_PAGE + "/admin", target: "_blank" },
   { name: "日志", path: TOOLSE_PERFIX_PAGE + "/log" }
 ]
+if (route.name === '20year-month-date-title') {
+  const postId = inject('postId');
+  loginMenu.push({
+    name: '编辑', path: EDIT_PAGE + '/' + postId, target: '_blank'
+  })
+}
 const menu = ref<MenuItem[]>([])
 
 const { data } = await useFetch('/api/auth/v', {

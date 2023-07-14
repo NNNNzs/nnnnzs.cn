@@ -78,6 +78,8 @@ if (!post.title) {
   router.push("/404")
 }
 
+provide('postId', post.id)
+
 useHead({
   title: title,
   meta: [

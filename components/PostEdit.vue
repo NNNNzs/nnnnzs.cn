@@ -70,6 +70,9 @@ const props = defineProps({
     type: [String, Number]
   }
 })
+definePageMeta({
+  middleware: ['auth']
+});
 
 useHead({
   link: [

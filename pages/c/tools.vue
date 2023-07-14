@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ElTag, ElMenu, ElMenuItem } from 'element-plus';
+import { ElMenu, ElMenuItem } from 'element-plus';
 const route = useRoute();
 
 definePageMeta({
