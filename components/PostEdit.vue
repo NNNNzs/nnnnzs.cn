@@ -90,7 +90,7 @@ const rules = {
   title: { required: true },
 }
 
-const post = reactive<PostAdd & { tagsString: string[] }>({
+const post = reactive<PostAdd & { tagsString?: string[] }>({
   title: '',
   path: '',
   oldTitle: '',
@@ -125,7 +125,11 @@ const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
   Object.assign(post, { path, oldTitle })
   post.updated = void 0;
-  post.tags = post.tagsString.join(',');
+  
+  if (post.tagsString) {
+    post.tags = post.tagsString.join(',');
+  }
+  post.tagsString = void 0;
 
   if (id === 'edit') {
     $fetch('/api/post/create', {
