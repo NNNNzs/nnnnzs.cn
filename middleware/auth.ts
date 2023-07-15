@@ -1,5 +1,6 @@
 
 
+/** 验证是否通过验证 */
 export default defineNuxtRouteMiddleware(async (to, from) => {
   if (process.server) return;
   const data = await $fetch('/api/auth/v', { method: "POST", credentials: 'include' });

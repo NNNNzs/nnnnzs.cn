@@ -41,7 +41,9 @@ const perminss = async () => {
   start();
 
 
-  await $fetch('/api/auth/getAuth', { method: 'POST', credentials: 'include', });
+
+
+  await $fetch(clientUrl + '/auth/get', { method: 'POST', credentials: 'include', });
 
   stop();
   loadingInstance.close();
