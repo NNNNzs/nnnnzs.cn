@@ -66,7 +66,7 @@ onMounted(() => {
 const router = useRouter()
 
 const fetchPost = () =>
-  $fetch(`/api/post`, { method: "GET", query: { title } })
+  $fetch(`/api/post/detail`, { method: "GET", query: { title } })
 const { data } = await useAsyncData("post", fetchPost)
 
 const fomat = (t: string | Date) => {

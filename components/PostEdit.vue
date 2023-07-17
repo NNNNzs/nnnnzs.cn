@@ -70,9 +70,6 @@ const props = defineProps({
     type: [String, Number]
   }
 })
-definePageMeta({
-  middleware: ['auth']
-});
 
 useHead({
   link: [
@@ -111,7 +108,7 @@ const post = reactive<PostAdd & { tagsString?: string[] }>({
 
 const getPost = () => {
   if (id !== 'edit') {
-    $fetch('/api/post', { method: 'GET', params: { title: id } }).then(res => {
+    $fetch('/api/post/detail', { method: 'GET', params: { title: id } }).then(res => {
       Object.assign(post, res)
       post.tagsString = post.tags.split(',')
     })
@@ -128,17 +125,17 @@ const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
   Object.assign(post, { path, oldTitle })
   post.updated = void 0;
-  
+
   if (post.tagsString) {
     post.tags = post.tagsString.join(',');
   }
   post.tagsString = void 0;
 
   if (id === 'edit') {
-    $fetch('/api/post/create', {
+    $fetch(clientUrl + '/post/create', {
       method: "POST",
       body: post
-    }).then(post => {
+    }).then((post: Post) => {
       const id = post.id;
       router.replace(EDIT_PAGE + id)
       ElMessage.success('保存成功');
