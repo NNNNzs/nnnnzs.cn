@@ -1,3 +1,29 @@
+## [0.1.1](https://github.com/NNNNzs/nnnnzs.cn/compare/v0.1.0...v0.1.1) (2023-07-17)
+
+
+### ✨ Features | 新功能
+
+* 标签页下拉([#14](https://github.com/NNNNzs/nnnnzs.cn/issues/14)) 词云重加载([#5](https://github.com/NNNNzs/nnnnzs.cn/issues/5)) ([39b6e82](https://github.com/NNNNzs/nnnnzs.cn/commit/39b6e82))
+* 代理问题解决 [#8](https://github.com/NNNNzs/nnnnzs.cn/issues/8) ([1ab810d](https://github.com/NNNNzs/nnnnzs.cn/commit/1ab810d))
+* 导航吸顶加进度条 ([82501d3](https://github.com/NNNNzs/nnnnzs.cn/commit/82501d3))
+* 返回顶部按钮 ([cc0d580](https://github.com/NNNNzs/nnnnzs.cn/commit/cc0d580))
+* 更换验证接口 ([db07ffb](https://github.com/NNNNzs/nnnnzs.cn/commit/db07ffb))
+* 日志查看功能 ([d99fa6c](https://github.com/NNNNzs/nnnnzs.cn/commit/d99fa6c))
+* 授权用户查, 踢出功能开发完成 ([bb02f58](https://github.com/NNNNzs/nnnnzs.cn/commit/bb02f58))
+* 详情页增加编辑链接 ([1b64974](https://github.com/NNNNzs/nnnnzs.cn/commit/1b64974))
+* 修复上传页面报错,优化上传进度功能 ([#2](https://github.com/NNNNzs/nnnnzs.cn/issues/2)) ([4cad10e](https://github.com/NNNNzs/nnnnzs.cn/commit/4cad10e))
+* 移动端预览方式变更 ([#11](https://github.com/NNNNzs/nnnnzs.cn/issues/11)) ([b8bcd3e](https://github.com/NNNNzs/nnnnzs.cn/commit/b8bcd3e))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 不开启https强制 ([0febc7b](https://github.com/NNNNzs/nnnnzs.cn/commit/0febc7b))
+* 修复滚动问题，增加浮层z-index([#11](https://github.com/NNNNzs/nnnnzs.cn/issues/11)) ([7cc9863](https://github.com/NNNNzs/nnnnzs.cn/commit/7cc9863))
+* 修复正式服mix-contnet问题 ([8b19cb5](https://github.com/NNNNzs/nnnnzs.cn/commit/8b19cb5))
+* 修复tagString多余问题 ([899f7cf](https://github.com/NNNNzs/nnnnzs.cn/commit/899f7cf))
+
+
+
 # [0.1.0](https://github.com/NNNNzs/nnnnzs.cn/compare/v0.0.2...v0.1.0) (2023-07-07)
 
 
