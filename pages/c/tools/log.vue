@@ -1,16 +1,6 @@
 <template>
   <ClientOnly>
     <div class="w-full h-full flex flex-col p-4 bg-blue-50">
-      <div class="h-1/2 flex flex-row justify-between mb-4">
-        <!-- <div>
-          <el-button type="primary" @click="addPost">新增</el-button>
-        </div> -->
-        <div class="w-50">
-          <div class="w-50">
-            <Search></Search>
-          </div>
-        </div>
-      </div>
       <div class="flex-1 overflow-hidden">
         <ElTable :data="tableList" border height="100%">
           <ElTableColumn v-for="item in tableHeader" :key="item.prop" :label="item.prop" :prop="item.prop"
