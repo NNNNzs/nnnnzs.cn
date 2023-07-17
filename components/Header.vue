@@ -98,7 +98,7 @@ const loginMenu: MenuItem[] = [
 if (route.name === '20year-month-date-title') {
   const postId = inject('postId');
   loginMenu.push({
-    name: '编辑', path: EDIT_PAGE + '/' + postId, target: '_blank'
+    name: '编辑', path: EDIT_PAGE + postId, target: '_blank'
   })
 }
 const menu = ref<MenuItem[]>([])
