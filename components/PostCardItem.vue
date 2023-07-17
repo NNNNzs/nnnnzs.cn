@@ -49,6 +49,7 @@
 import { PropType } from "vue"
 import { homeThumbnail } from "../utils/img"
 import MdEditor from "md-editor-v3"
+import "md-editor-v3/lib/style.css"
 import { breakpointsTailwind } from "@vueuse/core"
 import { dateFormat } from "~/composables/date"
 import { isDark } from "~/composables/useSystemDark"
