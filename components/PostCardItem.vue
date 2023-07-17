@@ -122,7 +122,7 @@ const handlePostClick = (post: Post) => {
 
   &:hover,
   .active {
-    @apply shadow-2xl touch-pinch-zoom;
+    @apply shadow-2xl;
   }
 
   transition: height calc(1 * var(--base-duration)) var(--cubic-line) 0s,
@@ -171,7 +171,7 @@ const handlePostClick = (post: Post) => {
 
     .post-text {
       height: auto;
-      overflow: auto;
+      /* overflow: auto; */
       padding-top: 0px;
     }
 

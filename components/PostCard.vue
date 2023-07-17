@@ -53,10 +53,6 @@ const exitPreview = () => {
   previewId.value = '';
 }
 
-const onLongPress = (e: MouseEvent) => {
-  e.preventDefault()
-}
-
 </script>
 
 <style lang="postcss">
