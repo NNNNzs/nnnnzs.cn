@@ -92,11 +92,12 @@ const addPost = () => {
 
 const handleDelete = (row: Post) => {
   if (row.id) {
-    $fetch('/api/post/del', {
+    $fetch(clientUrl + `/post/${row.id}`, {
       method: 'DELETE',
       query: { id: row.id }
     })
-      .then(res => {
+      .then((r) => {
+        const res = r as ResponeBody
         if (res.status) {
           getList()
         }

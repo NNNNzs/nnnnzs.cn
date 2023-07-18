@@ -24,33 +24,6 @@ export const getPostById = async (id: number | string) => {
   return res.data.data as Post
 }
 
-export const updateById = async (id: string, data: PostAdd) => {
-  const res = await axios({
-    url: `${baseUrl}/post/${id}`,
-    method: "put",
-    data
-  })
-  return res.data as ResponeBody
-}
-
-export const createPost = async (data: PostAdd) => {
-  const res = await axios({
-    url: `${baseUrl}/post/create`,
-    method: "post",
-    data
-  })
-  return res.data.data as Post
-}
-
-/** 删除文章 */
-export const deletePost = async (id: string | number) => {
-  const res: PostRes = await axios({
-    url: `${baseUrl}/post/${id}`,
-    method: "delete"
-  })
-  return res.data as ResponeBody
-}
-
 export enum FavType {
   likes = "likes",
   visitors = "visitors"

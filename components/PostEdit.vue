@@ -135,25 +135,22 @@ const saveMeta = () => {
     $fetch(clientUrl + '/post/create', {
       method: "POST",
       body: post
-    }).then((post: Post) => {
+    }).then((p) => {
+      const post = p as Post;
       const id = post.id;
       router.replace(EDIT_PAGE + id)
       ElMessage.success('保存成功');
     })
   } else {
 
-    $fetch('/api/post/update', {
+    $fetch(clientUrl + `/post/${id}`, {
       method: 'PUT',
-      query: { id },
       body: post
-    }).then(res => {
+    }).then(r => {
+      const res = r as ResponeBody;
       if (res.status) {
         ElMessage.success('保存成功');
-
         getPost()
-
-      } else {
-
       }
     })
 
