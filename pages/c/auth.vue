@@ -8,15 +8,6 @@
 <script lang="ts" setup>
 import { ElLoading, ElButton, ElMessage } from 'element-plus'
 
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-});
-
 const router = useRouter();
 const route = useRoute()
 const nextPath = route.query.nextPath as string;

@@ -34,14 +34,6 @@ const list = [
   return e;
 });
 
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-});
 
 </script>
 

@@ -85,15 +85,6 @@ const filterList = computed(() => {
   return rencetUploadList.value.filter(row => keys.some(k => row[k]?.toString().includes(searchKey.value)))
 })
 
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-})
-
 
 onMounted(() => {
   rencetUploadList.value = recentUpload.list.value;

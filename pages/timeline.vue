@@ -16,14 +16,7 @@
 
 <script setup lang="ts">
 import { ElTimeline, ElTimelineItem, ElCard } from 'element-plus';
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-})
+
 const fetchPost = () => $fetch(`/api/post/listAll`);
 const { data, refresh } = await useAsyncData('timeLine', fetchPost);
 

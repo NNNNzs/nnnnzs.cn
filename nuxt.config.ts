@@ -23,7 +23,10 @@ const plugins =
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: [],
+  css: [
+    '~/assets/css/element-plus.css',
+    'md-editor-v3/lib/style.css'
+  ],
   app: {
     // pageTransition: { name: 'page', mode: 'out-in' },
     head: {
@@ -75,8 +78,8 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       "/api-remote": {
-        target: "http://localhost:3006/",
-        // target: "https://www.nnnnzs.cn/api-remote",
+        // target: "http://localhost:3006/",
+        target: "https://www.nnnnzs.cn/api-remote",
         // target: "https://api.nnnnzs.cn/v2/",
         changeOrigin: true,
         prependPath: true
@@ -99,7 +102,7 @@ export default defineNuxtConfig({
     plugins: totalPlugin.concat(plugins)
   },
   build: {
-    analyze: false
+    analyze: false,
   },
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY,
@@ -112,5 +115,8 @@ export default defineNuxtConfig({
     instantSearch: {
       theme: 'algolia'
     }
+  },
+  webpack:{
+    extractCSS:true
   }
 })

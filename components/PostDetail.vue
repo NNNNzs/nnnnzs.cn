@@ -29,7 +29,6 @@
 <script lang="ts" setup>
 import { FavType } from "@/api/post"
 import MdEditor from "md-editor-v3"
-import "md-editor-v3/lib/style.css"
 import dayjs from "dayjs"
 import { isDark, toggleDark } from "~/composables/useSystemDark"
 

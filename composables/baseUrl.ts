@@ -1,6 +1,6 @@
 
 /** 服务端使用的代理地址 */
-const prodBaseUrl = "https://www.nnnnzs.cn/api-remote"
+const prodBaseUrl = "https://api.nnnnzs.cn/V2"
 
 /** 浏览器端使用的代理地址 */
 export const clientUrl = '/api-remote'
@@ -17,4 +17,4 @@ export const baseUrl =
     : prodBaseUrl
 
 
-export const Host = process.env.NODE_ENV !== "production" ? 'localhost' : 'www.nnnnzs.cn'
+export const Host = process.env.NODE_ENV !== "production" ? 'localhost' : 'api.nnnnzs.cn'

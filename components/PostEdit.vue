@@ -60,7 +60,6 @@
 
 <script setup name="edit" lang="ts">
 import MdEditor from 'md-editor-v3';
-import 'md-editor-v3/lib/style.css';
 import { ElSelect, ElOption, ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 import { upload } from '@/api/fs'
@@ -71,14 +70,7 @@ const props = defineProps({
   }
 })
 
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "/css/element-plus.css"
-    }
-  ]
-})
+
 type Entry = [string, number]
 
 const tags: Entry[] = await $fetch(`/api/tags`, { method: 'GET' })
