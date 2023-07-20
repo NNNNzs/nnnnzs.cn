@@ -11,7 +11,7 @@ export const getPostList = async (params: QueryCondition) => {
     method: "get",
     params
   })
-  return res.data.data;
+  return res.data;
 }
 
 /** 根据id或者标题，获取 */
