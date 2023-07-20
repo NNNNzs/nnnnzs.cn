@@ -1,4 +1,4 @@
-import { baseUrl } from '@/composables/baseUrl';
+import { baseUrl, Host } from '@/composables/baseUrl';
 import { getRequestHeaders } from 'h3'
 
 export default defineEventHandler(async (event) => {
