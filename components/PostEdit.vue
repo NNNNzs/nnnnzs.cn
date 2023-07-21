@@ -123,13 +123,14 @@ const saveMeta = () => {
   }
   post.tagsString = void 0;
 
+
   if (id === 'edit') {
     $fetch(clientUrl + '/post/create', {
       method: "POST",
       body: post
-    }).then((p) => {
-      const post = p as Post;
-      const id = post.id;
+    }).then((r) => {
+      const res = r as ResponeBody<Post>;
+      const id = res.data.id;
       router.replace(EDIT_PAGE + id)
       ElMessage.success('保存成功');
     })
