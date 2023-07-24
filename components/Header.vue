@@ -108,17 +108,18 @@ const { data } = await useFetch('/api/auth/v', {
   credentials: 'include'
 })
 
-if (data.value!.status) {
-  menu.value = base.concat(loginMenu)
-} else {
-  menu.value = base
-}
-const scrollTop = ref(0);
+menu.value = base
+
 const scrollBarRef = ref<HTMLDivElement>();
 
 onMounted(() => {
+  if (data.value!.status) {
+    menu.value = base.concat(loginMenu)
+  }
+
   const { y } = useWindowScroll();
   const percent = useCssVar('--percent', scrollBarRef.value);
+
   const handlerScroll = () => {
 
     percent.value = ((y.value > 0 ? y.value + window.innerHeight : 0) / document.body.scrollHeight) * 100 + '%';
