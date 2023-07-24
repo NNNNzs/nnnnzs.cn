@@ -12,7 +12,7 @@ export const upload = (blob: Blob) => {
   const formData = new FormData()
   formData.append("inputFile", blob)
   axios({
-    url: clientUrl + "/upload",
+    url: clientUrl + "/fs/upload",
     method: "post",
     data: formData,
     onUploadProgress(e) {
