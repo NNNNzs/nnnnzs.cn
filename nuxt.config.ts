@@ -116,7 +116,7 @@ export default defineNuxtConfig({
       theme: 'algolia'
     }
   },
-  webpack:{
-    extractCSS:true
+  experimental: {
+    inlineSSRStyles: false
   }
 })
