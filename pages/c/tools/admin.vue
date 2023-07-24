@@ -4,6 +4,7 @@
       <div class="h-8 flex flex-row justify-between mb-4">
         <div>
           <el-button type="primary" @click="addPost">新增</el-button>
+          <el-button type="primary" @click="getList">刷新</el-button>
         </div>
         <div class="w-50">
           <el-input v-model.lazy="query.query"></el-input>

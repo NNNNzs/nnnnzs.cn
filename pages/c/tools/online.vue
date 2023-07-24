@@ -29,6 +29,7 @@ const tableHeader = ref([
   { prop: 'ua', label: 'ua' },
   { prop: 'ip', label: 'ip' },
   { prop: 'token', label: 'token' },
+  { prop: 'lastUsed', label: 'lastUsed' },
   {
     prop: 'date', label: '授权时间', formatter(row: Row) {
       return dayjs(row.date).format('YYYY-MM-DD HH:MM:ss')

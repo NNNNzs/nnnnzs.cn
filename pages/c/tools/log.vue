@@ -1,9 +1,14 @@
 <template>
   <ClientOnly>
     <div class="w-full h-full flex flex-col p-4 bg-blue-50">
-      <el-form>
-        <el-date-picker v-model="timeRange" type="daterange" range-separator="To" start-placeholder="Start date"
-          end-placeholder="End date" size="small" value-format="YYYY-MM-DD" />
+      <el-form class="flex">
+        <el-form-item class="w-1/5">
+          <el-date-picker v-model="timeRange" type="daterange" range-separator="To" start-placeholder="Start date"
+            end-placeholder="End date" size="small" value-format="YYYY-MM-DD" />
+        </el-form-item>
+        <el-form-item class="w-1/5">
+          <el-button type="primary" @click="getList">查询</el-button>
+        </el-form-item>
       </el-form>
       <div class="flex-1 overflow-hidden">
         <ElTable :data="tableList" border height="100%">
@@ -22,7 +27,7 @@
 <script setup lang="ts">
 
 
-import { ElTable, ElTableColumn, ElForm, ElPagination, ElDatePicker, type DateModelType } from 'element-plus'
+import { ElTable, ElTableColumn, ElForm, ElFormItem, ElButton, ElPagination, ElDatePicker, type DateModelType } from 'element-plus'
 import dayjs from 'dayjs'
 
 interface Query extends QueryCondition, Partial<Log> {

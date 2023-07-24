@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ElInput, ElButton, ElTable, ElTableColumn } from 'element-plus';
+import { ElInput, ElButton, ElTable, ElTableColumn, ElMessage } from 'element-plus';
 import type { Column } from 'element-plus';
 import axios from 'axios';
 
@@ -30,16 +30,21 @@ const columns: Column[] = [
 const url = ref('')
 const reflashCDN = () => {
   axios({
-    url: baseUrl + '/common/purgeUrlsCache',
+    url: clientUrl + '/common/purgeUrlsCache',
     method: 'post',
-    data: url.value.split('\n')
+    data: url.value.split('\n').filter(e => !!e)
+  }).then(res => {
+    if (res.data.TaskId) {
+      ElMessage.success('提交成功');
+      getList()
+    }
   })
   console.log(url.value.split('\n'));
 }
 
 const getList = () => {
   axios({
-    url: baseUrl + '/common/purgeTasks',
+    url: clientUrl + '/common/purgeTasks',
   }).then(res => {
     if (res.data.status) {
       tableList.value = res.data.data.list;

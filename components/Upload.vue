@@ -355,7 +355,7 @@ const transformImage = async (url: string) => {
 
 const fileExis = (item: UploadInfo) => {
   axios({
-    url: baseUrl + "/isExis",
+    url: clientUrl + "/isExis",
     method: "get",
     params: { url: item.url },
   }).then((res) => {
