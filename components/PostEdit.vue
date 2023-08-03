@@ -145,8 +145,7 @@ const saveMeta = () => {
       if (res.status) {
         ElMessage.success('保存成功');
         reflashCDNRemote([
-          CDN_URL + path,
-          CDN_URL + encodeURIComponent(path)
+          CDN_URL + path
         ])
         getPost()
       }
