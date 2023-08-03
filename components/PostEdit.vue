@@ -63,6 +63,7 @@ import MdEditor from 'md-editor-v3';
 import { ElSelect, ElOption, ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 import { upload } from '@/api/fs'
+import { CDN_URL } from '@/composables/cdn';
 
 const props = defineProps({
   id: {
@@ -143,6 +144,10 @@ const saveMeta = () => {
       const res = r as ResponeBody;
       if (res.status) {
         ElMessage.success('保存成功');
+        reflashCDNRemote([
+          CDN_URL + path,
+          CDN_URL + encodeURIComponent(path)
+        ])
         getPost()
       }
     })

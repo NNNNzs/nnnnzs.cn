@@ -17,6 +17,7 @@
 import { ElInput, ElButton, ElTable, ElTableColumn, ElMessage } from 'element-plus';
 import type { Column } from 'element-plus';
 import axios from 'axios';
+import { reflashCDNRemote } from '@/composables/cdn';
 
 
 const tableList = ref<any[]>([]);
@@ -29,17 +30,11 @@ const columns: Column[] = [
 ]
 const url = ref('')
 const reflashCDN = () => {
-  axios({
-    url: clientUrl + '/common/purgeUrlsCache',
-    method: 'post',
-    data: url.value.split('\n').filter(e => !!e)
-  }).then(res => {
-    if (res.data.TaskId) {
-      ElMessage.success('提交成功');
+  reflashCDNRemote(url.value.split('\n'))
+    .then(res => {
       getList()
-    }
-  })
-  console.log(url.value.split('\n'));
+    })
+
 }
 
 const getList = () => {
