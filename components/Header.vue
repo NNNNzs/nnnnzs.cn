@@ -1,6 +1,7 @@
 <template>
-  <div ref="headerRef"></div>
-  <header class="header sticky bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 ">
+  <div ref="returnTopRef"></div>
+  <header ref="headerRef"
+    class="header fixed backdrop-blur-md bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 opacity-[var(--header-opacity)] bg-opacity-[var(--header-bg-opacity)] hover:opacity-100 hover:transform-cpu hover:transition-opacity duration-300" >
     <div class="mx-auto container h-full px-4">
       <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
@@ -82,10 +83,11 @@ const base: MenuItem[] = [
 ];
 const route = useRoute();
 
+const returnTopRef = ref<HTMLElement>();
 const headerRef = ref<HTMLElement>();
 
 const returnTop = () => {
-  headerRef.value?.scrollIntoView({
+  returnTopRef.value?.scrollIntoView({
     behavior: 'smooth'
   })
 }
@@ -119,10 +121,12 @@ onMounted(() => {
 
   const { y } = useWindowScroll();
   const percent = useCssVar('--percent', scrollBarRef.value);
+  const headerPercent = useCssVar('--header-opacity', headerRef.value)
 
   const handlerScroll = () => {
-
     percent.value = ((y.value > 0 ? y.value + window.innerHeight : 0) / document.body.scrollHeight) * 100 + '%';
+    headerPercent.value = (y.value / window.innerHeight) + '';
+    console.log('headerRef', headerPercent.value)
   }
 
   watchEffect(handlerScroll);
