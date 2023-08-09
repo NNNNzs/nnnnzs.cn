@@ -1,7 +1,7 @@
 <template>
   <div ref="returnTopRef"></div>
   <header ref="headerRef"
-    class="header fixed backdrop-blur-md bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 opacity-[var(--header-opacity)] bg-opacity-[var(--header-bg-opacity)] hover:opacity-100 hover:transform-cpu hover:transition-opacity duration-300" >
+    class="header fixed backdrop-blur-md bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 opacity-[var(--header-opacity)] bg-opacity-[var(--header-bg-opacity)] hover:opacity-100 hover:transform-cpu hover:transition-opacity duration-300">
     <div class="mx-auto container h-full px-4">
       <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
@@ -126,7 +126,6 @@ onMounted(() => {
   const handlerScroll = () => {
     percent.value = ((y.value > 0 ? y.value + window.innerHeight : 0) / document.body.scrollHeight) * 100 + '%';
     headerPercent.value = (y.value / window.innerHeight) + '';
-    console.log('headerRef', headerPercent.value)
   }
 
   watchEffect(handlerScroll);

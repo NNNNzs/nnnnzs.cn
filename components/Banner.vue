@@ -2,7 +2,7 @@
   <Header></Header>
   <div class="banner relative h-screen bg-scroll md:bg-fixed  bg- bg-cover flex justify-center items-center"
     :style="bannerStyle">
-    <div class="antialiased text-2xl WenYueQingLongTi text-white hover:backdrop-blur-[4px] p-[2rem] mix-blend-difference shadow-lg">
+    <div class="antialiased text-2xl WenYueQingLongTi text-white hover:transition-backdrop-blur duration-300 hover:backdrop-blur-[3px] p-[2rem] mix-blend-difference">
       <p class="mb-20">{{ oneText.hitokoto }}</p>
       <p class="text-center" v-if="Boolean(oneText.from)">
         {{ oneText.from }}-{{ oneText.creator }}
