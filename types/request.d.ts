@@ -13,7 +13,7 @@ declare interface PageQueryRes<T> extends QueryCondition {
 /** 响应体 */
 declare interface ResponeBody<T = any | null> {
   status: boolean
-  msg: string
+  message: string
   data: T
 }
 
