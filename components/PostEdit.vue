@@ -64,6 +64,7 @@ import { ElSelect, ElOption, ElInput, ElInputNumber, ElForm, ElFormItem, ElButto
 import dayjs from 'dayjs'
 import { upload } from '@/api/fs'
 import { CDN_URL } from '@/composables/cdn';
+import { cloneDeep } from 'lodash-es'
 
 const props = defineProps({
   id: {
@@ -74,7 +75,7 @@ const props = defineProps({
 
 type Entry = [string, number]
 
-const tags: Entry[] = await $fetch(`/api/tags`, { method: 'GET' })
+const tags: Entry[] = (await $fetch(`/api/tags`, { method: 'GET' })).filter(e=>e[0])
 
 const route = useRoute();
 const { params } = route;
@@ -116,19 +117,18 @@ const router = useRouter()
 
 const saveMeta = () => {
   const { path, oldTitle } = genPath(post)
-  Object.assign(post, { path, oldTitle })
-  post.updated = void 0;
+  const p = cloneDeep(Object.assign(post, { path, oldTitle }))
 
   if (post.tagsString) {
-    post.tags = post.tagsString.join(',');
+    p.tags = post.tagsString.join(',');
   }
-  post.tagsString = void 0;
+  p.tagsString = void 0;
 
 
   if (id === 'edit') {
     $fetch(clientUrl + '/post/create', {
       method: "POST",
-      body: post
+      body: p
     }).then((r) => {
       const res = r as ResponeBody<Post>;
       const id = res.data.id;
@@ -139,7 +139,7 @@ const saveMeta = () => {
 
     $fetch(clientUrl + `/post/${id}`, {
       method: 'PUT',
-      body: post
+      body: p
     }).then(r => {
       const res = r as ResponeBody;
       if (res.status) {

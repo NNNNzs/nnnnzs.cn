@@ -22,6 +22,7 @@ import { ElForm, ElInput, ElFormItem, ElMessage, ElButton } from 'element-plus';
 useHead({
   title: '登录',
 });
+
 const rules = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -35,7 +36,7 @@ const logonForm = reactive({
   password: '123456',
 })
 const loading = ref(false)
-
+const router = useRouter()
 const login = () => {
   loading.value = true;
   $fetch(clientUrl + '/user/login', {
@@ -45,6 +46,7 @@ const login = () => {
     const res = r as ResponeBody<{ token: string, userInfo: any }>
     if (res.status) {
       ElMessage.success('登录成功')
+      router.push('/')
     } else {
       ElMessage.error(res.message)
     }
