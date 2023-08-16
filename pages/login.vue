@@ -18,9 +18,12 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { ElForm, ElInput, ElFormItem, ElMessage, ElButton } from 'element-plus';
+const route = useRoute();
+
+const method = route.query
 
 useHead({
-  title: '登录',
+  title: '登录' || method,
 });
 
 const rules = {

@@ -7,7 +7,7 @@
       <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
         <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
 
-        <div class="hidden md:flex justify-between category w-auto h-full">
+        <div class="hidden md:flex justify-between items-center category w-auto h-full">
           <Search class="mr-4"></Search>
 
           <ul class="h-full">
@@ -15,16 +15,36 @@
               :target="item.target || '_self'" v-for="item in menu" :key="item.name" :to="item.path">{{ item.name }}
             </NuxtLink>
           </ul>
+
           <button @click="toggleDark()" class="mr-4">
             <ClientOnly>
               <svg-icon class="text-[1.2rem]" :name="isDark ? 'moon' : 'sun'"></svg-icon>
             </ClientOnly>
           </button>
+
           <a target="_blank" class="mr-4 h-full align-middle flex items-center"
             href="https://github.com/NNNNzs/nnnnzs.cn">
-            <svg-icon class="text-[1.2rem]" name="github"></svg-icon>
+            <svg-icon class="text-[1.5rem]" name="github"></svg-icon>
           </a>
+          <ClientOnly>
+            <ElDropdown v-if="userInfo.id">
+              <el-avatar :size="24" :src="userInfo.avatarUrl" />
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem v-for="item in loginMenu" :key="item.name">
+                    <NuxtLink v-if="item.path" :to="item.path" :target="item.target">{{ item.name }}
+                    </NuxtLink>
+                    <span v-if="item.method" @click="item.method()">{{ item.name }}</span>
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
+            <div v-else>
+            </div>
+          </ClientOnly>
+
         </div>
+
         <div class="w-4 h-4 md:hidden cursor-pointer">
           <el-icon @click="drawer = !drawer">
             <Menu />
@@ -67,14 +87,15 @@
 
 <script lang="ts" setup>
 import { reactive, toRefs, ref, watchEffect, watch } from "vue"
-import { ElIcon } from "element-plus"
+import { ElIcon, ElAvatar, ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus"
 import { Menu, CircleClose } from "@element-plus/icons-vue"
 import { isDark, toggleDark } from "~/composables/useSystemDark"
 
 interface MenuItem {
   name: string
-  path: string
+  path?: string
   target?: HTMLAnchorElement['target']
+  method?: () => void
 }
 const drawer = ref(false)
 
@@ -93,33 +114,49 @@ const returnTop = () => {
   })
 }
 
-const loginMenu: MenuItem[] = [
-  { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
-  { name: "管理", path: TOOLSE_PERFIX_PAGE + "/admin", target: "_blank" },
-  { name: "日志", path: TOOLSE_PERFIX_PAGE + "/log" }
-]
-if (route.name === '20year-month-date-title') {
-  const postId = inject('postId');
-  loginMenu.push({
-    name: '编辑', path: EDIT_PAGE + postId, target: '_blank'
+const loginOut = () => {
+  $fetch(clientUrl + '/user/logout', { method: 'POST' }).then(r => {
+    window.location.reload()
   })
 }
+
+const loginMenu = computed<MenuItem[]>(() => {
+  const base = [
+    { name: "个人中心", path: "/user", target: "_blank" },
+    { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
+    { name: "管理", path: TOOLSE_PERFIX_PAGE + "/admin", target: "_blank" },
+    { name: "日志", path: TOOLSE_PERFIX_PAGE + "/log" },
+    { name: "退出登录", method: loginOut },
+  ]
+
+  if (route.name === '20year-month-date-title' && inject('postId')) {
+    base.push({
+      name: '编辑', path: EDIT_PAGE + inject('postId'), target: '_blank'
+    })
+  }
+  return base;
+})
+
 const menu = ref<MenuItem[]>([])
 
-const { data } = await useFetch('/api/auth/v', {
-  method: 'POST',
-  credentials: 'include'
+const userInfo = reactive({
+  id: '',
+  avatarUrl: 'https://static.nnnnzs.cn/bing/20230727.png'
 })
+onMounted(() => {
+  $fetch(clientUrl + '/user/getInfo', { credentials: 'include' }).then(data => {
+    console.log('data', data)
+    Object.assign(userInfo, data)
+  })
+})
+
+
 
 menu.value = base
 
 const scrollBarRef = ref<HTMLDivElement>();
 
 onMounted(() => {
-  if (data.value!.status) {
-    menu.value = base.concat(loginMenu)
-  }
-
   const { y } = useWindowScroll();
   const percent = useCssVar('--percent', scrollBarRef.value);
   const headerPercent = useCssVar('--header-opacity', headerRef.value, {
