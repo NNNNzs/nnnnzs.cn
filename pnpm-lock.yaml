@@ -68,6 +68,9 @@ dependencies:
   vue-instantsearch:
     specifier: ^4.6.0
     version: 4.6.0(algoliasearch@4.19.1)(vue@3.3.4)
+  vue-picture-cropper:
+    specifier: ^0.6.1
+    version: 0.6.1(vue@3.3.4)
   wordcloud:
     specifier: ^1.2.2
     version: 1.2.2
@@ -678,6 +681,12 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
+
+  /@bassist/utils@0.4.0:
+    resolution: {integrity: sha512-aoFTl0jUjm8/tDZodP41wnEkvB+C5O9NFCuYN/ztL6jSUSsuBkXq90/1ifBm1XhV/zySHgLYlU1+tgo3XtQ+nA==}
+    dependencies:
+      '@withtypes/mime': 0.1.2
+    dev: false
 
   /@cloudflare/kv-asset-handler@0.3.0:
     resolution: {integrity: sha512-9CB/MKf/wdvbfkUdfrj+OkEwZ5b7rws0eogJ4293h+7b6KX5toPwym+VQKmILafNB9YiehqY0DlNrDcDhdWHSQ==}
@@ -2426,6 +2435,12 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
+  /@withtypes/mime@0.1.2:
+    resolution: {integrity: sha512-PB9BfZGzwblUONJY0LiOwsHCA6uV3DIPj/w9ReekdHxPOl0VdUFgI5s4avKycuuq9Gf5Nz2ZPA2O36GAUzlMPA==}
+    dependencies:
+      mime: 3.0.0
+    dev: false
+
   /@xtuc/ieee754@1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
     dev: true
@@ -3643,6 +3658,10 @@ packages:
 
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
+
+  /cropperjs@1.5.13:
+    resolution: {integrity: sha512-by7jKAo73y5/Do0K6sxdTKHgndY0NMjG2bEdgeJxycbcmHuCiMXqw8sxy5C5Y5WTOTcDGmbT7Sr5CgKOXR06OA==}
+    dev: false
 
   /cross-env@7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
@@ -6273,7 +6292,6 @@ packages:
     resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
     engines: {node: '>=10.0.0'}
     hasBin: true
-    dev: true
 
   /mimic-fn@2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
@@ -9620,6 +9638,16 @@ packages:
       algoliasearch: 4.19.1
       instantsearch.js: 4.56.0(algoliasearch@4.19.1)
       mitt: 2.1.0
+      vue: 3.3.4
+    dev: false
+
+  /vue-picture-cropper@0.6.1(vue@3.3.4):
+    resolution: {integrity: sha512-mz8fWHU/ZwZU7PrurlWBZiwlXejGSeUsnevnpOf47Ggg4uRyvAKRtAm/wo/Hu70FKx3S4AyR6Yh9N+8Q2WJmww==}
+    peerDependencies:
+      vue: ^3.2.13
+    dependencies:
+      '@bassist/utils': 0.4.0
+      cropperjs: 1.5.13
       vue: 3.3.4
     dev: false
 

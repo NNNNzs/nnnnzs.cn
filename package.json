@@ -58,6 +58,7 @@
     "unplugin-vue-components": "^0.22.11",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-instantsearch": "^4.6.0",
+    "vue-picture-cropper": "^0.6.1",
     "wordcloud": "^1.2.2"
   }
 }

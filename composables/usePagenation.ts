@@ -1,3 +1,4 @@
+/** 前端分页 */
 const usePage = <T = any>(list: Ref<T[]>, queryParams: QueryCondition) => {
   const total = ref()
   const records = ref<T[]>()

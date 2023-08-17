@@ -35,9 +35,10 @@ const rules = {
   ]
 }
 const logonForm = reactive({
-  username: 'NNNNzs',
-  password: '123456',
-})
+  username: '',
+  password: '',
+});
+
 const loading = ref(false)
 const router = useRouter()
 const login = () => {

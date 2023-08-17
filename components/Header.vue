@@ -28,7 +28,7 @@
           </a>
           <ClientOnly>
             <ElDropdown v-if="userInfo.id">
-              <el-avatar :size="24" :src="userInfo.avatarUrl" />
+              <el-avatar :size="24" :src="userInfo.avatar" />
               <template #dropdown>
                 <ElDropdownMenu>
                   <ElDropdownItem v-for="item in loginMenu" :key="item.name">
@@ -90,6 +90,7 @@ import { reactive, toRefs, ref, watchEffect, watch } from "vue"
 import { ElIcon, ElAvatar, ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus"
 import { Menu, CircleClose } from "@element-plus/icons-vue"
 import { isDark, toggleDark } from "~/composables/useSystemDark"
+import { User } from '@/composables/useUserInfo'
 
 interface MenuItem {
   name: string
@@ -99,7 +100,7 @@ interface MenuItem {
 }
 const drawer = ref(false)
 
-const base: MenuItem[] = [
+const menu: MenuItem[] = [
   { name: "分类", path: "/tags" },
   { name: "归档", path: "/timeline" }
 ];
@@ -122,7 +123,7 @@ const loginOut = () => {
 
 const loginMenu = computed<MenuItem[]>(() => {
   const base = [
-    { name: "个人中心", path: "/user", target: "_blank" },
+    { name: "个人中心", path: "/user", target: "_self" },
     { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
     { name: "管理", path: TOOLSE_PERFIX_PAGE + "/admin", target: "_blank" },
     { name: "日志", path: TOOLSE_PERFIX_PAGE + "/log" },
@@ -137,22 +138,19 @@ const loginMenu = computed<MenuItem[]>(() => {
   return base;
 })
 
-const menu = ref<MenuItem[]>([])
 
-const userInfo = reactive({
-  id: '',
-  avatarUrl: 'https://static.nnnnzs.cn/bing/20230727.png'
+const userInfo = reactive<User>({
+  id: void 0,
+  avatar: '',
 })
+
 onMounted(() => {
-  $fetch(clientUrl + '/user/getInfo', { credentials: 'include' }).then(data => {
+  $fetch(clientUrl + '/user/info', { credentials: 'include' }).then(data => {
     console.log('data', data)
     Object.assign(userInfo, data)
   })
 })
 
-
-
-menu.value = base
 
 const scrollBarRef = ref<HTMLDivElement>();
 
