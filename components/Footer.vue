@@ -31,6 +31,10 @@
         <a href="https://beian.miit.gov.cn" target="_blank">皖ICP备16025009号-1</a>
       </p>
     </div>
+    <div class="links text-center">
+      <span>友情链接：</span>
+      <a href="https://www.yanxianjun.com/" target="_blank">yanxianjun</a>
+    </div>
   </footer>
 </template>
 

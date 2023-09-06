@@ -55,6 +55,7 @@
     "md-editor-v3": "^2.5.0",
     "ol": "^7.3.0",
     "pinia": "^2.1.3",
+    "sass": "^1.66.1",
     "unplugin-vue-components": "^0.22.11",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-instantsearch": "^4.6.0",
