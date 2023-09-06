@@ -1,7 +1,7 @@
 <template>
   <div ref="returnTopRef"></div>
   <header ref="headerRef"
-    class="header fixed backdrop-blur-md bg-white text-slate-900 dark:bg-slate-900 dark:text-white top-0 opacity-[var(--header-opacity)] bg-opacity-[var(--header-bg-opacity)] hover:opacity-100 hover:transform-cpu hover:transition-opacity duration-300"
+    class="header fixed backdrop-blur-md bg-white text-slate-900 dark:bg-slate-700 dark:text-white top-0 opacity-[var(--header-opacity)] bg-opacity-[var(--header-bg-opacity)] hover:opacity-100 hover:transform-cpu hover:transition-opacity duration-300"
     :style="`--header-opacity:0`">
     <div class="mx-auto container h-full px-4">
       <div class="mx-auto h-full menu flex items-center justify-between leading-8 ">
@@ -15,12 +15,9 @@
               :target="item.target || '_self'" v-for="item in menu" :key="item.name" :to="item.path">{{ item.name }}
             </NuxtLink>
           </ul>
-
-          <button @click="toggleDark()" class="mr-4">
-            <ClientOnly>
-              <svg-icon class="text-[1.2rem]" :name="isDark ? 'moon' : 'sun'"></svg-icon>
-            </ClientOnly>
-          </button>
+          <ClientOnly>
+            <DayLightButton class="" :isDark="isDark" @toggleDark="toggleDark" />
+          </ClientOnly>
 
           <a target="_blank" class="mr-4 h-full align-middle flex items-center"
             href="https://github.com/NNNNzs/nnnnzs.cn">
@@ -87,9 +84,9 @@
 
 <script lang="ts" setup>
 import { reactive, toRefs, ref, watchEffect, watch } from "vue"
-import { ElIcon, ElAvatar, ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus"
+import { ElIcon, ElAvatar, ElDropdown, ElDropdownMenu, ElDropdownItem, ElButton } from "element-plus"
 import { Menu, CircleClose } from "@element-plus/icons-vue"
-import { isDark, toggleDark } from "~/composables/useSystemDark"
+import { isDark, toggleDark, setDark } from "~/composables/useSystemDark"
 import { User } from '@/composables/useUserInfo'
 
 interface MenuItem {
@@ -143,6 +140,7 @@ const userInfo = reactive<User>({
   id: void 0,
   avatar: '',
 })
+
 
 onMounted(() => {
   $fetch(clientUrl + '/user/info', { credentials: 'include' }).then(data => {
