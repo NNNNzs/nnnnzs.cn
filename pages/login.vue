@@ -9,6 +9,11 @@
         <ElInput type="password" v-model="logonForm.password"></ElInput>
       </ElFormItem>
       <ElFormItem>
+        <a href="https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user">
+          <svg-icon class="text-4xl text-white w-4 h-4" name="github"></svg-icon>
+        </a>
+      </ElFormItem>
+      <ElFormItem>
         <ElButton :loading="loading" type="primary" @click="login">登录</ElButton>
       </ElFormItem>
 
