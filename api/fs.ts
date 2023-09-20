@@ -20,12 +20,12 @@ export const upload = (blob: Blob) => {
     },
   })
     .then((res: AxiosResponse<ResponeBody<string>>) => {
-      const { status, data, msg } = res.data
+      const { status, data, message } = res.data
       if (status) {
         success.value = true;
         response.value = data
       } else {
-        error.value = msg
+        error.value = message
       }
     })
     .catch((err) => {

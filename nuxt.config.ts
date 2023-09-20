@@ -36,6 +36,7 @@ export default defineNuxtConfig({
       ],
       script: [
         { src: "/js/track.js" },
+        { src: "/js/wordcloud2.js" },
         { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6540786548340758', async: true, crossorigin: 'anonymous' }
       ],
       meta: [

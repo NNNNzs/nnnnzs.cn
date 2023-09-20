@@ -16,7 +16,7 @@
             </NuxtLink>
           </ul>
           <ClientOnly>
-            <DayLightButton class="" :isDark="isDark" @toggleDark="toggleDark" />
+            <DayLightButton class="mr-4" :isDark="isDark" @toggleDark="toggleDark" />
           </ClientOnly>
 
           <a target="_blank" class="mr-4 h-full align-middle flex items-center"

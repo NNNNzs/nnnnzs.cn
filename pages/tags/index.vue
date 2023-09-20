@@ -1,7 +1,8 @@
 <template>
   <Banner></Banner>
   <div>
-    <NuxtLink v-for="item in list" :to="`${TAG_PREFIX_PAGE}/${item[0]}`"></NuxtLink>
+    <NuxtLink v-for="item in list" :to="`${TAG_PREFIX_PAGE}/${item[0]}`">
+    </NuxtLink>
   </div>
   <div class="w-full h-screen bg-neutral-600" ref="wordCloudRef"></div>
 </template>
@@ -45,10 +46,10 @@ const init = () => {
     }, 100);
   }
 }
-
-useScriptTag('/js/wordcloud2.js', () => {
+onMounted(() => {
   init()
 })
+
 
 
 </script>
