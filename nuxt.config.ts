@@ -58,6 +58,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/algolia",
+    "@vite-pwa/nuxt",
     [
       "@pinia/nuxt",
       {
@@ -73,6 +74,22 @@ export default defineNuxtConfig({
     public: {
       isDev: process.env.NODE_ENV !== "production",
     }
+  },
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'NNNNzs',
+      short_name: 'NNNNzs',
+      theme_color: '#ffffff',
+      icons: [
+        {
+          src: 'img/logo_N.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable',
+        },
+      ],
+    },
   },
   /**
    * @see 
