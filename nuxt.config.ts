@@ -58,7 +58,6 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/algolia",
-    "@vite-pwa/nuxt",
     [
       "@pinia/nuxt",
       {
