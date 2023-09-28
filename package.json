@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "cross-env HOST=127.0.0.1 PORT=3002 nuxt dev --host",
     "start": "cross-env HOST=127.0.0.1 PORT=4000 node .output/server/index.mjs",
     "g": "nuxt generate",
     "preview": "nuxt preview",

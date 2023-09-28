@@ -117,7 +117,7 @@ onMounted(() => {
   useHeic2Any()
 })
 </script>
-<style lang="postcss">
+<style lang="scss">
 #post .md-editor {
   --md-bk-color: #efefef;
 }

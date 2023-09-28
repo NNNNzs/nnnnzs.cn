@@ -12,13 +12,14 @@
       </div>
     </NuxtLink>
   </div>
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
 type Entry = [string, number]
 
 const fetchTags = () => $fetch(`/api/tags`, { method: 'GET' });
-const { data } = useAsyncData('tags', fetchTags);
+const { data } = await useAsyncData('tags', fetchTags);
 const list = ref<Entry[]>([])
 if (data.value) {
   list.value = data.value.sort((a, b) => a[1] < b[1] ? 1 : -1)

@@ -6,6 +6,7 @@
     </h1>
     <PostCard :posts="list" />
   </div>
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
@@ -19,7 +20,7 @@ useHead({
 const list = ref<Post[]>([])
 
 const fetchTags = () => $fetch(`/api/tags/${tag}`, { method: 'GET', params: { tag: tag } });
-const { data } = useAsyncData('tag', fetchTags);
+const { data } = await useAsyncData('tag', fetchTags);
 
 if (data.value) {
   list.value = data.value;
@@ -27,8 +28,7 @@ if (data.value) {
 
 </script>
 
-<style scoped lang="postcss">
-
+<style scoped lang="scss">
 .tag-detail {
   background: linear-gradient(45deg, #bfbfbf, #e6e6e6);
 
