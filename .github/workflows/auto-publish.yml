@@ -26,9 +26,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "16.19.0"
+
+      - name: node -v
+        run: node -v
 
       - name: Install pnpm
+        shell: bash
         run: npm install pnpm -g
 
       - run: node -v
@@ -37,6 +41,7 @@ jobs:
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          echo "pnpm store path --silent"
           echo "${{ env.STORE_PATH }}"
 
       - uses: actions/cache@v2
