@@ -11,7 +11,10 @@ on:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+env:
+  ALGOLIA_APP_ID: ${{ vars.ALGOLIA_APP_ID }}
+  ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }}
+  ALGOLIA_APP_INDEX_DB: ${{ vars.ALGOLIA_APP_INDEX_DB }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -20,8 +23,9 @@ jobs:
     steps:
       - name: echo env
         run: |
-          echo ${{env}}}
-          echo ${{ env.ALGOLIA_API_KEY }}
+          echo ${{ vars.ALGOLIA_API_KEY }}
+          echo ${{ vars.ALGOLIA_APP_ID }}
+          echo ${{ env.ALGOLIA_APP_INDEX_DB }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3.8.1
