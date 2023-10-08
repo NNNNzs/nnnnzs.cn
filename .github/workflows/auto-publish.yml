@@ -15,25 +15,20 @@ env:
   ALGOLIA_APP_ID: ${{ vars.ALGOLIA_APP_ID }}
   ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }}
   ALGOLIA_APP_INDEX_DB: ${{ vars.ALGOLIA_APP_INDEX_DB }}
+  STORE_PATH: ""
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: echo env
-        run: |
-          echo ${{ vars.ALGOLIA_API_KEY }}
-          echo ${{ vars.ALGOLIA_APP_ID }}
-          echo ${{ env.ALGOLIA_APP_INDEX_DB }}
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3.8.1
         with:
           node-version: "16"
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
 
       - name: Install pnpm
         run: npm install pnpm -g
