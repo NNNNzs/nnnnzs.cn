@@ -8,7 +8,7 @@ on:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    
+
 env:
   ALGOLIA_APP_ID: ${{ vars.ALGOLIA_APP_ID }}
   ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }}
@@ -21,17 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Debug Session
-        uses: csexton/debugger-action@master
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-
-     
 
       - name: Install pnpm
         run: npm install pnpm -g
@@ -43,7 +38,7 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v2
         name: Setup pnpm cache
         with:
           path: ${{ env.STORE_PATH }}
