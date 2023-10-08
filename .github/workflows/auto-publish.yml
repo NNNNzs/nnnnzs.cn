@@ -18,20 +18,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set timestamp
-        id: set-timestamp
-        run: echo "::set-output name=timestamp::$(TZ=Asia/Shanghai date +'%Y%m%d_%H%M%S')"
+     
+
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3.8.1
+      #   with:
+      #     node-version: "16"
 
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
       - name: Install pnpm
-        run : npm install pnpm -g
+        run: npm install pnpm -g
 
       - name: Get pnpm store directory
         shell: bash
