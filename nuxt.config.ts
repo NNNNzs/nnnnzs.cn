@@ -4,6 +4,7 @@ import svgIcons, { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
 console.log("process.env", process.env.NODE_ENV)
+console.log("process.env", process.env)
 
 const totalPlugin = [
   createSvgIconsPlugin({
