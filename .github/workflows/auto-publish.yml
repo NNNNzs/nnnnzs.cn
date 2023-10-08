@@ -1,8 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
 name: restart-pm2
 
-# Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -11,6 +8,7 @@ on:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    
 env:
   ALGOLIA_APP_ID: ${{ vars.ALGOLIA_APP_ID }}
   ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }}
@@ -20,15 +18,13 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          sudo: false
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
