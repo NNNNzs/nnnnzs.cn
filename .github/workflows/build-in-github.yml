@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-
+      
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
@@ -29,6 +29,9 @@ jobs:
     
       - name: Install dependencies
         run: pnpm install
+
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
 
       - name: Build
         run: pnpm run build
