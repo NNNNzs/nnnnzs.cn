@@ -55,8 +55,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
-          source: .output
-          target: ${{secrets.PATH}}/.output
+          source: .output/*
+          target: ${{ secrets.PATH }}
 
       - name: restart
         uses: appleboy/ssh-action@master
@@ -68,6 +68,7 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             cd ${{secrets.PATH}}
+            git pull 
             pnpm run pm2
             pm2 list
       - name: notice
