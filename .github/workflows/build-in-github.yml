@@ -18,17 +18,35 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-
+      
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      - name: install pnpm
+        run: npm install -g pnpm
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: echo store path
+        run: echo ${{ env.STORE_PATH }}
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+    
       - name: Install dependencies
-        run: npm install
+        run: pnpm install 
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
 
       - name: 部署到远端服务器
         uses: appleboy/scp-action@master
