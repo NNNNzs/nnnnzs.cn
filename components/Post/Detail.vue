@@ -1,9 +1,14 @@
 <template>
   <NuxtLayout>
     <Banner :cover="post?.cover"></Banner>
-    <div id="post" class="center text-left lg:w-3/5 sm:w-full md:w-3/5 m-auto border-l-fuchsia-900 p-8">
+    <div
+      id="post"
+      class="center text-left lg:w-3/5 sm:w-full md:w-3/5 m-auto border-l-fuchsia-900 p-8"
+    >
       <div class="m-auto mb4">
-        <h1 class="text-gray-900 dark:text-white text-center my-4 text-4xl WenYueQingLongTi">
+        <h1
+          class="text-gray-900 dark:text-white text-center my-4 text-4xl WenYueQingLongTi"
+        >
           {{ title }}
         </h1>
       </div>
@@ -18,8 +23,14 @@
         <span @click="addLike">喜欢:{{ post.likes }}</span>
       </div>
       <div class="full text-slate-700">
-        <MdEditor editor-id="post-editor" preview-theme="cyanosis" :showCodeRowNumbe="true" :model-value="post.content"
-          :theme="theme" :previewOnly="true"></MdEditor>
+        <MdPreview
+          editor-id="post-editor"
+          previewTheme="cyanosis"
+          :showCodeRowNumbe="true"
+          :model-value="post.content"
+          :theme="theme"
+          :previewOnly="true"
+        ></MdPreview>
       </div>
     </div>
     <Footer />
@@ -28,7 +39,7 @@
 
 <script lang="ts" setup>
 import { FavType } from "@/api/post"
-import MdEditor from "md-editor-v3"
+import { MdPreview } from "md-editor-v3"
 import dayjs from "dayjs"
 import { isDark, toggleDark } from "~/composables/useSystemDark"
 
@@ -51,16 +62,14 @@ const post = reactive<Post>({
   likes: 0
 })
 
-const theme = ref<'dark' | 'light'>('light');
+const theme = ref<"dark" | "light">("light")
 onMounted(() => {
-  theme.value = isDark.value ? "dark" : "light";
+  theme.value = isDark.value ? "dark" : "light"
 
   watchEffect(() => {
     theme.value = isDark.value ? "dark" : "light"
   })
 })
-
-
 
 const router = useRouter()
 
@@ -77,7 +86,7 @@ if (!post.title) {
   router.push("/404")
 }
 
-provide('postId', post.id)
+provide("postId", post.id)
 
 useHead({
   title: title,

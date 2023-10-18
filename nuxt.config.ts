@@ -136,5 +136,13 @@ export default defineNuxtConfig({
   },
   experimental: {
     inlineSSRStyles: false
+  },
+  postcss: {
+    plugins: {
+      'postcss-import': {},
+      'tailwindcss/nesting': {},
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   }
 })

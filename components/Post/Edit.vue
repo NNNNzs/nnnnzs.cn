@@ -59,7 +59,7 @@
 </template>
 
 <script setup name="edit" lang="ts">
-import MdEditor from 'md-editor-v3';
+import {MdEditor} from 'md-editor-v3';
 import { ElSelect, ElOption, ElInput, ElInputNumber, ElForm, ElFormItem, ElButton, ElDatePicker, ElMessage, ElRadio, ElRadioGroup } from 'element-plus';
 import dayjs from 'dayjs'
 import { upload } from '@/api/fs'
