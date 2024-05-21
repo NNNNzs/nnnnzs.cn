@@ -58,16 +58,16 @@ const social: Social[] = [
     title: "微博",
     componentName: "weibo",
   },
-  {
-    href: "https://www.instagram.com/nnnn2s/",
-    title: "instagram",
-    componentName: "instagram",
-  },
-  {
-    href: "https://twitter.com/NNNNzs",
-    title: "twitter",
-    componentName: "google",
-  },
+  // {
+  //   href: "https://www.instagram.com/nnnn2s/",
+  //   title: "instagram",
+  //   componentName: "instagram",
+  // },
+  // {
+  //   href: "https://twitter.com/NNNNzs",
+  //   title: "twitter",
+  //   componentName: "google",
+  // },
   {
     href: "https://www.zhihu.com/people/NNNNzs",
     title: "知乎",

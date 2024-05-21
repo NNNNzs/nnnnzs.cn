@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 	transition: 0.7s;
+	transition-property: all;
 	transition-timing-function: cubic-bezier(0, 0.5, 1, 1);
 
 	/* 主要按钮样式 */
@@ -148,9 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			inset -3px -5px 3px -3px rgba(0, 0, 0, 0.5),
 			inset 4px 5px 2px -2px rgba(255, 230, 80, 1);
 		cursor: pointer;
-		transition: 1.0s;
-		transition-timing-function: cubic-bezier(0.56, 1.35, 0.52, 1.00);
-		transition-property: all;
+		// transition: 1.0s;
+		// transition-timing-function: cubic-bezier(0.56, 1.35, 0.52, 1.00);
+		// transition-property: all;
+		transition: 1s all cubic-bezier(0.56, 1.35, 0.52, 1.00);
 		z-index: 2;
 	}
 

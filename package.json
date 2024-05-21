@@ -45,6 +45,7 @@
     "@nuxtjs/algolia": "^1.9.0",
     "@pinia/nuxt": "^0.5.1",
     "axios": "^1.5.1",
+    "cryptojs": "^2.5.3",
     "dayjs": "^1.11.10",
     "element-plus": "^2.4.0",
     "exifr": "^7.1.3",
