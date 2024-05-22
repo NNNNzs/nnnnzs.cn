@@ -1,5 +1,6 @@
 ## <small>0.1.2 (2024-05-22)</small>
 
+* 0.1.2 ([955150e](https://github.com/NNNNzs/nnnnzs.cn/commit/955150e))
 * feat: 登录 ([8f23d80](https://github.com/NNNNzs/nnnnzs.cn/commit/8f23d80))
 * feat: 登录和获取用户信息 ([a4d6af4](https://github.com/NNNNzs/nnnnzs.cn/commit/a4d6af4))
 * feat: 更新包 ([2416dae](https://github.com/NNNNzs/nnnnzs.cn/commit/2416dae))
