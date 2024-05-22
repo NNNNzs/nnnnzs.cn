@@ -71,8 +71,8 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue"
-import { homeThumbnail } from "../utils/img"
+import type { PropType } from "vue"
+import { homeThumbnail } from "@/utils/img"
 import { MdPreview } from "md-editor-v3"
 import { breakpointsTailwind } from "@vueuse/core"
 import { dateFormat } from "~/composables/date"

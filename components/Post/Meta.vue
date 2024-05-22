@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, PropType } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 const props = defineProps({
   meta: {

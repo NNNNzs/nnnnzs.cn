@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
+import type { PropType } from 'vue';
 import { TAG_PREFIX_PAGE, A_TAGET } from '~~/composables/routes'
 
 defineProps({

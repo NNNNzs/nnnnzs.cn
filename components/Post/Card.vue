@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <PostCardItem v-for="(post, index) in posts " :post="post" :preview="previewId === post.id" @on-click="onPostLick">
+    <PostCardItem v-for="(post) in posts " :post="post" :preview="previewId === post.id" @on-click="onPostLick" :key="post.id">
     </PostCardItem>
   </ul>
 
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue";
+import type { PropType } from "vue";
 import { ElIcon } from "element-plus";
 import { CircleClose } from '@element-plus/icons-vue'
 

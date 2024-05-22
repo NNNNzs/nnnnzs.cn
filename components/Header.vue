@@ -87,7 +87,7 @@ import { reactive, toRefs, ref, watchEffect, watch } from "vue"
 import { ElIcon, ElAvatar, ElDropdown, ElDropdownMenu, ElDropdownItem, ElButton } from "element-plus"
 import { Menu, CircleClose } from "@element-plus/icons-vue"
 import { isDark, toggleDark, setDark } from "~/composables/useSystemDark"
-import { User } from '@/composables/useUserInfo'
+import type { User } from '@/composables/useUserInfo'
 
 interface MenuItem {
   name: string
