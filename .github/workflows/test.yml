@@ -1,0 +1,27 @@
+name: test
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  ALGOLIA_APP_ID: ${{ vars.ALGOLIA_APP_ID }}
+  ALGOLIA_API_KEY: ${{ vars.ALGOLIA_API_KEY }}
+  ALGOLIA_APP_INDEX_DB: ${{ vars.ALGOLIA_APP_INDEX_DB }}
+jobs:
+  # This workflow contains a single job called "build"
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
