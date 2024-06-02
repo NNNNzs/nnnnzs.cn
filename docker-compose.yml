@@ -1,0 +1,12 @@
+version: "3"
+services:
+  nnnnzs.cn:
+    image: node:20.14.0
+    working_dir: /usr/src/app
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - NODE_ENV=production
+    command: npm run start
