@@ -24,7 +24,7 @@ ssh nnnnzs@vpc.nnnnzs.cn << EOF
 
     tar -xzvf target.tar.gz
     rm target.tar.gz
-    npm run pm2 
+    docker restart nnnnzscn-nnnnzs.cn-1
 
 EOF
 

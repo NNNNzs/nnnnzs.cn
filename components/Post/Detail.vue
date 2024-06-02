@@ -24,6 +24,7 @@
       </div>
       <div class="full text-slate-700">
         <MdPreview
+          :codeFoldable="false"
           editor-id="post-editor"
           previewTheme="cyanosis"
           :showCodeRowNumbe="true"
