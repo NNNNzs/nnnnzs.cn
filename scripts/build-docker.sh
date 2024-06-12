@@ -9,6 +9,6 @@ npm run build
 
 tar -czvf target.tar.gz .nuxt .output package.json
 
-docker build -t nnnnzs .
+docker build -t nnnnzs/nnnnzs-cn-web .
 
 rm -rf target.tar.gz

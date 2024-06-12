@@ -1,21 +1,13 @@
-# 资源还在本地，映射本地目录
+# 资源已经打包到镜像里面
 version: "3"
 services:
-
-  my-redis:
-    image: redis:5.0.14
-    
   web-service:
-    image: node:20.14.0
+    image: nnnnzs/nnnnzs-cn-web:latest
     working_dir: /usr/src/app
     ports:
       - "4000:4000"
-    volumes:
-      - .:/usr/src/app
     environment:
-      - NODE_ENV=production
       - NODE_ENV=production
       - PORT=4000
       - HOST=0.0.0.0
     command: npm run start:docker
-    

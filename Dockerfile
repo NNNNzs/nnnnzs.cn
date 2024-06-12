@@ -7,8 +7,6 @@ WORKDIR /usr/src/app
 # 将package.json和package-lock.json（如果存在）拷贝到容器中
 COPY package*.json ./
 
-# 安装应用依赖
-RUN npm install cross-env -g
 
 # 将target.tar.gz文件拷贝到容器中
 COPY target.tar.gz ./
