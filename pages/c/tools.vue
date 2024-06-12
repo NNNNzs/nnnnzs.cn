@@ -33,6 +33,7 @@ const list = [
   { path: '/admin', name: "管理" },
   { path: '/online', name: "在线" },
   { path: '/log', name: "日志" },
+  { path: '/three', name: "three" },
 ].map(e => {
   e.path = TOOLSE_PERFIX_PAGE + e.path
   return e;

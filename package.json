@@ -15,7 +15,7 @@
     "postinstall": "nuxt prepare",
     "pm2": "pm2 start ecosystem.config.cjs --only nnnnzs.cn",
     "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0  -n ./scripts/changelog-option.cjs",
-    "scp":"./scripts/build.sh"
+    "scp": "./scripts/build.sh"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -45,6 +45,7 @@
     "@docsearch/js": "^3.6.0",
     "@nuxtjs/algolia": "^1.10.2",
     "@pinia/nuxt": "^0.5.1",
+    "@types/three": "^0.165.0",
     "axios": "^1.7.2",
     "cryptojs": "^2.5.3",
     "dayjs": "^1.11.11",

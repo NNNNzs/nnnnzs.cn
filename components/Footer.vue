@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-interface Social {
+export interface Social {
   href: string;
   title: string;
   componentName: string;
