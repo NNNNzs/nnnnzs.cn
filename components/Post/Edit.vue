@@ -241,6 +241,7 @@ watchEffect(() => {
 </script>
 
 <style lang="less">
+@import url("~/assets/css/hide-fe.less");
 .editor {
   padding: 10px;
   box-sizing: border-box;

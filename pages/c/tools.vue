@@ -19,26 +19,27 @@
 </template>
 
 <script setup lang="ts">
-import { ElMenu, ElMenuItem } from 'element-plus';
-const route = useRoute();
+import { ElMenu, ElMenuItem } from "element-plus"
+const route = useRoute()
 
 definePageMeta({
-  middleware: ['auth']
-});
-
-const list = [
-  { path: '/cdn', name: "刷新CDN" },
-  { path: '/pic', name: "图片测试" },
-  { path: '/upload', name: "上传" },
-  { path: '/admin', name: "管理" },
-  { path: '/online', name: "在线" },
-  { path: '/log', name: "日志" },
-  { path: '/three', name: "three" },
-].map(e => {
-  e.path = TOOLSE_PERFIX_PAGE + e.path
-  return e;
+  middleware: ["auth"]
 })
 
+const list = [
+  { path: "/cdn", name: "刷新CDN" },
+  { path: "/pic", name: "图片测试" },
+  { path: "/upload", name: "上传" },
+  { path: "/admin", name: "管理" },
+  { path: "/online", name: "在线" },
+  { path: "/log", name: "日志" },
+  { path: "/three", name: "three" }
+].map((e) => {
+  e.path = TOOLSE_PERFIX_PAGE + e.path
+  return e
+})
 </script>
 
-<style scoped></style>
+<style lang="less">
+@import url("~/assets/css/hide-fe.less");
+</style>
