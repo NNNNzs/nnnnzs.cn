@@ -27,8 +27,7 @@ definePageMeta({
 })
 
 const list = [
-  { path: "/cdn", name: "刷新CDN" },
-  { path: "/pic", name: "图片测试" },
+  { path: "/AMap", name: "高德地图" },
   { path: "/upload", name: "上传" },
   { path: "/admin", name: "管理" },
   { path: "/online", name: "在线" },

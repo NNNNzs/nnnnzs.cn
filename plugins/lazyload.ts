@@ -25,6 +25,8 @@ export default defineNuxtPlugin((nuxtApp) => {
               if (src) {
                 entry.target.setAttribute("src", src)
                 entry.target.setAttribute("dataset", "")
+                el.observer?.disconnect()
+                el.observer = null
               }
 
             }

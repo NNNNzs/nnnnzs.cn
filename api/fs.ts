@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { type AxiosResponse } from "axios"
 import { clientUrl } from "@/composables/baseUrl"
 import { ref, reactive } from 'vue';
 
