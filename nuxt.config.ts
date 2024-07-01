@@ -27,6 +27,15 @@ export default defineNuxtConfig({
     '~/assets/css/element-plus.css',
     'md-editor-v3/lib/style.css'
   ],
+  /**
+   * @see 
+   */
+  sitemap: {
+    exclude: ['/c/**'],
+    sources: [
+      '/api/__sitemap__/urls',
+    ]
+  },
   app: {
     // pageTransition: { name: 'page', mode: 'out-in' },
     head: {
@@ -54,21 +63,16 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002
   },
-  modules: [
-    "@vueuse/nuxt",
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/algolia",
-    [
-      "@pinia/nuxt",
-      {
-        autoImports: [
-          // 自动引入 `defineStore(), storeToRefs()`
-          "defineStore",
-          "storeToRefs"
-        ]
-      }
-    ]
-  ],
+  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia", [
+    "@pinia/nuxt",
+    {
+      autoImports: [
+        // 自动引入 `defineStore(), storeToRefs()`
+        "defineStore",
+        "storeToRefs"
+      ]
+    }
+  ], "@nuxtjs/sitemap"],
   runtimeConfig: {
     public: {
       isDev: process.env.NODE_ENV !== "production",

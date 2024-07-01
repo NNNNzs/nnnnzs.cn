@@ -46,6 +46,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@docsearch/js": "^3.6.0",
     "@nuxtjs/algolia": "^1.10.2",
+    "@nuxtjs/sitemap": "^5.2.2",
     "@pinia/nuxt": "^0.5.1",
     "@types/three": "^0.165.0",
     "axios": "^1.7.2",
