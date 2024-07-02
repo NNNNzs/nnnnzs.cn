@@ -142,9 +142,9 @@ const userInfo = reactive<User>({
 })
 
 
+// 放在这里是为了防止cdn缓存html
 onMounted(() => {
   $fetch(clientUrl + '/user/info', { credentials: 'include' }).then(data => {
-    console.log('data', data)
     Object.assign(userInfo, data)
   })
 })
