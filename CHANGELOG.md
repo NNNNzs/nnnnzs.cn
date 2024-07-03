@@ -1,3 +1,23 @@
+## 0.2.0 (2024-07-03)
+
+* feat: 屏蔽fe-helper ([98c83d9](https://github.com/NNNNzs/nnnnzs.cn/commit/98c83d9))
+* feat: 添加端口监听 ([6fa613a](https://github.com/NNNNzs/nnnnzs.cn/commit/6fa613a))
+* feat: 添加docker-compose ([48421ff](https://github.com/NNNNzs/nnnnzs.cn/commit/48421ff))
+* feat: 图片解析高德标点 ([11f8691](https://github.com/NNNNzs/nnnnzs.cn/commit/11f8691))
+* feat: 修复样式丢失问题 ([b990d6e](https://github.com/NNNNzs/nnnnzs.cn/commit/b990d6e))
+* feat: 增加github登录 ([78a4307](https://github.com/NNNNzs/nnnnzs.cn/commit/78a4307))
+* feat: 增加Pinia 持久化 增加管理员认证 增加错误页面 ([a8cf251](https://github.com/NNNNzs/nnnnzs.cn/commit/a8cf251))
+* feat: 增加pinia store ([90517fa](https://github.com/NNNNzs/nnnnzs.cn/commit/90517fa))
+* feat: 增加sitemap ([aaee575](https://github.com/NNNNzs/nnnnzs.cn/commit/aaee575))
+* feat: 增加threejs 示例 ([0faabdc](https://github.com/NNNNzs/nnnnzs.cn/commit/0faabdc))
+* chore: 更新脚本 ([8268858](https://github.com/NNNNzs/nnnnzs.cn/commit/8268858))
+* chore: 添加dockerfile 和build脚本 ([476387f](https://github.com/NNNNzs/nnnnzs.cn/commit/476387f))
+* docs: changelog ([39710fb](https://github.com/NNNNzs/nnnnzs.cn/commit/39710fb))
+* docs: changelog ([b9a37ea](https://github.com/NNNNzs/nnnnzs.cn/commit/b9a37ea))
+* upd: 更新部署脚本 ([09a3fd0](https://github.com/NNNNzs/nnnnzs.cn/commit/09a3fd0))
+
+
+
 ## <small>0.1.2 (2024-05-22)</small>
 
 * 0.1.2 ([955150e](https://github.com/NNNNzs/nnnnzs.cn/commit/955150e))
