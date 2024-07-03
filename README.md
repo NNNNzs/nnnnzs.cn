@@ -20,3 +20,6 @@ github action 自动部署
 
 # QA
 1. server/api里面使用$fetch 是不是不走nuxt.config.ts nitro.devProxy这个代理
+
+## 部署命令
+1. mac电脑部署 ```npm run scp```

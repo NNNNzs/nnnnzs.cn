@@ -5,6 +5,9 @@
   </div>
 </template>
 <script setup lang="ts">
+const userInfo = useUserInfoStore()
+userInfo.getInfo()
+
 onMounted(() => {
   if (
     window.location.host === "nnnnzs.cn" &&

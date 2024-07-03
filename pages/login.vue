@@ -5,32 +5,25 @@
       :model="logonForm"
       @submit.native.prevent
       :rules="rules"
-      class="bg-white p-8"
+      class="bg-white p-4"
     >
-      <ElFormItem label="用户名" prop="account">
+      <ElFormItem label="账号" prop="account">
         <ElInput v-model="logonForm.account"></ElInput>
       </ElFormItem>
 
       <ElFormItem label="密码" prop="password">
         <ElInput type="password" v-model="logonForm.password"></ElInput>
       </ElFormItem>
+
       <ElFormItem>
-        <a
+        <ElButton type="primary" @click="login">登录</ElButton>
+      </ElFormItem>
+      <ElFormItem label="其他">
+        <ElLink
           href="https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user"
         >
-          <svg-icon
-            class="text-4xl text-white w-4 h-4"
-            name="github"
-          ></svg-icon>
-        </a>
-      </ElFormItem>
-      <ElFormItem>
-        <ElButton :loading="loading" type="primary" @click="login"
-          >登录</ElButton
-        >
-        <ElButton :loading="loading" type="primary" @click="loginGitHub"
-          >Github登录</ElButton
-        >
+          <svg-icon class="text-2xl w-4 h-4" name="github"></svg-icon>
+        </ElLink>
       </ElFormItem>
     </ElForm>
   </div>
@@ -42,15 +35,10 @@ import {
   ElInput,
   ElFormItem,
   ElMessage,
-  ElButton
+  ElButton,
+  ElLink
 } from "element-plus"
 const route = useRoute()
-
-const method = route.query
-
-useHead({
-  title: "登录" || method
-})
 
 const rules = {
   account: [{ required: true, message: "请输入用户名", trigger: "blur" }],
@@ -85,18 +73,24 @@ const login = () => {
 onMounted(() => {
   const { type, code } = route.query
   if (type === "github") {
+    loading.value = true
     $fetch(clientUrl + "/user/loginWithGithub", {
       method: "POST",
       body: { code }
-    }).then((r) => {
-      const res = r as ResponeBody<{ token: string; userInfo: any }>
-      if (res.status) {
-        ElMessage.success("登录成功")
-        router.push("/")
-      } else {
-        ElMessage.error(res.message)
-      }
     })
+      .then((r) => {
+        const res = r as ResponeBody<{ token: string; userInfo: any }>
+        if (res.status) {
+          ElMessage.success("登录成功")
+          router.push("/")
+        } else {
+          ElMessage.error(res.message)
+        }
+        loading.value = false
+      })
+      .catch(() => {
+        loading.value = false
+      })
   }
 })
 

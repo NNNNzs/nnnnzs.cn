@@ -21,7 +21,9 @@ const plugins =
     ]
     : []
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
+/**
+ * @see https://nuxt.com/docs/api/configuration/nuxt-config
+ */
 export default defineNuxtConfig({
   css: [
     '~/assets/css/element-plus.css',
@@ -139,9 +141,12 @@ export default defineNuxtConfig({
       theme: 'algolia'
     }
   },
-  experimental: {
-    inlineSSRStyles: false
+  features: {
+    inlineStyles: false
   },
+  // experimental: {
+  //   inlineSSRStyles: false
+  // },
   postcss: {
     plugins: {
       'postcss-import': {},
