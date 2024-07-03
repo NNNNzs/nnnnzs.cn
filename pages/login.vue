@@ -1,32 +1,37 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center md:mr-20">
-    <ElForm
-      label-width="80px"
-      :model="logonForm"
-      @submit.native.prevent
-      :rules="rules"
-      class="bg-white p-4"
+  <ClientOnly>
+    <div
+      class="w-screen h-screen flex justify-center items-center md:mr-20"
     >
-      <ElFormItem label="账号" prop="account">
-        <ElInput v-model="logonForm.account"></ElInput>
-      </ElFormItem>
+      <ElForm
+        label-width="80px"
+        label-position="top"
+        :model="logonForm"
+        @submit.native.prevent
+        :rules="rules"
+        class="bg-white p-4 w-[300px]"
+      >
+        <ElFormItem label="账号" prop="account">
+          <ElInput v-model="logonForm.account"></ElInput>
+        </ElFormItem>
 
-      <ElFormItem label="密码" prop="password">
-        <ElInput type="password" v-model="logonForm.password"></ElInput>
-      </ElFormItem>
+        <ElFormItem label="密码" prop="password">
+          <ElInput type="password" v-model="logonForm.password"></ElInput>
+        </ElFormItem>
 
-      <ElFormItem>
-        <ElButton type="primary" @click="login">登录</ElButton>
-      </ElFormItem>
-      <ElFormItem label="其他">
-        <ElLink
-          href="https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user"
-        >
-          <svg-icon class="text-2xl w-4 h-4" name="github"></svg-icon>
-        </ElLink>
-      </ElFormItem>
-    </ElForm>
-  </div>
+        <ElFormItem>
+          <ElButton type="primary" @click="login">登录</ElButton>
+        </ElFormItem>
+        <ElFormItem label="其他">
+          <ElLink
+            href="https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user"
+          >
+            <svg-icon class="text-2xl w-4 h-4" name="github"></svg-icon>
+          </ElLink>
+        </ElFormItem>
+      </ElForm>
+    </div>
+  </ClientOnly>
 </template>
 <script setup lang="ts">
 import { reactive } from "vue"
@@ -51,6 +56,9 @@ const logonForm = reactive({
 
 const loading = ref(false)
 const router = useRouter()
+const userInfo = useUserInfoStore()
+const { nextPath = "/" } = route.query
+
 const login = () => {
   loading.value = true
   $fetch(clientUrl + "/user/login", {
@@ -61,7 +69,8 @@ const login = () => {
       const res = r as ResponeBody<{ token: string; userInfo: any }>
       if (res.status) {
         ElMessage.success("登录成功")
-        router.push("/")
+        userInfo.getInfo()
+        navigateTo(nextPath as string)
       } else {
         ElMessage.error(res.message)
       }
@@ -82,7 +91,8 @@ onMounted(() => {
         const res = r as ResponeBody<{ token: string; userInfo: any }>
         if (res.status) {
           ElMessage.success("登录成功")
-          router.push("/")
+          userInfo.getInfo()
+          navigateTo(nextPath as string)
         } else {
           ElMessage.error(res.message)
         }
@@ -93,12 +103,6 @@ onMounted(() => {
       })
   }
 })
-
-const href =
-  "https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user"
-const loginGitHub = () => {
-  location.href = href
-}
 </script>
 
 <style></style>

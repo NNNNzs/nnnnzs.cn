@@ -19,7 +19,7 @@ onMounted(() => {
   $fetch("/api/auth/v", { method: "POST", credentials: "include" }).then(
     (res) => {
       if (res.status) {
-        router.push({
+        navigateTo({
           path: nextPath
         })
       }
@@ -51,7 +51,7 @@ const perminss = async () => {
   stop()
   loadingInstance.close()
 
-  router.push({
+  navigateTo({
     path: nextPath
   })
 }

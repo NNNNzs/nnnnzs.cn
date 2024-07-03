@@ -1,13 +1,8 @@
 <template>
-  <div>
-
-  </div>
+  <!-- 微博屏蔽页 -->
+  <div></div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,7 @@
 <template>
-  <ClientOnly>
-    <div class="w-screen h-screen flex flex-row p-4">
+  <div class="w-screen h-screen flex flex-col">
+    <Header></Header>
+    <div class="flex-1 flex flex-row p-4 overflow-hidden">
       <div class="menu">
         <ElMenu mode="vertical" :default-active="route.path">
           <NuxtLink v-for="p in list" :to="p.path">
@@ -15,7 +16,7 @@
         <NuxtPage />
       </div>
     </div>
-  </ClientOnly>
+  </div>
 </template>
 
 <script setup lang="ts">

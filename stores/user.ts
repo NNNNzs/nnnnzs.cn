@@ -32,8 +32,18 @@ export const useUserInfoStore = defineStore('userInfo', {
   } as IUser),
   actions: {
     async getInfo() {
+      const token = useCookie('N_token')
+      console.log('token.value', token.value);
+      if (!token.value) return
       const infos = await $fetch(clientUrl + '/user/info')
       Object.assign(this, infos)
+    },
+    async logout() {
+      await $fetch(clientUrl + '/user/logout', { method: 'post' })
+      this.$reset()
     }
-  }
+  },
+  persist: process.client && {
+    storage: localStorage,
+  },
 })

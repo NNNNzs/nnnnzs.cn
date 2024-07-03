@@ -1,4 +1,5 @@
 <template>
+  <!-- 高德地图 -->
   <div class="w-full h-full flex flex-row">
     <div class="flex-1 overflow-hidden" id="container"></div>
     <div class="w-1/5 h-full bg-blue-50 border m-auto">

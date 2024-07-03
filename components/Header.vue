@@ -9,7 +9,9 @@
       <div
         class="mx-auto h-full menu flex items-center justify-between leading-8"
       >
-        <a class="text-xl text-center align-bottom" href="/">NNNNzs</a>
+        <NuxtLink class="text-xl text-center align-bottom" to="/">
+          NNNNzs
+        </NuxtLink>
 
         <div
           class="hidden md:flex justify-between items-center category w-auto h-full"
@@ -52,10 +54,7 @@
                     v-for="item in loginMenu"
                     :key="item.name"
                   >
-                    <NuxtLink
-                      v-if="item.path"
-                      :to="item.path"
-                      :target="item.target"
+                    <NuxtLink v-if="item.path" :to="item.path"
                       >{{ item.name }}
                     </NuxtLink>
                     <span v-if="item.method" @click="item.method()">{{
@@ -168,35 +167,37 @@ const returnTop = () => {
 const userInfo = useUserInfoStore()
 
 const loginOut = () => {
-  $fetch(clientUrl + "/user/logout", { method: "POST" }).then((r) => {
-    window.location.reload()
-  })
+  userInfo.logout()
+  window.location.reload()
 }
 
-const postId = inject("postId")
 const loginMenu = computed<MenuItem[]>(() => {
-  const detailPage =
+  const postId = inject("postId")
+
+  const isDetailPage =
     POST_DETAIL_PAGE_NAME.includes(route.name as string) && postId
 
   const base = [
     { name: "个人中心", path: "/user", target: "_self" },
-    { name: "新增", path: EDIT_PAGE + "edit", target: "_blank" },
+    { name: "新增", path: EDIT_PAGE + "edit" },
     {
       name: "管理",
       path: TOOLSE_PERFIX_PAGE + "/admin",
-      target: "_blank",
       role: "admin"
     },
     { name: "日志", path: TOOLSE_PERFIX_PAGE + "/log", role: "admin" },
     {
       name: "编辑",
-      path: EDIT_PAGE + postId,
-      target: "_blank"
+      path: EDIT_PAGE + postId
     },
     { name: "退出登录", method: loginOut }
   ].filter((e) => {
+    if (e.name === "编辑" && !isDetailPage) {
+      return false
+    }
     if (e.role === "admin") {
       return userInfo.role === "admin"
+      // return true
     } else {
       return true
     }

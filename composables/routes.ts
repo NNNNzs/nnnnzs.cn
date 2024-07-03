@@ -1,5 +1,9 @@
 /** 三方验证页面路由 */
 export const AUTH_PATH = '/c/auth';
+
+/** 登录页面 */
+export const LOGIN_PATH = '/login';
+
 /** 编辑页面 */
 export const EDIT_PAGE = '/c/edit/'
 /** 工具 */
@@ -13,3 +17,6 @@ export const A_TAGET = '_blank';
 
 /** 文章详情页名称 */
 export const POST_DETAIL_PAGE_NAME = ['20year-month-date-title', '1997-05-07-title']
+
+/** 没有权限的页面 */
+export const NO_PERMISSION_PAGE = '/user/error'

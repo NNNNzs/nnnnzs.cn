@@ -34,7 +34,7 @@ export default defineNuxtConfig({
    */
   sitemap: {
     cacheMaxAgeSeconds: 86400,
-    exclude: ['/c/**', '/login'],
+    exclude: ['/c/**', '/login','/user/**'],
     sources: [
       '/api/__sitemap__/urls',
     ]
