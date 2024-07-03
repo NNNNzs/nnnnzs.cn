@@ -1,5 +1,6 @@
 ## 0.2.0 (2024-07-03)
 
+* 0.2.0 ([0f7d546](https://github.com/NNNNzs/nnnnzs.cn/commit/0f7d546))
 * feat: 屏蔽fe-helper ([98c83d9](https://github.com/NNNNzs/nnnnzs.cn/commit/98c83d9))
 * feat: 添加端口监听 ([6fa613a](https://github.com/NNNNzs/nnnnzs.cn/commit/6fa613a))
 * feat: 添加docker-compose ([48421ff](https://github.com/NNNNzs/nnnnzs.cn/commit/48421ff))
