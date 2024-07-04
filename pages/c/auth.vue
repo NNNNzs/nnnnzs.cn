@@ -1,12 +1,10 @@
 <template>
-  <ClientOnly>
-    <div
-      id="container"
-      class="w-screen h-screen flex justify-center items-center"
-    >
-      <el-button @click="perminss">授权</el-button>
-    </div>
-  </ClientOnly>
+  <div
+    id="container"
+    class="w-screen h-screen flex justify-center items-center"
+  >
+    <el-button @click="perminss">授权</el-button>
+  </div>
 </template>
 <script lang="ts" setup>
 import { ElLoading, ElButton, ElMessage } from "element-plus"

@@ -1,7 +1,5 @@
 <template>
-  <ClientOnly>
-    <PostEdit />
-  </ClientOnly>
+  <PostEdit />
 </template>
 
 <script setup lang="ts">

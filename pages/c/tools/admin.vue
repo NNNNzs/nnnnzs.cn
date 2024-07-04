@@ -1,62 +1,52 @@
 <template>
-  <ClientOnly>
-    <div class="w-full h-full flex flex-col p-4 bg-blue-50">
-      <div class="h-8 flex flex-row justify-between mb-4">
-        <div>
-          <el-button type="primary" @click="addPost">新增</el-button>
-          <el-button type="primary" @click="getList">刷新</el-button>
-        </div>
-        <div class="w-50">
-          <el-input v-model.lazy="query.query"></el-input>
-        </div>
+  <div class="w-full h-full flex flex-col p-4 bg-blue-50">
+    <div class="h-8 flex flex-row justify-between mb-4">
+      <div>
+        <el-button type="primary" @click="addPost">新增</el-button>
+        <el-button type="primary" @click="getList">刷新</el-button>
       </div>
-      <div class="flex-1 overflow-hidden">
-        <ElTable :data="tableList" border height="100%">
-          <ElTableColumn
-            v-for="item in tableHeader"
-            :key="item.prop"
-            :label="item.prop"
-            :prop="item.prop"
-            :width="item.width"
-            :formatter="item.formatter || undefined"
-          >
-          </ElTableColumn>
-          <ElTableColumn prop="edit" label="操作">
-            <template #default="{ row }">
-              <el-button
-                link
-                type="primary"
-                size="small"
-                @click="show(row)"
-                >查看</el-button
-              >
-              <el-button
-                link
-                type="primary"
-                size="small"
-                @click="edit(row)"
-                >编辑</el-button
-              >
-              <el-button
-                link
-                type="primary"
-                size="small"
-                @click="handleDelete(row)"
-                >删除</el-button
-              >
-            </template>
-          </ElTableColumn>
-        </ElTable>
-      </div>
-      <div class="h-8 flex justify-end">
-        <ElPagination
-          v-model:current-page="query.pageNum"
-          v-model:page-size="query.pageSize"
-          :total="pageTotal"
-        />
+      <div class="w-50">
+        <el-input v-model.lazy="query.query"></el-input>
       </div>
     </div>
-  </ClientOnly>
+    <div class="flex-1 overflow-hidden">
+      <ElTable :data="tableList" border height="100%">
+        <ElTableColumn
+          v-for="item in tableHeader"
+          :key="item.prop"
+          :label="item.prop"
+          :prop="item.prop"
+          :width="item.width"
+          :formatter="item.formatter || undefined"
+        >
+        </ElTableColumn>
+        <ElTableColumn prop="edit" label="操作">
+          <template #default="{ row }">
+            <el-button link type="primary" size="small" @click="show(row)"
+              >查看</el-button
+            >
+            <el-button link type="primary" size="small" @click="edit(row)"
+              >编辑</el-button
+            >
+            <el-button
+              link
+              type="primary"
+              size="small"
+              @click="handleDelete(row)"
+              >删除</el-button
+            >
+          </template>
+        </ElTableColumn>
+      </ElTable>
+    </div>
+    <div class="h-8 flex justify-end">
+      <ElPagination
+        v-model:current-page="query.pageNum"
+        v-model:page-size="query.pageSize"
+        :total="pageTotal"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
