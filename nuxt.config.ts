@@ -34,7 +34,7 @@ export default defineNuxtConfig({
    */
   sitemap: {
     cacheMaxAgeSeconds: 86400,
-    exclude: ['/c/**', '/login','/user/**'],
+    exclude: ['/c/**', '/login', '/user/**'],
     sources: [
       '/api/__sitemap__/urls',
     ]
@@ -66,16 +66,22 @@ export default defineNuxtConfig({
   devServer: {
     port: 3002
   },
-  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia", [
-    "@pinia/nuxt",
-    {
-      autoImports: [
-        // 自动引入 `defineStore(), storeToRefs()`
-        "defineStore",
-        "storeToRefs"
-      ]
-    }
-  ], "@nuxtjs/sitemap"],
+  modules: ["@vueuse/nuxt", "@nuxtjs/tailwindcss", "@nuxtjs/algolia", "@vant/nuxt", "@nuxtjs/sitemap",
+    [
+      "@pinia/nuxt",
+      {
+        autoImports: [
+          // 自动引入 `defineStore(), storeToRefs()`
+          "defineStore",
+          "storeToRefs"
+        ]
+      }
+    ],
+
+  ],
+  vant: {
+    lazyComponent: true
+  },
   runtimeConfig: {
     public: {
       isDev: process.env.NODE_ENV !== "production",
