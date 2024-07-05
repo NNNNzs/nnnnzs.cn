@@ -33,7 +33,7 @@
           :previewOnly="true"
         ></MdPreview>
       </div>
-      <Comment></Comment>
+      <Comment />
     </div>
     <Footer />
   </NuxtLayout>
