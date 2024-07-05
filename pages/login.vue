@@ -20,10 +20,12 @@
         <ElButton type="primary" @click="login">登录</ElButton>
       </ElFormItem>
       <ElFormItem label="其他">
-        <ElLink
-          href="https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user"
-        >
+        <ElLink :href="githubOAuthUrl">
           <svg-icon class="text-2xl w-4 h-4" name="github"></svg-icon>
+        </ElLink>
+
+        <ElLink :href="workWechatOAuthUrl">
+          <svg-icon class="text-2xl w-4 h-4" name="work-wechat"></svg-icon>
         </ElLink>
       </ElFormItem>
     </ElForm>
@@ -50,8 +52,14 @@ const logonForm = reactive({
   password: ""
 })
 
+const githubOAuthUrl =
+  "https://github.com/login/oauth/authorize?client_id=54e94f475d7a330c6619&scope=user"
+
+const redirectUri = "http://mac.nnnnzs.cn/login?type=workwechat"
+
+const workWechatOAuthUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwb4eb160b84c040fd&redirect_uri=${redirectUri}&response_type=code&agentid=1000002&scope=snsapi_base&state=CJSTATE#wechat_redirect`
+
 const loading = ref(false)
-const router = useRouter()
 const userInfo = useUserInfoStore()
 const { nextPath = "/" } = route.query
 
@@ -80,6 +88,27 @@ onMounted(() => {
   if (type === "github") {
     loading.value = true
     $fetch(clientUrl + "/user/loginWithGithub", {
+      method: "POST",
+      body: { code }
+    })
+      .then((r) => {
+        const res = r as ResponeBody<{ token: string; userInfo: any }>
+        if (res.status) {
+          ElMessage.success("登录成功")
+          userInfo.getInfo()
+          navigateTo(nextPath as string)
+        } else {
+          ElMessage.error(res.message)
+        }
+        loading.value = false
+      })
+      .catch(() => {
+        loading.value = false
+      })
+  }
+  if (type === "workwechat") {
+    loading.value = true
+    $fetch(clientUrl + "/user/loginWithWorkWechat", {
       method: "POST",
       body: { code }
     })
