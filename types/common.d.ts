@@ -7,3 +7,11 @@ declare type PartialKey<T extends Object, K extends keyof T> = Pick<
 
 
 
+
+
+declare interface MenuItem {
+  name: string
+  path?: string
+  target?: HTMLAnchorElement["target"]
+  method?: () => void
+}
