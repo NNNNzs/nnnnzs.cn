@@ -1,30 +1,41 @@
 <template>
-  <ul>
-    <PostCardItem v-for="(post) in posts " :post="post" :preview="previewId === post.id" @on-click="onPostLick" :key="post.id">
-    </PostCardItem>
-  </ul>
+  <div>
+    <ul>
+      <PostCardItem
+        v-for="post in posts"
+        :post="post"
+        :preview="previewId === post.id"
+        @on-click="onPostLick"
+        :key="post.id"
+      >
+      </PostCardItem>
+    </ul>
 
-  <div :class="{ postPreiview: !!previewId }" class="close text-white top-[-2em] fixed block invisible w-8 h-8 z-[60]"
-    @click.stop="exitPreview()">
-    <el-icon size="30">
-      <CircleClose />
-    </el-icon>
+    <div
+      :class="{ postPreiview: !!previewId }"
+      class="close text-white top-[-2em] fixed block invisible w-8 h-8 z-[60]"
+      @click.stop="exitPreview()"
+    >
+      <el-icon size="30">
+        <CircleClose />
+      </el-icon>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from "vue";
-import { ElIcon } from "element-plus";
-import { CircleClose } from '@element-plus/icons-vue'
+import type { PropType } from "vue"
+import { ElIcon } from "element-plus"
+import { CircleClose } from "@element-plus/icons-vue"
 
 defineProps({
   posts: {
     type: Array as PropType<Post[]>,
-    default: () => [],
-  },
-});
+    default: () => []
+  }
+})
 
-const previewId = ref<string | number>('')
+const previewId = ref<string | number>("")
 
 // let lock = ref(false);
 onMounted(() => {
@@ -35,24 +46,25 @@ onMounted(() => {
    * ios直接禁止了touchmove事件
    */
   watchEffect(() => {
-    document.body.style.overflow = !!previewId.value ? 'hidden' : 'auto'
+    document.body.style.overflow = !!previewId.value ? "hidden" : "auto"
     // lock.value = !!previewId.value
   })
 })
 
 const onPostLick = (post: Post) => {
-  previewId.value = post.id;
+  previewId.value = post.id
 }
 
 const exitPreview = () => {
   // lock.value = false;
-  const dom = document.querySelector(`#post_${[previewId.value]}`) as HTMLLIElement;
+  const dom = document.querySelector(
+    `#post_${[previewId.value]}`
+  ) as HTMLLIElement
   Object.assign(dom.style, {
-    top: '',
+    top: ""
   })
-  previewId.value = '';
+  previewId.value = ""
 }
-
 </script>
 
 <style lang="postcss">

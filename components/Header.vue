@@ -30,13 +30,11 @@
               >{{ item.name }}
             </NuxtLink>
           </ul>
-          <ClientOnly>
-            <DayLightButton
-              class="mr-4"
-              :isDark="isDark"
-              @toggleDark="toggleDark"
-            />
-          </ClientOnly>
+          <DayLightButton
+            class="mr-4"
+            :isDark="isDark"
+            @toggleDark="toggleDark"
+          />
 
           <a
             target="_blank"

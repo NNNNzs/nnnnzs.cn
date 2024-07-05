@@ -1,34 +1,39 @@
 <template>
   <div class="w-screen h-screen flex justify-center items-center md:mr-20">
-    <ElForm
-      label-width="80px"
-      label-position="top"
-      :model="logonForm"
-      @submit.native.prevent
-      :rules="rules"
-      class="bg-white p-4 w-[300px]"
-    >
-      <ElFormItem label="账号" prop="account">
-        <ElInput v-model="logonForm.account"></ElInput>
-      </ElFormItem>
+    <ClientOnly>
+      <ElForm
+        label-width="80px"
+        label-position="top"
+        :model="logonForm"
+        @submit.native.prevent
+        :rules="rules"
+        class="bg-white p-4 w-[300px]"
+      >
+        <ElFormItem label="账号" prop="account">
+          <ElInput v-model="logonForm.account"></ElInput>
+        </ElFormItem>
 
-      <ElFormItem label="密码" prop="password">
-        <ElInput type="password" v-model="logonForm.password"></ElInput>
-      </ElFormItem>
+        <ElFormItem label="密码" prop="password">
+          <ElInput type="password" v-model="logonForm.password"></ElInput>
+        </ElFormItem>
 
-      <ElFormItem>
-        <ElButton type="primary" @click="login">登录</ElButton>
-      </ElFormItem>
-      <ElFormItem label="其他">
-        <ElLink :href="githubOAuthUrl">
-          <svg-icon class="text-2xl w-4 h-4" name="github"></svg-icon>
-        </ElLink>
+        <ElFormItem>
+          <ElButton type="primary" @click="login">登录</ElButton>
+        </ElFormItem>
+        <ElFormItem label="其他">
+          <ElLink :href="githubOAuthUrl" class="mr-2">
+            <svg-icon class="text-2xl w-4 h-4" name="github"></svg-icon>
+          </ElLink>
 
-        <ElLink :href="workWechatOAuthUrl">
-          <svg-icon class="text-2xl w-4 h-4" name="work-wechat"></svg-icon>
-        </ElLink>
-      </ElFormItem>
-    </ElForm>
+          <ElLink :href="workWechatOAuthUrl">
+            <svg-icon
+              class="text-2xl w-4 h-4"
+              name="work-wechat"
+            ></svg-icon>
+          </ElLink>
+        </ElFormItem>
+      </ElForm>
+    </ClientOnly>
   </div>
 </template>
 <script setup lang="ts">
@@ -41,6 +46,9 @@ import {
   ElButton,
   ElLink
 } from "element-plus"
+definePageMeta({
+  ssr: false
+})
 const route = useRoute()
 
 const rules = {
