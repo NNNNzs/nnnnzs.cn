@@ -106,7 +106,9 @@ const loginWithAuth2 = () => {
   if (type === "workwechat") {
     url = clientUrl + "/user/loginWithWorkWechat"
   }
-
+  if (!url) return
+  
+  loading.value = true
   $fetch(url, {
     method: "POST",
     body: { code }

@@ -1,22 +1,19 @@
 <template>
-  <div>
-    <ElDropdown v-if="userInfo.id">
-      <el-avatar :size="24" :src="userInfo.avatar" />
-      <template #dropdown>
-        <ElDropdownMenu>
-          <ElDropdownItem v-for="item in loginMenu" :key="item.name">
-            <NuxtLink v-if="item.path" :to="item.path"
-              >{{ item.name }}
-            </NuxtLink>
-            <span v-if="item.method" @click="item.method()">{{
-              item.name
-            }}</span>
-          </ElDropdownItem>
-        </ElDropdownMenu>
-      </template>
-    </ElDropdown>
-    <div v-else></div>
-  </div>
+  <ElDropdown v-if="userInfo.id">
+    <el-avatar :size="24" :src="userInfo.avatar" />
+    <template #dropdown>
+      <ElDropdownMenu>
+        <ElDropdownItem v-for="item in loginMenu" :key="item.name">
+          <NuxtLink v-if="item.path" :to="item.path"
+            >{{ item.name }}
+          </NuxtLink>
+          <span v-if="item.method" @click="item.method()">{{
+            item.name
+          }}</span>
+        </ElDropdownItem>
+      </ElDropdownMenu>
+    </template>
+  </ElDropdown>
 </template>
 
 <script setup lang="ts">

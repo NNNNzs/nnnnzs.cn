@@ -15,9 +15,9 @@
           </NuxtLink>
 
           <div
-            class="hidden md:flex justify-between items-center category w-auto h-full"
+            class="hidden md:flex flex-row gap-2 justify-between items-center category w-auto"
           >
-            <Search class="mr-4"></Search>
+            <Search></Search>
 
             <ul class="h-full">
               <NuxtLink
@@ -31,20 +31,18 @@
                 >{{ item.name }}
               </NuxtLink>
             </ul>
-            <DayLightButton
-              class="mr-4"
-              :isDark="isDark"
-              @toggleDark="toggleDark"
-            />
+
+            <DayLightButton :isDark="isDark" @toggleDark="toggleDark" />
 
             <a
               target="_blank"
-              class="mr-4 h-full align-middle flex items-center"
+              class="h-full align-middle flex items-center"
               href="https://github.com/NNNNzs/nnnnzs.cn"
             >
               <svg-icon class="text-[1.5rem]" name="github"></svg-icon>
             </a>
-            <ClientOnly> </ClientOnly>
+
+            <UserAvatar class="h-full" />
           </div>
 
           <div class="w-4 h-4 md:hidden cursor-pointer">
@@ -95,14 +93,7 @@
 
 <script lang="ts" setup>
 import { reactive, toRefs, ref, watchEffect, watch } from "vue"
-import {
-  ElIcon,
-  ElAvatar,
-  ElDropdown,
-  ElDropdownMenu,
-  ElDropdownItem,
-  ElButton
-} from "element-plus"
+import { ElIcon } from "element-plus"
 import { Menu, CircleClose } from "@element-plus/icons-vue"
 import { isDark, toggleDark, setDark } from "~/composables/useSystemDark"
 import { useUserInfoStore } from "~/stores/user"
