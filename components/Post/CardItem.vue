@@ -1,6 +1,6 @@
 <template>
   <li
-    class="post max-h-[30rem] md:h-auto flex-col md:flex-row md:even:flex-row-reverse rounded-2xl md:11/12 bg-white dark:bg-slate-800 group"
+    class="post max-h-[30rem] md:h-auto flex-col md:flex-row md:even:flex-row-reverse rounded-2xl bg-white dark:bg-slate-800 group"
     ref="postRef"
     @click="handlePostClick(post)"
     :id="`post_${post.id}`"

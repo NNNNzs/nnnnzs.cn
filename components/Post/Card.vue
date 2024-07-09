@@ -67,7 +67,7 @@ const exitPreview = () => {
 }
 </script>
 
-<style lang="postcss">
+<style lang="scss">
 .close {
   transition: top 300ms linear 300ms;
 

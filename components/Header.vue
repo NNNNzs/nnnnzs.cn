@@ -102,7 +102,7 @@ const drawer = ref(false)
 
 const menu: MenuItem[] = [
   { name: "分类", path: "/tags" },
-  { name: "归档", path: "/timeline" }
+  { name: "归档", path: "/archive" }
 ]
 
 const returnTopRef = ref<HTMLElement>()

@@ -69,7 +69,6 @@ const logonForm = reactive({
 const loading = ref(false)
 const userInfo = useUserInfoStore()
 const { nextPath = "/" } = route.query
-type LoginSuccessRes = ResponeBody<{ token: string; userInfo: any }>
 
 const loginSuccessHandler = (r: unknown) => {
   const res = r as LoginSuccessRes
@@ -107,7 +106,7 @@ const loginWithAuth2 = () => {
     url = clientUrl + "/user/loginWithWorkWechat"
   }
   if (!url) return
-  
+
   loading.value = true
   $fetch(url, {
     method: "POST",
@@ -121,7 +120,10 @@ const loginWithAuth2 = () => {
 
 onMounted(() => {
   loginWithAuth2()
+  if (userInfo.id) navigateTo(nextPath as string)
 })
 </script>
 
-<style></style>
+<style lang="less">
+@import "~/assets/css/hide-fe.less";
+</style>

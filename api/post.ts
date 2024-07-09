@@ -14,7 +14,7 @@ export const getPostList = async (params: QueryCondition) => {
   return res.data;
 }
 
-/** 根据id或者标题，获取 */
+/** 根据id或者标题，获取文章详细内容 */
 export const getPostById = async (id: number | string) => {
   const t = encodeURIComponent(id)
   const res: PostRes = await axios({
@@ -43,6 +43,7 @@ export const getLikeAndFav = async (
     return res.data.data
   }
 }
+/** 获取所有的标签分类 */
 export const getTags = async () => {
   const res = await axios({
     url: `${baseUrl}/post/tags`,
@@ -53,6 +54,7 @@ export const getTags = async () => {
   }
 }
 
+/** 根据标签名称获取标签下的文章 */
 export const getListByTag = async (tag: string) => {
   const res = await axios({
     url: `${baseUrl}/post/tags/${tag}`,
