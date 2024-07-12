@@ -109,8 +109,8 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       "/api-remote": {
-        target: "http://localhost:3006",
-        // target: "https://www.nnnnzs.cn/api-remote",
+        // target: "http://localhost:3006",
+        target: "https://www.nnnnzs.cn/api-remote",
         // target: "https://api.nnnnzs.cn/v2/",
         changeOrigin: true,
         prependPath: true
@@ -119,6 +119,12 @@ export default defineNuxtConfig({
     }
   },
   routeRules: {
+    "/sitemap.xml": {
+      prerender: true,
+      headers: {
+        "x-power-by-NNNNzs": "prerender"
+      }
+    },
     "/c/**/*": {
       ssr: false,
       headers: { "x-power-by-NNNNzs": "client-only" }

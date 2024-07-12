@@ -1,3 +1,4 @@
 User-agent: *
 Disallow:/edit/
 Disallow:/admin/
+Sitemap: /sitemap.xml

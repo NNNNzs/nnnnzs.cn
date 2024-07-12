@@ -5,7 +5,11 @@
         title="当前状态"
         :value="disabled ? '已屏蔽' : '未屏蔽'"
       ></Cell>
-      <Cell v-for="item in list" title="屏蔽信息" :value="item[0]"></Cell>
+      <Cell
+        v-for="item in list"
+        title="屏蔽信息"
+        :value="`${item}`"
+      ></Cell>
       <Cell>
         <Button type="primary" @click="show = true">添加禁用</Button>
       </Cell>
@@ -31,6 +35,8 @@
 <script setup lang="ts">
 import "vant/lib/index.css"
 import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime)
 import {
   Cell,
   CellGroup,
@@ -42,10 +48,10 @@ import {
   Button
 } from "vant"
 const disabled = ref(false)
-const list = ref<string[][]>([])
+const list = ref<string[]>([])
 
 interface DetailRes {
-  list: any[]
+  list: string[]
   disabled: boolean
 }
 interface SendDto {
@@ -66,7 +72,26 @@ const getDetail = () => {
   $fetch(clientUrl + "/msg/isMute", { method: "post" }).then((res) => {
     const r = res as DetailRes
     disabled.value = r.disabled
-    list.value = r.list
+    list.value = r.list.map((row) => {
+      const [start, end] = row
+      // 如果是今年且是当天的话 忽略
+      const YYYY = dayjs(start).year() === dayjs().year() ? "" : "YYYY-"
+      const MMDD = dayjs(start).date() === dayjs().date() ? "" : "MM-DD"
+
+      const YYYY2 =
+        dayjs(end).year() === dayjs(start).year() ? "" : "YYYY-"
+      const MMDD2 =
+        dayjs(end).date() === dayjs(start).date() ? "" : "MM-DD"
+
+      // 计算相差的事件
+      const d1 = dayjs(start)
+      const d2 = dayjs(end)
+      return (
+        d1.format(YYYY + MMDD + " HH:mm") +
+        " - " +
+        d2.format(YYYY2 + MMDD2 + " HH:mm")
+      )
+    })
   })
 }
 const reset = () => {
