@@ -1,11 +1,8 @@
 # 资源还在本地，映射本地目录
 version: "3"
 services:
-
-  my-redis:
-    image: redis:5.0.14
-    
   web-service:
+    container_name: nnnnzs-cn-web
     image: node:20.14.0
     working_dir: /usr/src/app
     ports:
@@ -18,4 +15,3 @@ services:
       - PORT=4000
       - HOST=0.0.0.0
     command: npm run start:docker
-    

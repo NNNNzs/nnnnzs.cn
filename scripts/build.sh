@@ -25,7 +25,7 @@ ssh nnnnzs@vpc.nnnnzs.cn << EOF
 
     tar -xzvf target.tar.gz
     rm target.tar.gz
-    docker restart nnnnzscn-nnnnzs.cn-1
+    docker-compose up 
 
 EOF
 
