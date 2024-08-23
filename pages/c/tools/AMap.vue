@@ -2,8 +2,11 @@
   <!-- 高德地图 -->
   <div class="w-full h-full flex flex-row">
     <div class="flex-1 overflow-hidden" id="container"></div>
-    <div class="w-1/5 h-full bg-blue-50 border m-auto">
-      <div class="m-auto">
+    <div class="w-1/5 h-full bg-blue-50 border m-auto flex flex-col">
+      <div class="flex-1 overflow-hidden">
+        <TimeWheel />
+      </div>
+      <div class="m-auto h-40 w-full">
         <ElUpload action="." :http-request="customHttp" :drag="true">
           <ElButton>上传</ElButton>
         </ElUpload>
@@ -106,11 +109,10 @@ const loadimgs = () => {
     r.forEach((t: any) => {
       if (t.parse) {
         if (t.parse.longitude && t.parse.latitude) {
-          coordinateConvert([t.parse.longitude, t.parse.latitude]);
+          coordinateConvert([t.parse.longitude, t.parse.latitude])
         }
       }
     })
-    
   })
 }
 
