@@ -4,9 +4,7 @@
     <template #dropdown>
       <ElDropdownMenu>
         <ElDropdownItem v-for="item in loginMenu" :key="item.name">
-          <NuxtLink v-if="item.path" :to="item.path"
-            >{{ item.name }}
-          </NuxtLink>
+          <a v-if="item.path" :href="item.path">{{ item.name }}</a>
           <span v-if="item.method" @click="item.method()">{{
             item.name
           }}</span>
@@ -34,10 +32,10 @@ const loginMenu = computed<MenuItem[]>(() => {
 
   const base = [
     { name: "个人中心", path: "/user", target: "_self" },
-    { name: "新增", path: EDIT_PAGE + "edit" },
+    { name: "新增", path: EDIT_PAGE + "-1" },
     {
       name: "管理",
-      path: TOOLSE_PERFIX_PAGE + "/admin",
+      path: TOOLES_PAGE,
       role: "admin"
     },
     { name: "日志", path: TOOLSE_PERFIX_PAGE + "/log", role: "admin" },

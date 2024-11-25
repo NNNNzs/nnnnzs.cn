@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     'md-editor-v3/lib/style.css'
   ],
   /**
-   * @see 
+   * @see
    */
   sitemap: {
     cacheMaxAgeSeconds: 86400,
@@ -104,7 +104,7 @@ export default defineNuxtConfig({
     },
   },
   /**
-   * @see 
+   * @see
    */
   nitro: {
     devProxy: {
@@ -115,6 +115,10 @@ export default defineNuxtConfig({
         changeOrigin: true,
         prependPath: true
         // rewrite: (url: string) => url.replace(/^\/api-remote/, '/')
+      },
+      "/admin/": {
+        target: "https://www.nnnnzs.cn/admin/",
+        changeOrigin: true,
       }
     }
   },

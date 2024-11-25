@@ -2,6 +2,9 @@
 
 start_time=$(date +%s)
 start_build_time=$(date +%s)
+# 如果你使用 zsh
+source /usr/local/opt/nvm/nvm.sh
+nvm use 20
 
 rm -rf .nuxt
 rm -rf .output
@@ -25,6 +28,7 @@ ssh nnnnzs@vpc.nnnnzs.cn <<EOF
 
     tar -xzvf target.tar.gz
     rm target.tar.gz
+    docker-compose down
     docker-compose up -d
 
 EOF

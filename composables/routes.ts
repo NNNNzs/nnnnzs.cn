@@ -5,11 +5,11 @@ export const AUTH_PATH = '/c/auth';
 export const LOGIN_PATH = '/admin/login';
 
 /** 编辑页面 */
-export const EDIT_PAGE = '/admin/edit/'
+export const EDIT_PAGE = 'admin/article/edit/'
 /** 工具 */
 export const TOOLSE_PERFIX_PAGE = '/c/tools'
 /** 管理后台页面 */
-export const TOOLES_PAGE = '/admin'
+export const TOOLES_PAGE = '/admin/'
 /** 标签页面 */
 export const TAG_PREFIX_PAGE = '/tags'
 /** 默认跳转方式 */

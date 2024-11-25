@@ -14,9 +14,9 @@
     "g": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "pm2": "pm2 start ecosystem.config.cjs --only nnnnzs.cn",
-    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0  -n ./scripts/changelog-option.cjs",
-    "scp": "./scripts/build.sh"
+    "pm2": "pm2 start ./bin/ecosystem.config.cjs --only nnnnzs.cn",
+    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0  -n ./bin/changelog-option.cjs",
+    "scp": "./bin/build.sh"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
