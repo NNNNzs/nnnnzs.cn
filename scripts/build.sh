@@ -1,31 +1,31 @@
 #!/bin/bash
 
-rm -rf .nuxt
-rm -rf .output
-
 start_time=$(date +%s)
 start_build_time=$(date +%s)
-# 执行npm build命令
+
+rm -rf .nuxt
+rm -rf .output
 npm run build
+
 end_build_time=$(date +%s)
 # 打包.nuxt和.output文件夹到一个tar压缩包
-tar -czvf target.tar.gz .nuxt .output
+tar -czvf target.tar.gz .nuxt .output package.json docker-compose.yml
 
 # 使用scp命令将压缩包传输到远程服务器
 scp target.tar.gz nnnnzs@vpc.nnnnzs.cn:/www/wwwroot/nnnnzs.cn
 
 rm target.tar.gz
 
-ssh nnnnzs@vpc.nnnnzs.cn << EOF
+ssh nnnnzs@vpc.nnnnzs.cn <<EOF
     # 切换到远程目录
     cd /www/wwwroot/nnnnzs.cn
-    
+
     rm -rf .nuxt
     rm -rf .output
 
     tar -xzvf target.tar.gz
     rm target.tar.gz
-    docker-compose up 
+    docker-compose up -d
 
 EOF
 

@@ -9,9 +9,7 @@
         class="antialiased text-2xl WenYueQingLongTi text-white hover:transition-backdrop-blur duration-300 hover:backdrop-blur-[3px] p-[2rem] mix-blend-difference"
       >
         <p class="mb-20">{{ oneText.hitokoto }}</p>
-        <p class="text-center" v-if="Boolean(oneText.from)">
-          {{ oneText.from }}-{{ oneText.creator }}
-        </p>
+        <!-- <p class="text-center" v-if="Boolean(oneText.from)">{{ oneText.from }}</p> -->
       </div>
       <div
         @click="scrollIntoPost"
@@ -49,9 +47,9 @@ const oneText = ref<HitokotoData>({
   hitokoto: ""
 })
 
-getHitokoto().then((res) => {
-  oneText.value = res
-})
+// getHitokoto().then((res) => {
+//   oneText.value = res
+// })
 const route = useRoute()
 onMounted(() => {
   if (!route.hash && props.autoScroll && window.scrollY === 0) {
